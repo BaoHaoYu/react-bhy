@@ -5,10 +5,6 @@ import * as React from 'react'
  */
 export interface IRowTdProps extends React.HTMLAttributes<any> {
   /**
-   * 对齐方式
-   */
-  verticalAlign?: 'top' | 'middle' | 'bottom'
-  /**
    * 间隔
    */
   spaceTop?: number
@@ -33,7 +29,7 @@ const RowTdY: React.StatelessComponent<IRowTdProps> = (props) => {
   return (
       <div style={{ height: props.height, display: 'table-row' }}>
         <div
-            style={{ ...props.style, verticalAlign: 'top', ...newStyle, display: 'table-cell' }}
+            style={{ ...props.style, ...newStyle, display: 'table-cell' }}
             className={props.className}
         >
           {props.children}
@@ -43,7 +39,6 @@ const RowTdY: React.StatelessComponent<IRowTdProps> = (props) => {
 }
 
 RowTdY.defaultProps = {
-  verticalAlign: 'top'
 }
 
 export default RowTdY as React.StatelessComponent<Omit<IRowTdProps, 'spaceTop' | 'spaceBottom'>>
