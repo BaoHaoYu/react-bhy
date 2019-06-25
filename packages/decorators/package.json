@@ -15,5 +15,5 @@
     "@types/react-router": "^5.0.2",
     "@types/react-redux": "^7.1.0"
   },
-  "repository": ""
+  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/decorators"
 }

@@ -16,5 +16,5 @@
     "classnames": "^2.2.6",
     "react": "^16.8.6"
   },
-  "repository": ""
+  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/sass-mixin"
 }

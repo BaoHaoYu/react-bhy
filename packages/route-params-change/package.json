@@ -20,5 +20,5 @@
   "devDependencies": {
     "@types/lodash-es": "^4.17.1"
   },
-  "repository": ""
+  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/route-params-change"
 }
