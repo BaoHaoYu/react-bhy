@@ -25,7 +25,7 @@ export const TableLayoutHorizontal: React.StatelessComponent<ITableLayoutYProps>
   return (
       <div
           className={classnames(props.className)}
-          style={{ ...props.style, ...rootStyle, marginRight: -props.space! / 2, marginLeft: -props.space! / 2 }}
+          style={{...props.style, ...rootStyle, marginRight: -props.space! / 2, marginLeft: -props.space! / 2 }}
       >
         <div
             style={{ display: 'table', tableLayout: 'fixed', height: '100%', width: '100%' }}
