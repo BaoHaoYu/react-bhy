@@ -1,0 +1,18 @@
+{
+  "extends": "./config/tsconfig.common.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "baseUrl": ".",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "packages",
+    "stories",
+    ".storybook/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
