@@ -4,19 +4,19 @@ import * as React from 'react'
 
 type State<Params> = {
   [P in keyof Params]: {
-    value: Params[P],
-    onChange (props: any): void
+    value: Params[P]
+    onChange(props: any): void
   }
 }
 /**
  * 路由Params改变所有执行的函数
  */
 type Change<Props = {}> = (p: {
-  props: Props,
+  props: Props
   /**
    * 新值
    */
-  value: string,
+  value: string
   /**
    * 老的值
    */
@@ -27,16 +27,18 @@ type Change<Props = {}> = (p: {
  * 封装路由params改变事件
  * @param rp
  */
-export default function RouteParamsChange<Params = {}>
-(rp: Record<keyof Params, Change>) {
-
-  return function myWithRouter (Target: any): any {
-
+export default function RouteParamsChange<Params = {}>(
+  rp: Record<keyof Params, Change>,
+) {
+  return function myWithRouter(Target: any): any {
     @withRouter
     class ParamsChange extends React.Component<RouteComponentProps<Params>> {
       public static dispalyName = Target.dispayname
 
-      public static getDerivedStateFromProps (nextProps: RouteComponentProps<Params>, state: State<Params>) {
+      public static getDerivedStateFromProps(
+        nextProps: RouteComponentProps<Params>,
+        state: State<Params>,
+      ) {
         let isChange = false
         map(rp, (changeFunc: Change, oneParam) => {
           if (nextProps.match.params[oneParam] !== state[oneParam]) {
@@ -44,7 +46,7 @@ export default function RouteParamsChange<Params = {}>
             changeFunc({
               props: nextProps,
               value: nextProps.match.params[oneParam],
-              old: state[oneParam]
+              old: state[oneParam],
             })
             state[oneParam] = nextProps.match.params[oneParam]
             isChange = true
@@ -58,7 +60,7 @@ export default function RouteParamsChange<Params = {}>
 
       public state: object = {}
 
-      constructor (props: any) {
+      constructor(props: any) {
         super(props)
 
         map(rp, (value, key) => {
@@ -66,8 +68,8 @@ export default function RouteParamsChange<Params = {}>
         })
       }
 
-      public render () {
-        return <Target {...this.props}/>
+      public render() {
+        return <Target {...this.props} />
       }
     }
 

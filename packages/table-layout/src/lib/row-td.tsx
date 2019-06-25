@@ -27,18 +27,18 @@ const RowTdY: React.StatelessComponent<IRowTdProps> = (props) => {
     newStyle.paddingTop = props.spaceTop
   }
   return (
-      <div style={{ height: props.height, display: 'table-row' }}>
-        <div
-            style={{ ...props.style, ...newStyle, display: 'table-cell' }}
-            className={props.className}
-        >
-          {props.children}
-        </div>
+    <div style={{ height: props.height, display: 'table-row' }}>
+      <div
+        style={{ ...props.style, ...newStyle, display: 'table-cell' }}
+        className={props.className}>
+        {props.children}
       </div>
+    </div>
   )
 }
 
-RowTdY.defaultProps = {
-}
+RowTdY.defaultProps = {}
 
-export default RowTdY as React.StatelessComponent<Omit<IRowTdProps, 'spaceTop' | 'spaceBottom'>>
+export default RowTdY as React.StatelessComponent<
+  Omit<IRowTdProps, 'spaceTop' | 'spaceBottom'>
+>

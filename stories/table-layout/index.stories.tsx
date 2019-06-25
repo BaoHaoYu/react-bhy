@@ -1,4 +1,4 @@
-import { withKnobs, number, boolean } from '@storybook/addon-knobs'
+import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import {
@@ -14,13 +14,20 @@ storiesOf('table-layout', module)
     const height = number('height', 300)
     return (
       <div>
-        <TableLayoutVertical style={ { height: height,width:500} }>
-          <RowTd style={ { height: 50, verticalAlign: 'middle', backgroundColor: 'rgb(255, 188, 88)' } }>
+        <TableLayoutVertical style={{ height, width: 500 }}>
+          <RowTd
+            style={{
+              height: 50,
+              verticalAlign: 'middle',
+              backgroundColor: 'rgb(255, 188, 88)',
+            }}>
             <div>卡片标题：固定高度</div>
           </RowTd>
 
           <RowTd>
-            <div style={ { height: '100%', backgroundColor: '#58e0ff' } }>卡片内容：不定高度</div>
+            <div style={{ height: '100%', backgroundColor: '#58e0ff' }}>
+              卡片内容：不定高度
+            </div>
           </RowTd>
         </TableLayoutVertical>
       </div>
@@ -31,12 +38,13 @@ storiesOf('table-layout', module)
     const hidden = boolean('hidden：隐藏菜单', false)
     return (
       <div>
-        <TableLayoutHorizontal space={ space } >
-          <ColTd hidden={ hidden } width={ 100 } style={{backgroundColor: 'rgb(255, 188, 88)'}}>
+        <TableLayoutHorizontal space={space}>
+          <ColTd
+            hidden={hidden}
+            width={100}
+            style={{ backgroundColor: 'rgb(255, 188, 88)' }}>
             <div>
-              <h2>
-                菜单
-              </h2>
+              <h2>菜单</h2>
               <button>>菜单1</button>
             </div>
             <div>
@@ -51,7 +59,7 @@ storiesOf('table-layout', module)
           </ColTd>
 
           <ColTd>
-            <div style={ { backgroundColor: '#58e0ff' } }>内容</div>
+            <div style={{ backgroundColor: '#58e0ff' }}>内容</div>
           </ColTd>
         </TableLayoutHorizontal>
       </div>

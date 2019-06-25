@@ -5,22 +5,29 @@ import { Dispatch } from 'redux'
 /**
  * 为props加入dispatch，执行dispatch(someActons就可以刷新组件)
  */
-export default function addDispatchToProps<Props = {}> (target: React.ComponentClass<Props>): any {
-  return connect(mapStateToProps, mapDispatchToProps, (stateProps, dispatchProps, ownProps) => {
-    return {
-      ...ownProps,
-      ...dispatchProps
-    }
-  }, { pure: false })(target as any)
+export default function addDispatchToProps<Props = {}>(
+  target: React.ComponentClass<Props>,
+): any {
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    (stateProps, dispatchProps, ownProps) => {
+      return {
+        ...ownProps,
+        ...dispatchProps,
+      }
+    },
+    { pure: false },
+  )(target as any)
 }
 
-function mapStateToProps () {
+function mapStateToProps() {
   return {}
 }
 
-function mapDispatchToProps (dispatch: Dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    dispatch
+    dispatch,
   }
 }
 

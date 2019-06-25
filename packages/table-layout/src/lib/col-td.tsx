@@ -36,20 +36,19 @@ const ColTd: React.StatelessComponent<IColTdProps> = (props) => {
     ...spaceStyle,
     width: props.width,
     verticalAlign: props.verticalAlign,
-    display: props.hidden ? 'none' : 'table-cell'
+    display: props.hidden ? 'none' : 'table-cell',
   }
   return (
-      <div
-          style={style}
-          className={props.className}
-      >
-        {props.children}
-      </div>
+    <div style={style} className={props.className}>
+      {props.children}
+    </div>
   )
 }
 
 ColTd.defaultProps = {
-  verticalAlign: 'top'
+  verticalAlign: 'top',
 }
 
-export default ColTd as React.StatelessComponent<Omit<IColTdProps, 'spaceLeft' | 'spaceRight'>>
+export default ColTd as React.StatelessComponent<
+  Omit<IColTdProps, 'spaceLeft' | 'spaceRight'>
+>
