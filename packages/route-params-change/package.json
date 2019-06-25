@@ -14,11 +14,11 @@
   "license": "MIT",
   "dependencies": {
     "@react-bhy/decorators": "^0.0.1",
-    "@types/lodash-es": "^4.17.1",
     "lodash-es": "^4.17.10",
     "react": "^16.8.6"
   },
-  "types": "src/index.tsx",
-  "module": "src/index.tsx",
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.1"
+  },
   "repository": ""
 }
