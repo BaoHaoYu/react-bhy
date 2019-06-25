@@ -1,10 +1,9 @@
-import { IComponentBase, Omit } from '@bhy/react-interface-base'
 import * as React from 'react'
 
 /**
  * 子节点是否高度100%，td必须也是高度100%，否则会在火狐的子节点高度100%无效
  */
-export interface IRowTdProps extends IComponentBase {
+export interface IRowTdProps extends React.HTMLAttributes<any> {
   /**
    * 对齐方式
    */

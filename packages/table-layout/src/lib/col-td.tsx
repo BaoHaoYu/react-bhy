@@ -1,7 +1,6 @@
-import { IComponentBase, Omit } from '@bhy/react-interface-base'
 import * as React from 'react'
 
-export interface IColTdProps extends IComponentBase {
+export interface IColTdProps extends React.HTMLAttributes<any> {
   /**
    * 对齐方式
    */
