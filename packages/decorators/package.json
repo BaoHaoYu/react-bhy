@@ -1,0 +1,15 @@
+{
+  "name": "@react-bhy/decorators",
+  "main": "src/index.tsx",
+  "types": "src/index.tsx",
+  "version": "0.0.1",
+  "dependencies": {
+    "@types/react-router": "^5.0.2",
+    "react": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "redux": "^4.0.1"
+  },
+  "module": "src/index.tsx",
+  "repository": ""
+}
