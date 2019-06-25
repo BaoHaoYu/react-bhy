@@ -3,6 +3,7 @@
   "main": "src/index.tsx",
   "types": "src/index.tsx",
   "version": "0.0.1",
+  "license": "MIT",
   "dependencies": {
     "@types/react-router": "^5.0.2",
     "react": "^16.8.6",
