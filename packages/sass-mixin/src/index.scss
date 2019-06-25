@@ -1,0 +1,158 @@
+// 表格
+@mixin table($vertical-align) {
+    display: table;
+  
+    > * {
+      display: table-row;
+  
+      > * {
+        display: table-cell;
+        vertical-align: $vertical-align;
+      }
+    }
+  }
+  
+  // 利用表格布局实现居中，黏在左边或者右边
+  @mixin table-layout($dir:center) {
+    display: table;
+  
+    @if ($dir==right) {
+      margin-left: auto;
+    }
+  
+    @else if ($dir==left) {
+      margin-left: auto;
+    }
+  
+    @else {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  
+  // 利用inline-block布局
+  @mixin inline-block-layout($x:null,$y:center) {
+    letter-spacing: -5px;
+  
+    > * {
+      display: inline-table;
+      letter-spacing: 0;
+      float: none;
+    }
+  
+    &::before {
+      content: '';
+      height: 100%;
+      width: 0;
+      display: inline-table;
+    }
+  
+    &::before,
+    > * {
+      vertical-align: $y;
+    }
+  
+    @if ($x == center) {
+      text-align: center;
+    }
+  }
+  
+  // 强制不换行
+  @mixin one-line() {
+    white-space: nowrap;
+  
+    > * {
+      white-space: normal;
+    }
+  }
+  
+  // 文字太多自动隐藏
+  @mixin hide-text() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+  
+  @function set-value($value) {
+    @if ($value == center) {
+      @return 50%;
+    }
+  
+    @return 0;
+  }
+  
+  // 利用绝对布局居中
+  @mixin absolute-layout($x:center,$y:center) {
+    position: absolute;
+    transform: translate(set-value($x), set-value($y));
+  
+    @if ($x == center) {
+      left: 50%;
+    }
+  
+    @if ($y == center) {
+      top: 50%;
+    }
+  }
+  
+  // 填满父容器
+  @mixin size-full-parent() {
+    width: 100%;
+    height: 100%;
+  }
+  
+  // 绝对布局填满父容器
+  @mixin absolute-full-parent() {
+    @include size-full-parent();
+  
+    position: absolute;
+  }
+  
+  // 绝对布局填满父容器
+  @mixin fix-full-parent() {
+    @include size-full-parent();
+  
+    position: fixed;
+  }
+  
+  // 水平间隔
+  @mixin space-x($num:5px) {
+    > *:nth-child(n+2) {
+      margin-left: $num;
+    }
+  }
+  
+  // 垂直间隔
+  @mixin space-y($num:5px) {
+    > *:nth-child(n+2) {
+      margin-top: $num;
+    }
+  }
+  
+  // 清除浮动
+  @mixin clearfix() {
+    &::before,
+    &::after {
+      content: '';
+      display: table;
+      line-height: 0;
+    }
+  
+    &::after {
+      clear: both;
+    }
+  }
+  
+  // 浮动左右布局
+  @mixin float-left-right() {
+    @include clearfix();
+  
+    > *:first-child {
+      float: left;
+    }
+  
+    > *:nth-child(2) {
+      float: right;
+    }
+  }
+  
