@@ -1,6 +1,8 @@
 {
   "name": "@react-bhy/table-layout",
-  "main": "src/index.tsx",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
   "description": "表格布局",
   "version": "0.0.1",
   "keywords": [
@@ -10,12 +12,9 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@bhy/react-interface-base": "^0.0.3",
     "@types/classnames": "^2.2.6",
     "classnames": "^2.2.6",
-    "react": "^16.6.0"
+    "react": "^16.8.6"
   },
-  "types": "src/index.tsx",
-  "module": "src/index.tsx",
   "repository": ""
 }
