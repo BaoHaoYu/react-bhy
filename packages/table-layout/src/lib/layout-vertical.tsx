@@ -6,7 +6,7 @@ import { IRowTdProps } from './row-td'
 /**
  * 垂直布局
  */
-const TableLayoutY: React.StatelessComponent<ITableLayoutYProps> = (props) => {
+export const TableLayoutVertical: React.StatelessComponent<ITableLayoutYProps> = (props) => {
   let rootStyle: React.CSSProperties = {}
   if (props.fullParent) {
     rootStyle = { height: '100%', width: '100%' }
@@ -44,5 +44,3 @@ const TableLayoutY: React.StatelessComponent<ITableLayoutYProps> = (props) => {
       </div>
   )
 }
-
-export default TableLayoutY

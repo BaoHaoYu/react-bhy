@@ -6,7 +6,7 @@ import { IColTdProps } from './col-td'
 /**
  * 水平布局
  */
-const TableLayoutY: React.StatelessComponent<ITableLayoutYProps> = (props) => {
+export const TableLayoutHorizontal: React.StatelessComponent<ITableLayoutYProps> = (props) => {
   let rootStyle: React.CSSProperties = {}
   if (props.fullParent) {
     rootStyle = { height: '100%' }
@@ -37,5 +37,3 @@ const TableLayoutY: React.StatelessComponent<ITableLayoutYProps> = (props) => {
       </div>
   )
 }
-
-export default TableLayoutY
