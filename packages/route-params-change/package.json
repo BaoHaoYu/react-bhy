@@ -1,0 +1,22 @@
+{
+  "name": "@react-bhy/route-params-change",
+  "main": "src/index.tsx",
+  "description": "路由的params改变",
+  "version": "0.0.1",
+  "keywords": [
+    "react",
+    "route",
+    "params",
+    "change"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@react-bhy/decorators": "^0.0.1",
+    "@types/lodash-es": "^4.17.1",
+    "lodash-es": "^4.17.10",
+    "react": "^16.8.6"
+  },
+  "types": "src/index.tsx",
+  "module": "src/index.tsx",
+  "repository": ""
+}
