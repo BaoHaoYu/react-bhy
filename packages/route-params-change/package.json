@@ -1,6 +1,8 @@
 {
   "name": "@react-bhy/route-params-change",
-  "main": "src/index.tsx",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
   "description": "路由的params改变",
   "version": "0.0.1",
   "keywords": [
