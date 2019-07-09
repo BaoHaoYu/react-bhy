@@ -1,0 +1,9 @@
+.scrollbar {
+  &__bar {
+    width: 4px;
+    opacity: 0.5;
+    right: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
