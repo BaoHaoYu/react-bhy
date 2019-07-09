@@ -1,8 +1,8 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { Base } from "./base";
-import { Equal } from "./equal";
+import { Base } from './base'
+import { Equal } from './equal'
 storiesOf('表单数据分离', module)
   .addDecorator(withKnobs)
   .add('基础', () => {
