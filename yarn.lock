@@ -2584,13 +2584,6 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.isfunction@^3.0.4":
-  version "3.0.6"
-  resolved "https://registry.npmjs.org/@types/lodash.isfunction/-/lodash.isfunction-3.0.6.tgz#4b040bf914089ec34f0aacfef81a37237a0a8b8f"
-  integrity sha512-olhgKmBgzHnA5pxsOI6YHunzTBMSyBw1XjxIKFio8W+XhYiELGTt05FStE0suV0GWtlIMdn7V8M/UbYbSVdGYw==
-  dependencies:
-    "@types/lodash" "*"
-
 "@types/lodash@*":
   version "4.14.134"
   resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.134.tgz#9032b440122db3a2a56200e91191996161dde5b9"
