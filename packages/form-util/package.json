@@ -1,0 +1,21 @@
+{
+  "name": "@react-bhy/form-util",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "description": "表单创建工具",
+  "version": "0.0.1",
+  "keywords": [
+    "react",
+    "form"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "lodash-es": "^4.17.10",
+    "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.1"
+  },
+  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/form-util"
+}
