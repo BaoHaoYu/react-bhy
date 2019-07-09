@@ -73,7 +73,7 @@ export class Base extends React.Component<any> {
    */
   public addError = () => {
     setTimeout(() => {
-      (this.state.form.get('name') as FormControl).setError('姓名重复')
+      ;(this.state.form.get('name') as FormControl).setError('姓名重复')
       this.setState(this.state)
     }, 1000)
   }
@@ -82,7 +82,7 @@ export class Base extends React.Component<any> {
    * 添加表单
    */
   public addFamily = () => {
-    (this.state.form.get('family') as FormArray).push(
+    ;(this.state.form.get('family') as FormArray).push(
       new FormGroup({
         name: new FormControl([need(), maxLength(4)], '', '名字'),
         type: new FormControl([need()], '', '关系'),
@@ -98,7 +98,7 @@ export class Base extends React.Component<any> {
    * @param index
    */
   public deleteFamily = (index: number) => () => {
-    (this.state.form.get('family') as FormArray).removeAt(index)
+    ;(this.state.form.get('family') as FormArray).removeAt(index)
 
     this.setState(this.state)
   }
