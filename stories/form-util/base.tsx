@@ -1,5 +1,5 @@
-import * as React from 'react'
 import 'normalize.css'
+import * as React from 'react'
 import {
   FormArray,
   FormControl,
