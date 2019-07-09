@@ -1,5 +1,5 @@
 import { isArray, map } from 'lodash-es'
-import { FormControl } from './form-control'
+
 export class FormCommom<T extends {}> {
   public formType: 'control' | 'group' | 'array'
 
