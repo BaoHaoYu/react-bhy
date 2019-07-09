@@ -77,8 +77,12 @@ export class FormControl {
     return verifyResult
   }
 
-  public addValidatorFn(func: ValidatorFn) {
-    this.validatorFn.push(func)
+  /**
+   * 添加新的验证函数
+   * @param fn 验证函数
+   */
+  public addValidatorFn(fn: ValidatorFn) {
+    this.validatorFn.push(fn)
   }
 
   /**

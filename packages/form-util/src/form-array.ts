@@ -17,10 +17,17 @@ export class FormArray extends FormCommom<Config> {
     return this.config.map(cb)
   }
 
+  /**
+   * 添加新的表单
+   */
   public push(item: FormGroup | FormArray | FormControl) {
     this.config.push(item)
   }
 
+  /**
+   * 移除表单
+   * @param index 下标
+   */
   public removeAt(index: number) {
     this.config.splice(index, 1)
   }

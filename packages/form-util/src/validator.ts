@@ -1,10 +1,26 @@
 import { FormControl } from './form-control'
+
+/**
+ * 验证结果
+ */
 export interface IResult {
+  /**
+   * 是否通过验证
+   */
   pass: boolean
+  /**
+   * 验证类型，如need,maxLength,minLength等等
+   */
   type: string
+  /**
+   * 错误信息
+   */
   error?: string | null
 }
 
+/**
+ * 验证函数，对value进行验证，然后返回结果
+ */
 export type ValidatorFn = (value: any) => IResult
 
 /**
