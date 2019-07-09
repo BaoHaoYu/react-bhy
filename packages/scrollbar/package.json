@@ -1,0 +1,26 @@
+{
+  "name": "@react-bhy/react-scrollbars",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "scrollbars"
+  ],
+  "devDependencies": {
+    "@types/react-custom-scrollbars": "^4.0.5",
+    "@types/lodash.isfunction": "^3.0.4",
+    "@types/lodash-es": "^4.17.1",
+    "@types/uuid": "^3.4.4"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.10",
+    "react": "^16.8.6",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^16.8.6",
+    "uuid": "^3.3.2"
+  },
+  "repository": ""
+}

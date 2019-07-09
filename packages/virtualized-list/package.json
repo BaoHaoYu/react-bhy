@@ -1,0 +1,27 @@
+{
+  "name": "@react-bhy/virtualized-list",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "react-virtualized列表",
+  "keywords": [
+    "react",
+    "virtualized",
+    "list"
+  ],
+  "devDependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/lodash-es": "^4.17.1",
+    "@types/react-virtualized": "^9.21.2"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "lodash-es": "^4.17.11",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-virtualized": "^9.21.1"
+  },
+  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/virtualized-list"
+}
