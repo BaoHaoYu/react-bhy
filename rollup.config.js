@@ -9,9 +9,10 @@ import precss from 'precss'
 import pluPostcss from 'rollup-plugin-postcss'
 import url from 'postcss-url'
 
-const config = globby.sync('packages/*/package.json').map((pPath) => {
+const config = globby.sync(['packages/*/package.json','!packages/sass-mixin/package.json']).map((pPath) => {
     const pkg = fse.readJsonSync(pPath)
     const libRoot = path.join(pPath, '..')
+    
     const config = {
         input: path.join(libRoot, 'src/index.tsx'),
         plugins: [

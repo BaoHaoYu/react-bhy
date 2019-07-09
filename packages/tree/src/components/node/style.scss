@@ -1,0 +1,153 @@
+$blue3: #137cbd !default;
+$blue4: #2b95d6 !default;
+$blue5: #48aff0 !default;
+$gray2: rgb(199, 199, 199);
+
+$primary-color-active: $blue3;
+$primary-color: $blue5;
+$primary-color-hover: $blue4;
+$row: row;
+
+@mixin transition() {
+  transition: all 0.2s;
+}
+
+@mixin checkbox-hover-style() {
+  .#{$row}__checkbox {
+    color: white;
+
+    // 勾选状态
+    &--checked {
+      color: white;
+    }
+  }
+}
+
+@mixin open-hover-style() {
+  .#{$row}__open {
+    color: white;
+  }
+}
+
+@mixin oprate() {
+  &.row--can-oprate {
+    cursor: pointer;
+
+    @include transition();
+
+    &:hover {
+      background: $primary-color-hover;
+      color: white;
+
+      @include checkbox-hover-style();
+      @include open-hover-style();
+    }
+
+    &:active {
+      background: $primary-color-active;
+    }
+  }
+
+  .#{$row}--selected &--can-oprate {
+    background: $primary-color;
+
+    @include checkbox-hover-style();
+    @include open-hover-style();
+
+    &:hover {
+      background: $primary-color-hover;
+    }
+  }
+}
+
+.#{$row} {
+  position: relative;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height: 100%;
+
+  // 选中
+  &--selected {
+    display: block;
+    color: #fff;
+    background: $primary-color;
+
+    @include checkbox-hover-style();
+    @include open-hover-style();
+  }
+
+  // 不可操作
+  &--disabled {
+    display: block;
+  }
+
+  // 外层容器
+  &__contain {
+    @include oprate();
+
+    padding-left: 5px;
+  }
+
+  // 分割线
+  &--splitline {
+    border-bottom: 1px solid;
+  }
+
+  // 内容
+  &__content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    @include oprate();
+  }
+
+  // 勾选框
+  &__checkbox {
+    @include transition();
+
+    margin-right: 3px;
+    cursor: pointer;
+    display: inherit;
+    color: $gray2;
+
+    // 勾选状态
+    &--checked {
+      color: $primary-color;
+    }
+  }
+
+  // 标题
+  &__title {
+    font-size: 14px;
+
+    .#{$row}--selected & {
+      color: white;
+    }
+
+    @include oprate();
+  }
+
+  // 定位按钮
+  &__local {
+    margin-left: 15px;
+    cursor: pointer;
+    color: $gray2;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  // 展开按钮
+  &__open {
+    @include transition();
+
+    width: 23px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $gray2;
+  }
+}

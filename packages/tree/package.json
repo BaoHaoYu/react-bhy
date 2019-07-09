@@ -1,0 +1,28 @@
+{
+  "name": "@react-bhy/tree",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "tree"
+  ],
+  "devDependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/lodash-es": "^4.17.1",
+    "@types/react-virtualized": "^9.18.7",
+    "@types/uuid": "^3.4.3"
+  },
+  "dependencies": {
+    "@react-bhy/virtualized-list": "^0.0.1",
+    "classnames": "^2.2.6",
+    "lodash-es": "^4.17.11",
+    "react": "^16.8.6",
+    "react-virtualized": "^9.20.0",
+    "react-icons": "^3.2.2",
+    "uuid": "^3.3.2"
+  },
+  "repository": ""
+}
