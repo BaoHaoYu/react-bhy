@@ -4,12 +4,12 @@ import * as React from 'react'
 import * as ReactDom from 'react-dom'
 import {
   AutoSizer,
+  AutoSizerProps,
   List,
   ListProps,
   Size,
   WindowScroller,
   WindowScrollerProps,
-  AutoSizerProps,
 } from 'react-virtualized'
 import { IState, IVirtualizedListProps } from './index.interface'
 import Row from './row'
@@ -163,7 +163,8 @@ export default class VirtualizedList extends React.Component<
    * WindowScroller
    */
   public renderWindowScroller = () => {
-    const children: WindowScrollerProps['children'] = (p) => this.renderAutoSizer(p)
+    const children: WindowScrollerProps['children'] = (p) =>
+      this.renderAutoSizer(p)
     return (
       <WindowScroller
         className={'windowScroller'}
