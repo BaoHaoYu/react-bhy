@@ -16,6 +16,9 @@ export class Base extends React.Component<any> {
   public state: {
     form: FormGroup
   }
+
+  public height = 50
+
   constructor(props: any) {
     super(props)
     const form = new FormGroup({
@@ -119,10 +122,12 @@ export class Base extends React.Component<any> {
     return (
       <div>
         <FormItem
+          height={this.height}
           control={this.state.form.get('name')}
           onChange={this.onChange}
         />
         <FormItem
+          height={this.height}
           control={this.state.form.get('age')}
           onChange={this.onChange}
         />
@@ -134,21 +139,34 @@ export class Base extends React.Component<any> {
             {(this.state.form.get('family') as FormArray).map(
               (group: FormGroup, index: number) => {
                 return (
-                  <div key={index} style={{ border: '1px solid', padding: 10 }}>
-                    <FormItem
-                      control={group.get('name')}
-                      onChange={this.onChange}
-                    />
-                    <FormItem
-                      control={group.get('age')}
-                      onChange={this.onChange}
-                    />
-                    <FormItem
-                      control={group.get('type')}
-                      onChange={this.onChange}
-                    />
+                  <div key={index} style={{ padding: 10 }}>
+                    <div
+                      key={index}
+                      style={{
+                        border: '1px solid #d0d0d0',
+                        borderRadius: 5,
+                        padding: 10,
+                        width: 250,
+                        boxShadow: '1px 1px 5px 1px #d0d0d0',
+                      }}>
+                      <FormItem
+                        height={this.height}
+                        control={group.get('name')}
+                        onChange={this.onChange}
+                      />
+                      <FormItem
+                        height={this.height}
+                        control={group.get('age')}
+                        onChange={this.onChange}
+                      />
+                      <FormItem
+                        height={this.height}
+                        control={group.get('type')}
+                        onChange={this.onChange}
+                      />
 
-                    <button onClick={this.deleteFamily(index)}>删除</button>
+                      <button onClick={this.deleteFamily(index)}>删除</button>
+                    </div>
                   </div>
                 )
               },
@@ -161,10 +179,12 @@ export class Base extends React.Component<any> {
         <div>
           <label>大学：</label>
           <FormItem
+            height={this.height}
             control={this.state.form.getIn(['bigSchool', 'name'])}
             onChange={this.onChange}
           />
           <FormItem
+            height={this.height}
             control={this.state.form.getIn(['bigSchool', 'address'])}
             onChange={this.onChange}
           />
