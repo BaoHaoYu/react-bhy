@@ -77,18 +77,15 @@ export interface IPageActions {
   /**
    * 获得redux的状态,带有keyPath
    */
-  getServerData: (ap: { key: string; isMap?: boolean }) => any
+  getServerData: (key: string, isMap?: boolean) => any
   /**
    * 获得整个server的数据
    */
-  getKeyServer: (ap: {
-    key: string
-    isMap?: boolean
-  }) => (dispatch: Dispatch) => Map<keyof IServerData, any>
+  getKeyServer: (key: string, isMap?: boolean) => (dispatch: Dispatch) => Map<keyof IServerData, any>
   /**
    * 离开页面
    */
-  leavePage: (ap: { meta: string }) => (dispatch: Dispatch) => any
+  leavePage: (meta: string) => (dispatch: Dispatch) => any
   /**
    * 设置请求中
    */
@@ -111,15 +108,15 @@ export interface IPageActions {
    * 获得在redux存储的数据
    * @param ap.isCursor 是否带有keyPath的数据
    */
-  getRootState: (ap?: { isCursor?: boolean }) => any
+  getRootState: (isCursor?: boolean) => any
   /**
    * 是否在请求中
    */
-  isRequesting: (ap: { key: string }) => (dispatch: Dispatch) => boolean
+  isRequesting: (key: string) => (dispatch: Dispatch) => boolean
   /**
    * 是否错误
    */
-  isError: (ap: { key: string }) => (dispatch: Dispatch) => boolean
+  isError: (key: string) => (dispatch: Dispatch) => boolean
   /**
    * 请求方法
    */
@@ -127,14 +124,14 @@ export interface IPageActions {
   /**
    * 推销:简单改变数据，因为很多情况下都是简单改变
    */
-  simple: (p: { state: any; meta: string }) => ActionMeta<any, string>
+  simple: (state: any, meta: string) => ActionMeta<any, string>
   /**
    * 推销:简单改变数据，通过cd回调，因为很多情况下都是简单改变
    */
-  simpleCb: <T>(p: {
-    cb: (state: T) => T
+  simpleCb: <T>( 
+    cb: (state: T) => T,
     meta: string
-  }) => ActionMeta<any, string>
+  ) => ActionMeta<any, string>
   /**
    * 设置错误内容
    */
@@ -171,7 +168,7 @@ export interface ICreateServerActions extends Omit<IStartXHR, 'meta'> {
   /**
    * 是否错误（会被 Base['isError'] 覆盖）
    */
-  isError?(p: { response: AxiosResponse }): boolean
+  isError?(response: AxiosResponse): boolean
 
   /**
    * 错误重新请求（会被 Base['errorAgainRequest'] 覆盖）
@@ -342,8 +339,6 @@ export interface ISetErrorToStore {
  * 制作redux的widgets
  */
 export type Base = (p: {
-  // todo
-  server?: Record<string, ICreateServerActions>
   /**
    * reducer的键
    */
@@ -367,7 +362,7 @@ export type Base = (p: {
   /**
    * 请求是否错误（会被ICreateServerActions['isError']覆盖）
    */
-  isError?(p: { response: AxiosResponse }): boolean
+  isError?(response: AxiosResponse): boolean
 
   /**
    * 错误重新请求（会被ICreateServerActions['errorAgainRequest']覆盖）

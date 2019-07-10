@@ -12,7 +12,7 @@ import * as NPage from './widget.interface'
  * 页面的widgets
  * @param config
  */
-const page: NPage.Base = (config) => {
+const page = (config:any) => {
   const _hash = '_BASE_PAGE_'
   const keyPath: string[] = isArray(config.reducerKey)
     ? config.reducerKey
@@ -99,19 +99,19 @@ const page: NPage.Base = (config) => {
   }
 
   const actions: NPage.IPageActions = {
-    getServerData: (ap) => (dispatch: any) => {
-      return dispatch(actions.getRootState({ isCursor: !ap.isMap })).getIn([
+    getServerData: (key, isMap) => (dispatch: any) => {
+      return dispatch(actions.getRootState(!isMap)).getIn([
         'server',
-        ap.key,
+        key,
         'responseData',
       ])
     },
-    getKeyServer: (ap) => (dispatch: any) => {
-      const $$root = dispatch(actions.getRootState({}))
-      return (ap.isMap ? $$root : from($$root)).getIn(['server', ap.key])
+    getKeyServer: (key, isMap) => (dispatch: any) => {
+      const $$root = dispatch(actions.getRootState())
+      return (isMap ? $$root : from($$root)).getIn(['server', key])
     },
-    leavePage: (ap) => (dispatch: any) => {
-      const $$servers = dispatch(actions.getRootState({})).getIn(['server'])
+    leavePage: (meta) => (dispatch: any) => {
+      const $$servers = dispatch(actions.getRootState()).getIn(['server'])
       // 取消所有的请求
       $$servers &&
         $$servers.map(($$item: Map<keyof NPage.IServerData, any>) => {
@@ -122,7 +122,7 @@ const page: NPage.Base = (config) => {
 
       dispatch({
         type: types.LEVEL_PAGE,
-        meta: buildMeta(ap.meta, '离开页面'),
+        meta: buildMeta(meta, '离开页面'),
       })
     },
     setRequesting: (ap) => {
@@ -152,8 +152,8 @@ const page: NPage.Base = (config) => {
       const source = CancelToken.source()
 
       // 如果是初始化数据，一开始requesting一开始就是请求中，所以第一次请求不是重复请求
-      const requesting = dispatch(actions.isRequesting({ key: ap.key }))
-      const num = dispatch(actions.getKeyServer({ key: ap.key })).get('number')
+      const requesting = dispatch(actions.isRequesting(ap.key))
+      const num = dispatch(actions.getKeyServer(ap.key)).get('number')
       if (ap.isInitData) {
         // 中断请求之后的代码
         if (requesting && num !== 0) {
@@ -175,7 +175,7 @@ const page: NPage.Base = (config) => {
         }
       }
       const serverData = dispatch(
-        actions.getServerData({ key: ap.key, isMap: true }),
+        actions.getServerData( ap.key, true ),
       )
 
       // 如果不是生产环境，并且有数据就，不请求最新服务器了，加快ui开发
@@ -251,28 +251,28 @@ const page: NPage.Base = (config) => {
         return response
       }
     },
-    getRootState: (ap) => (dispatch: any, getState: any) => {
+    getRootState: (isCursor) => (dispatch: any, getState: any) => {
       const state = getState()
       // 如果根部状态树是使用redux-immutable生成的immutable类型
       if (Iterable.isIterable(state)) {
-        return ap && ap.isCursor
+        return isCursor
           ? from(state.getIn(keyPath))
           : state.getIn(keyPath)
       } else {
-        return ap && ap.isCursor ? from(state[keyPath[0]]) : state[keyPath[0]]
+        return isCursor ? from(state[keyPath[0]]) : state[keyPath[0]]
       }
     },
-    isRequesting: (ap) => (dispatch: any) => {
-      return dispatch(actions.getRootState({})).getIn([
+    isRequesting: (key) => (dispatch: any) => {
+      return dispatch(actions.getRootState()).getIn([
         'server',
-        ap.key,
+        key,
         'requesting',
       ])
     },
-    isError: (ap) => (dispatch: any) => {
-      return dispatch(actions.getRootState({})).getIn([
+    isError: (key) => (dispatch: any) => {
+      return dispatch(actions.getRootState()).getIn([
         'server',
-        ap.key,
+        key,
         'error',
       ])
     },
@@ -286,11 +286,11 @@ const page: NPage.Base = (config) => {
         meta: buildMeta(ap.meta, '简单改变'),
       }
     },
-    simpleCb: (ap) => {
+    simpleCb: (cb, meta) => {
       return {
         type: types.SIMPLE_CB,
-        payload: ap.cb,
-        meta: buildMeta(ap.meta, '简单改变'),
+        payload: cb,
+        meta: buildMeta(meta, '简单改变'),
       }
     },
     setErrorToStore: (p) => {
@@ -314,7 +314,7 @@ const page: NPage.Base = (config) => {
     const key = rootP.key
     const serverActions: NPage.IServerActions = {
       getServerDataFromStore: (ap = { isMap: false }) => {
-        return actions.getServerData({ key, isMap: ap.isMap })
+        return actions.getServerData(key, ap.isMap)
       },
       setRequesting: (ap) => {
         return actions.setRequesting({
@@ -331,13 +331,13 @@ const page: NPage.Base = (config) => {
         })
       },
       getServerFromStore: () => {
-        return actions.getKeyServer({ key })
+        return actions.getKeyServer(key)
       },
       isRequesting: () => {
-        return actions.isRequesting({ key })
+        return actions.isRequesting(key)
       },
       isError: () => {
-        return actions.isError({ key })
+        return actions.isError(key)
       },
       startRequest: (ap) => {
         axiosOpt = { ...axiosOpt, ...ap.axiosOpt }
@@ -365,7 +365,7 @@ const page: NPage.Base = (config) => {
         // 如果定义的错误判断函数
         if (isError) {
           // 获得请求是否发生错误
-          error = isError({ response })
+          error = isError(response)
           // 如果发生错误，判断是否需要重复这个请求
           if (error) {
             const errorAgainRequest = defaultTo(
