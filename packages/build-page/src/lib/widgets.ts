@@ -37,7 +37,7 @@ const page: NPage.Base = (config) => {
     SIMPLE_CB: buildWidgetType('SIMPLE_CB', _hash, config.hash),
   }
   const reducerMap = {
-    [types.SET_AJAXING]: (state: any, action: Action<NPage.IsetRequesting>) => {
+    [types.SET_AJAXING]: (state: any, action: Action<NPage.ISetRequesting>) => {
       const payload = action.payload!
       return state.updateIn(
         ['server', payload.key],
@@ -50,7 +50,7 @@ const page: NPage.Base = (config) => {
         },
       )
     },
-    [types.SET_DATA]: (state: any, action: Action<NPage.IsetData>) => {
+    [types.SET_DATA]: (state: any, action: Action<NPage.ISetData>) => {
       const payload = action.payload!
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v
@@ -62,14 +62,14 @@ const page: NPage.Base = (config) => {
     },
     [types.UPDATE_AGAIN_REQUEST_NUMBER]: (
       state: any,
-      action: Action<NPage.IsetData>,
+      action: Action<NPage.ISetData>,
     ) => {
       const payload = action.payload!
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v.update('againRequestNumber', (value: number) => value + 1),
       )
     },
-    [types.SET_ERROR]: (state: any, action: Action<NPage.IsetErrorToStore>) => {
+    [types.SET_ERROR]: (state: any, action: Action<NPage.ISetErrorToStore>) => {
       const payload = action.payload!
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v
@@ -80,7 +80,7 @@ const page: NPage.Base = (config) => {
     },
     [types.CLEARN_AGAIN_REQUEST_NUMBER]: (
       state: any,
-      action: Action<NPage.IsetData>,
+      action: Action<NPage.ISetData>,
     ) => {
       const payload = action.payload!
       return state.updateIn(['server', payload.key], ($$v: any) =>
@@ -306,7 +306,7 @@ const page: NPage.Base = (config) => {
    * 封装数据服务
    */
   const createServerActions = (
-    rootP: NPage.IcreateServerActions,
+    rootP: NPage.ICreateServerActions,
   ): NPage.IServerActions => {
     const pageAxiosOpt = defaultTo(config.axiosOpt, {})
 

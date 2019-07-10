@@ -138,7 +138,7 @@ export interface IPageActions {
   /**
    * 设置错误内容
    */
-  setErrorToStore: (p: IsetErrorToStore) => any
+  setErrorToStore: (p: ISetErrorToStore) => any
 }
 
 /**
@@ -242,7 +242,7 @@ export interface IServerActions {
   /**
    * 设置错误内容
    */
-  setErrorToStore: (p: Omit<IsetErrorToStore, 'key'>) => any
+  setErrorToStore: (p: Omit<ISetErrorToStore, 'key'>) => any
 }
 
 /**
@@ -321,7 +321,7 @@ export interface ISetData {
 }
 
 /**
- * IPageActions.IsetErrorToStore的参数
+ * IPageActions.ISetErrorToStore的参数
  */
 export interface ISetErrorToStore {
   /**
@@ -361,16 +361,16 @@ export type Base = (p: {
    */
   hash: string
   /**
-   * 请求是否错误（会被IcreateServerActions['axiosOpt']覆盖）
+   * 请求是否错误（会被ICreateServerActions['axiosOpt']覆盖）
    */
   axiosOpt?: AxiosRequestConfig
   /**
-   * 请求是否错误（会被IcreateServerActions['isError']覆盖）
+   * 请求是否错误（会被ICreateServerActions['isError']覆盖）
    */
   isError?(p: { response: AxiosResponse }): boolean
 
   /**
-   * 错误重新请求（会被IcreateServerActions['errorAgainRequest']覆盖）
+   * 错误重新请求（会被ICreateServerActions['errorAgainRequest']覆盖）
    * @return 新的axios请求参数，或者null，null表示不重复请求
    */
   errorAgainRequest?(p: {
