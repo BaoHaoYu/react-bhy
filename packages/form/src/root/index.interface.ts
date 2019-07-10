@@ -1,5 +1,5 @@
-import { IFormControlProps } from '@efficiency/react-form-control'
 import * as React from 'react'
+import { IFormControlProps } from '../control'
 
 export interface IReduxProps {
   changeInit?: any
