@@ -10,32 +10,21 @@ storiesOf('form 表单', module)
       layout: radios('layout', { x: 'x', y: 'y' }, 'x') as any,
       showLabel: boolean('showLabel', true),
       require: boolean('require', false),
-      height: number('height', 40, { range: true, max: 100, min: 5, step: 1 })
+      height: number('height', 40, { range: true, max: 100, min: 5, step: 1 }),
     }
     return (
-      <Form
-        formControlProps={ props }
-      >
-        <FormControl
-          label={ '名字' }
-        >
-          <input type={ 'text' } />
+      <Form formControlProps={props}>
+        <FormControl label={'名字'}>
+          <input type={'text'} />
         </FormControl>
-        <FormControl
-          label={ '密码' }
-        >
-          <input type={ 'text' } />
+        <FormControl label={'密码'}>
+          <input type={'text'} />
         </FormControl>
-        <FormControl
-          label={ '电话' }
-        >
-          <input type={ 'text' } />
+        <FormControl label={'电话'}>
+          <input type={'text'} />
         </FormControl>
-        <FormControl
-          require={ true }
-          label={ '身份证号码' }
-        >
-          <input type={ 'text' } />
+        <FormControl require={true} label={'身份证号码'}>
+          <input type={'text'} />
         </FormControl>
       </Form>
     )
