@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/decorators",
+  "name": "@react-efficiency/decorators",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,5 @@
     "@types/react-router": "^5.0.2",
     "@types/react-redux": "^7.1.0"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/decorators"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/decorators"
 }

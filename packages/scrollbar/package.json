@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/scrollbars",
+  "name": "@react-efficiency/scrollbars",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -21,5 +21,5 @@
     "react-dom": "^16.8.6",
     "uuid": "^3.3.2"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/scrollbars"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/scrollbars"
 }

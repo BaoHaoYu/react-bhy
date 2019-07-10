@@ -9,7 +9,7 @@ export * from './components/node/index.interface'
 export * from './index.interface'
 import VirtualizedList, {
   IVirtualizedListProps,
-} from '@react-bhy/virtualized-list'
+} from '@react-efficiency/virtualized-list'
 // @ts-ignore
 import s from './style/index.scss'
 import {

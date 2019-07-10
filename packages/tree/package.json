@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/tree",
+  "name": "@react-efficiency/tree",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,7 @@
     "@types/uuid": "^3.4.3"
   },
   "dependencies": {
-    "@react-bhy/virtualized-list": "^0.0.1",
+    "@react-efficiency/virtualized-list": "^0.0.1",
     "classnames": "^2.2.6",
     "lodash-es": "^4.17.11",
     "react": "^16.8.6",
@@ -24,5 +24,5 @@
     "react-icons": "^3.2.2",
     "uuid": "^3.3.2"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/tree"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/tree"
 }

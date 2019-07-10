@@ -1,4 +1,4 @@
-import { IFormControlProps } from '@bhy/react-form-control'
+import { IFormControlProps } from '@efficiency/react-form-control'
 import * as React from 'react'
 
 export interface IReduxProps {

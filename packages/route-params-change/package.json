@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/route-params-change",
+  "name": "@react-efficiency/route-params-change",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -13,12 +13,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@react-bhy/decorators": "^0.0.1",
+    "@react-efficiency/decorators": "^0.0.1",
     "lodash-es": "^4.17.10",
     "react": "^16.8.6"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.1"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/route-params-change"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/route-params-change"
 }

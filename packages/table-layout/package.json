@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/table-layout",
+  "name": "@react-efficiency/table-layout",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -16,5 +16,5 @@
     "classnames": "^2.2.6",
     "react": "^16.8.6"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/table-layout"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/table-layout"
 }

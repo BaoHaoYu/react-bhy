@@ -1,4 +1,4 @@
-import { RouteComponentProps, withRouter } from '@react-bhy/decorators'
+import { RouteComponentProps, withRouter } from '@react-efficiency/decorators'
 import { map } from 'lodash-es'
 import * as React from 'react'
 

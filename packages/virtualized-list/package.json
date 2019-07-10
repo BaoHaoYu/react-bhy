@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/virtualized-list",
+  "name": "@react-efficiency/virtualized-list",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -23,5 +23,5 @@
     "react-dom": "^16.8.6",
     "react-virtualized": "^9.21.1"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/virtualized-list"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/virtualized-list"
 }

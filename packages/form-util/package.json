@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/form-util",
+  "name": "@react-efficiency/form-util",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -17,5 +17,5 @@
   "devDependencies": {
     "@types/lodash-es": "^4.17.1"
   },
-  "repository": "https://github.com/BaoHaoYu/react-bhy/tree/master/packages/form-util"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/form-util"
 }

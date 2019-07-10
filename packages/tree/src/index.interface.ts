@@ -1,4 +1,4 @@
-import { RequiredPick } from '@bhy/react-interface-base'
+import { RequiredPick } from '@efficiency/react-interface-base'
 import * as TreeNode from './components/node/index.interface'
 
 /**
