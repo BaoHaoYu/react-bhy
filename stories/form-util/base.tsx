@@ -1,41 +1,50 @@
 import 'normalize.css'
 import * as React from 'react'
 import {
-  FormArray,
-  FormControl,
-  FormGroup,
+  FormArrayUtil,
+  FormControlUtil,
+  FormGroupUtil,
   isNumber,
   maxLength,
   need,
   regExp,
   regExpReverse,
 } from '../../packages/form-util/src'
+import { Form, FormControl, FowRow } from '../../packages/form/src'
 import { FormItem } from './form-item'
 
 export class Base extends React.Component<any> {
   public state: {
-    form: FormGroup
+    form: FormGroupUtil
   }
 
   public height = 50
 
   constructor(props: any) {
     super(props)
-    const form = new FormGroup({
-      name: new FormControl(
+    const form = new FormGroupUtil({
+      name: new FormControlUtil(
         [need(), maxLength(4), regExpReverse(/\d/g, '[label]不能含有数字')],
         '小光',
         '姓名',
       ),
 
-      age: new FormControl([need(), regExp(/^\d+$/, '必须是数字')], '', '年龄'),
+      age: new FormControlUtil(
+        [need(), regExp(/^\d+$/, '必须是数字')],
+        '',
+        '年龄',
+      ),
 
-      family: new FormArray([]),
+      family: new FormArrayUtil([]),
 
-      bigSchool: new FormGroup({
-        name: new FormControl([need(), maxLength(40)], 'xxx大学', '大学名字'),
+      bigSchool: new FormGroupUtil({
+        name: new FormControlUtil(
+          [need(), maxLength(40)],
+          'xxx大学',
+          '大学名字',
+        ),
 
-        address: new FormControl(
+        address: new FormControlUtil(
           [need(), maxLength(40)],
           'xxx街道',
           '大学地址',
@@ -55,7 +64,7 @@ export class Base extends React.Component<any> {
    */
   public onChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    control: FormControl,
+    control: FormControlUtil,
   ) => {
     control.setValue(e.target.value)
     this.setState(this.state)
@@ -76,7 +85,7 @@ export class Base extends React.Component<any> {
    */
   public addError = () => {
     setTimeout(() => {
-      ;(this.state.form.get('name') as FormControl).setError('姓名重复')
+      ;(this.state.form.get('name') as FormControlUtil).setError('姓名重复')
       this.setState(this.state)
     }, 1000)
   }
@@ -85,11 +94,11 @@ export class Base extends React.Component<any> {
    * 添加表单
    */
   public addFamily = () => {
-    ;(this.state.form.get('family') as FormArray).push(
-      new FormGroup({
-        name: new FormControl([need(), maxLength(4)], '', '名字'),
-        type: new FormControl([need()], '', '关系'),
-        age: new FormControl([need(), isNumber()], '', '年龄'),
+    ;(this.state.form.get('family') as FormArrayUtil).push(
+      new FormGroupUtil({
+        name: new FormControlUtil([need(), maxLength(4)], '', '名字'),
+        type: new FormControlUtil([need()], '', '关系'),
+        age: new FormControlUtil([need(), isNumber()], '', '年龄'),
       }),
     )
 
@@ -101,7 +110,7 @@ export class Base extends React.Component<any> {
    * @param index
    */
   public deleteFamily = (index: number) => () => {
-    ;(this.state.form.get('family') as FormArray).removeAt(index)
+    ;(this.state.form.get('family') as FormArrayUtil).removeAt(index)
 
     this.setState(this.state)
   }
@@ -119,8 +128,15 @@ export class Base extends React.Component<any> {
   }
 
   public render() {
+    const card = {
+      border: '1px solid #d0d0d0',
+      borderRadius: 5,
+      padding: 10,
+      width: 300,
+      boxShadow: '1px 1px 5px 1px #d0d0d0',
+    }
     return (
-      <div>
+      <Form>
         <FormItem
           height={this.height}
           control={this.state.form.get('name')}
@@ -132,23 +148,13 @@ export class Base extends React.Component<any> {
           onChange={this.onChange}
         />
 
-        <div>
-          <label>家庭人员：</label>
-
+        <FormControl label={'家庭人员'}>
           <div>
-            {(this.state.form.get('family') as FormArray).map(
-              (group: FormGroup, index: number) => {
+            {(this.state.form.get('family') as FormArrayUtil).map(
+              (group: FormGroupUtil, index: number) => {
                 return (
-                  <div key={index} style={{ padding: 10 }}>
-                    <div
-                      key={index}
-                      style={{
-                        border: '1px solid #d0d0d0',
-                        borderRadius: 5,
-                        padding: 10,
-                        width: 250,
-                        boxShadow: '1px 1px 5px 1px #d0d0d0',
-                      }}>
+                  <div key={index} style={{ marginBottom: 10 }}>
+                    <div key={index} style={card}>
                       <FormItem
                         height={this.height}
                         control={group.get('name')}
@@ -174,28 +180,31 @@ export class Base extends React.Component<any> {
           </div>
 
           <button onClick={this.addFamily}>添加家庭组成员</button>
-        </div>
+        </FormControl>
 
-        <div>
-          <label>大学：</label>
-          <FormItem
-            height={this.height}
-            control={this.state.form.getIn(['bigSchool', 'name'])}
-            onChange={this.onChange}
-          />
-          <FormItem
-            height={this.height}
-            control={this.state.form.getIn(['bigSchool', 'address'])}
-            onChange={this.onChange}
-          />
-        </div>
+        <FormControl label={'大学'}>
+          <div style={card}>
+            <FormItem
+              height={this.height}
+              control={this.state.form.getIn(['bigSchool', 'name'])}
+              onChange={this.onChange}
+            />
+            <FormItem
+              height={this.height}
+              control={this.state.form.getIn(['bigSchool', 'address'])}
+              onChange={this.onChange}
+            />
+          </div>
+        </FormControl>
 
-        <button onClick={this.submit}>提交数据</button>
+        <FowRow>
+          <button onClick={this.submit}>提交数据</button>
 
-        <button onClick={this.addError}>自定义错误</button>
+          <button onClick={this.addError}>自定义错误</button>
 
-        <button onClick={this.setFormValue}>设置表单值</button>
-      </div>
+          <button onClick={this.setFormValue}>设置表单值</button>
+        </FowRow>
+      </Form>
     )
   }
 }

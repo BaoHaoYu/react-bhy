@@ -1,39 +1,25 @@
 import * as React from 'react'
-import { FormControl } from '../../packages/form-util/src'
+import { FormControlUtil } from '../../packages/form-util/src'
+import { FormControl, IFormControlProps } from '../../packages/form/src'
 
-export function FormItem(props: {
-  control: FormControl
+interface IProps extends IFormControlProps {
+  control: FormControlUtil
   onChange: any
-  labelWidth?: number
-  height?: number
-}) {
+}
+
+export function FormItem(props: IProps) {
   const onChange = (e: any) => props.onChange(e, props.control)
   return (
-    <div style={{ height: props.height }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <label style={{ width: props.labelWidth }}>
-          {props.control.label} :
-        </label>
-        <div style={{ position: 'relative' }}>
-          <input
-            type="text"
-            value={props.control.getValue()}
-            onChange={onChange}
-            style={{ borderRadius: 3, padding: 4 }}
-          />
-          {!props.control.pass && (
-            <div
-              style={{
-                color: 'red',
-                fontSize: 12,
-                position: 'absolute',
-                top: '100%',
-              }}>
-              {props.control.error}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <FormControl
+      {...props}
+      error={props.control.error}
+      label={props.control.label}>
+      <input
+        type={'text'}
+        value={props.control.getValue()}
+        onChange={onChange}
+        style={{ borderRadius: 3, padding: 4 }}
+      />
+    </FormControl>
   )
 }
