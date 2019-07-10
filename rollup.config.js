@@ -21,7 +21,6 @@ const config = globby.sync(['packages/*/package.json','!packages/sass-mixin/pack
                     url({ url: 'inline' }),
                     precss
                 ],
-                extract: path.join(libRoot,'dist/style.css'),
                 modules: {
                     generateScopedName: '[local]___[hash:base64:5]'
                 }
