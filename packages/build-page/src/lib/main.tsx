@@ -32,9 +32,7 @@ export default function buildPage<Params = {}>(pa: NPageMain.IPage<Params>) {
       }
 
       public componentWillUnmount() {
-        this.props.dispatch(
-          pa.pageActions.leavePage(Target.displayName),
-        )
+        this.props.dispatch(pa.pageActions.leavePage(Target.displayName))
       }
 
       public render() {

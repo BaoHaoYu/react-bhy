@@ -346,7 +346,7 @@ const buildPageWidgets: NPage.Base = (config) => {
         dispatch: any,
       ) => {
         axiosOpt = { ...axiosOpt, ...ap.axiosOpt }
-        let response: AxiosResponse = await dispatch(
+        const response: AxiosResponse = await dispatch(
           serverActions.startRequest({
             axiosOpt,
             force: defaultTo(ap.force, rootP.force),
