@@ -1,5 +1,5 @@
 {
-  "name": "@react-bhy/react-scrollbars",
+  "name": "@react-bhy/scrollbars",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
