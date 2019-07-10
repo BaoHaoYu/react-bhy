@@ -2638,7 +2638,7 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-virtualized@^9.18.7", "@types/react-virtualized@^9.21.2":
+"@types/react-virtualized@^9.18.7":
   version "9.21.2"
   resolved "https://registry.npmjs.org/@types/react-virtualized/-/react-virtualized-9.21.2.tgz#c5e4293409593814c35466913e83fb856e2053d0"
   integrity sha512-Q6geJaDd8FlBw3ilD4ODferTyVtYAmDE3d7+GacfwN0jPt9rD9XkeuPjcHmyIwTrMXuLv1VIJmRxU9WQoQFBJw==
