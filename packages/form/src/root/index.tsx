@@ -48,7 +48,6 @@ export class Form extends React.Component<IFormProps> {
 
 const defaultFormControlProps: IFormControlProps = {
   layout: 'x',
-  height: 65,
   showLabel: true,
   single: false,
 }

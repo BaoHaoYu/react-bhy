@@ -2,26 +2,26 @@ import * as React from 'react'
 import {
   beEqual,
   equal,
-  FormControl,
-  FormGroup,
+  FormControlUtil,
+  FormGroupUtil,
   minLength,
   need,
 } from '../../packages/form-util/src'
 import { FormItem } from './form-item'
 export class Equal extends React.Component<any> {
   public state: {
-    form: FormGroup
+    form: FormGroupUtil
   }
   constructor(props: any) {
     super(props)
-    const password1 = new FormControl([need(), minLength(8)], '', '密码')
-    const password2 = new FormControl([need()], '', '再次输入密码')
+    const password1 = new FormControlUtil([need(), minLength(8)], '', '密码')
+    const password2 = new FormControlUtil([need()], '', '再次输入密码')
 
     password1.addValidatorFn(beEqual(password2))
     password2.addValidatorFn(equal(password1))
 
     this.state = {
-      form: new FormGroup({
+      form: new FormGroupUtil({
         password1,
         password2,
       }),
@@ -35,7 +35,7 @@ export class Equal extends React.Component<any> {
    */
   public onChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    control: FormControl,
+    control: FormControlUtil,
   ) => {
     control.setValue(e.target.value)
     this.setState(this.state)

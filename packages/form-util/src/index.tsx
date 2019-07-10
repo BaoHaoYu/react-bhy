@@ -13,9 +13,9 @@ import {
 } from './validator'
 
 export {
-  FormArray,
-  FormControl,
-  FormGroup,
+  FormArray as FormArrayUtil,
+  FormControl as FormControlUtil,
+  FormGroup as FormGroupUtil,
   need,
   maxLength,
   isNumber,
