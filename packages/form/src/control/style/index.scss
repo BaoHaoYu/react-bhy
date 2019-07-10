@@ -1,0 +1,51 @@
+$name: form-control;
+$layout-x: #{$name}--layout-x;
+$layout-y: #{$name}--layout-y;
+
+.#{$name} {
+  display: table-row;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &--single {
+    display: block;
+  }
+
+  // 单个布局内部容器
+  &--single.#{$layout-x} &__contain {
+    display: flex;
+    align-items: center;
+  }
+
+  // 表单内容
+  &__content {
+    position: relative;
+    width: 100%;
+  }
+
+  // 错误文本
+  &__errorText {
+    margin: 0;
+    position: absolute;
+    font-size: 12px;
+    color: red;
+    white-space: nowrap;
+  }
+
+  // 标签
+  &__label {
+    white-space: nowrap;
+    font-size: 14px;
+
+    .#{$layout-x} & {
+      text-align: right;
+    }
+
+    .#{$layout-y} & {
+      display: block;
+      margin-bottom: 3px;
+    }
+  }
+}
