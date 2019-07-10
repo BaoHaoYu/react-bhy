@@ -10,8 +10,8 @@ import {
   regExp,
   regExpReverse,
 } from '../../packages/form-util/src'
-import { FormItem } from './form-item'
 import { Form, FormControl, FowRow } from '../../packages/form/src'
+import { FormItem } from './form-item'
 
 export class Base extends React.Component<any> {
   public state: {
@@ -29,12 +29,20 @@ export class Base extends React.Component<any> {
         '姓名',
       ),
 
-      age: new FormControlUtil([need(), regExp(/^\d+$/, '必须是数字')], '', '年龄'),
+      age: new FormControlUtil(
+        [need(), regExp(/^\d+$/, '必须是数字')],
+        '',
+        '年龄',
+      ),
 
       family: new FormArrayUtil([]),
 
       bigSchool: new FormGroupUtil({
-        name: new FormControlUtil([need(), maxLength(40)], 'xxx大学', '大学名字'),
+        name: new FormControlUtil(
+          [need(), maxLength(40)],
+          'xxx大学',
+          '大学名字',
+        ),
 
         address: new FormControlUtil(
           [need(), maxLength(40)],
@@ -146,10 +154,7 @@ export class Base extends React.Component<any> {
               (group: FormGroupUtil, index: number) => {
                 return (
                   <div key={index} style={{ marginBottom: 10 }}>
-                    <div
-                      key={index}
-                      style={card}
-                    >
+                    <div key={index} style={card}>
                       <FormItem
                         height={this.height}
                         control={group.get('name')}
@@ -177,10 +182,8 @@ export class Base extends React.Component<any> {
           <button onClick={this.addFamily}>添加家庭组成员</button>
         </FormControl>
 
-        <FormControl
-          label={'大学'}
-        >
-          <div style={ card }>
+        <FormControl label={'大学'}>
+          <div style={card}>
             <FormItem
               height={this.height}
               control={this.state.form.getIn(['bigSchool', 'name'])}
