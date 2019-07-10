@@ -81,7 +81,10 @@ export interface IPageActions {
   /**
    * 获得整个server的数据
    */
-  getKeyServer: (key: string, isMap?: boolean) => (dispatch: Dispatch) => Map<keyof IServerData, any>
+  getKeyServer: (
+    key: string,
+    isMap?: boolean,
+  ) => (dispatch: Dispatch) => Map<keyof IServerData, any>
   /**
    * 离开页面
    */
@@ -106,7 +109,7 @@ export interface IPageActions {
   ) => (dispatch: Dispatch) => Promise<AxiosResponse>
   /**
    * 获得在redux存储的数据
-   * @param ap.isCursor 是否带有keyPath的数据
+   * @param isCursor 是否带有keyPath的数据
    */
   getRootState: (isCursor?: boolean) => any
   /**
@@ -128,24 +131,11 @@ export interface IPageActions {
   /**
    * 推销:简单改变数据，通过cd回调，因为很多情况下都是简单改变
    */
-  simpleCb: <T>( 
-    cb: (state: T) => T,
-    meta: string
-  ) => ActionMeta<any, string>
+  simpleCb: <T>(cb: (state: T) => T, meta: string) => ActionMeta<any, string>
   /**
    * 设置错误内容
    */
   setErrorToStore: (p: ISetErrorToStore) => any
-}
-
-/**
- * 其他返回结果
- */
-export interface IOtherReturn {
-  /**
-   * 使用createServerActions，可以少传两个参数，key和meta
-   */
-  createServerActions: (p: ICreateServerActions) => IServerActions
 }
 
 /**
@@ -375,4 +365,8 @@ export type Base = (p: {
 }) => {
   actions: IPageActions
   reducerMap: ReducerMapMeta<any, any, any>
-} & IOtherReturn
+  /**
+   * 使用createServerActions，可以少传两个参数，key和meta
+   */
+  createServerActions: (p: ICreateServerActions) => IServerActions
+}

@@ -12,7 +12,7 @@ import * as NPage from './widget.interface'
  * 页面的widgets
  * @param config
  */
-const page = (config:any) => {
+const buildPageWidgets: NPage.Base = (config) => {
   const _hash = '_BASE_PAGE_'
   const keyPath: string[] = isArray(config.reducerKey)
     ? config.reducerKey
@@ -174,9 +174,7 @@ const page = (config:any) => {
           number: num,
         }
       }
-      const serverData = dispatch(
-        actions.getServerData( ap.key, true ),
-      )
+      const serverData = dispatch(actions.getServerData(ap.key, true))
 
       // 如果不是生产环境，并且有数据就，不请求最新服务器了，加快ui开发
       if (
@@ -255,9 +253,7 @@ const page = (config:any) => {
       const state = getState()
       // 如果根部状态树是使用redux-immutable生成的immutable类型
       if (Iterable.isIterable(state)) {
-        return isCursor
-          ? from(state.getIn(keyPath))
-          : state.getIn(keyPath)
+        return isCursor ? from(state.getIn(keyPath)) : state.getIn(keyPath)
       } else {
         return isCursor ? from(state[keyPath[0]]) : state[keyPath[0]]
       }
@@ -270,11 +266,7 @@ const page = (config:any) => {
       ])
     },
     isError: (key) => (dispatch: any) => {
-      return dispatch(actions.getRootState()).getIn([
-        'server',
-        key,
-        'error',
-      ])
+      return dispatch(actions.getRootState()).getIn(['server', key, 'error'])
     },
     axios: (axiosOpt: AxiosRequestConfig) => () => {
       return axios(axiosOpt)
@@ -325,7 +317,7 @@ const page = (config:any) => {
       },
       setDataToStroe: (ap) => {
         return actions.setDataToStroe({
-          meta: `设置数据--${rootP.desc}`,
+          meta: rootP.desc,
           key,
           responseData: ap.responseData,
         })
@@ -347,14 +339,14 @@ const page = (config:any) => {
           axiosOpt,
           delay: defaultTo(ap.delay, rootP.delay),
           force: defaultTo(ap.force, rootP.force),
-          meta: `请求服务器--${rootP.desc}`,
+          meta: rootP.desc,
         })
       },
       getServerDataToStore: (ap = { axiosOpt: {} }) => async (
         dispatch: any,
       ) => {
         axiosOpt = { ...axiosOpt, ...ap.axiosOpt }
-        const response: AxiosResponse = await dispatch(
+        let response: AxiosResponse = await dispatch(
           serverActions.startRequest({
             axiosOpt,
             force: defaultTo(ap.force, rootP.force),
@@ -487,4 +479,4 @@ function sleep(time: number = 0) {
 
 export { NPage }
 
-export default page
+export default buildPageWidgets
