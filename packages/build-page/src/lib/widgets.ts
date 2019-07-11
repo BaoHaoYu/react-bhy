@@ -372,7 +372,9 @@ const buildPageWidgets: NPage.Base = (config) => {
                   serverActions.getServerFromStore(),
                 ).get('againRequestNumber')
                 // 重复请求次数在允许的范围内
-                if (againRequestNumber < defaultTo(rootConfig.errorAgainNum, 1)) {
+                if (
+                  againRequestNumber < defaultTo(rootConfig.errorAgainNum, 1)
+                ) {
                   dispatch(serverActions.updateAgainRequestNumber())
                   dispatch(
                     serverActions.getServerDataToStore({ ...ap, axiosOpt }),

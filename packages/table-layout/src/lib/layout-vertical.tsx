@@ -40,7 +40,7 @@ export const TableLayoutVertical: React.StatelessComponent<
         style: {
           paddingTop,
           paddingBottom,
-          ...item.props.style
+          ...item.props.style,
         },
         key: index,
       })
