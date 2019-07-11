@@ -136,14 +136,12 @@ export class Base extends React.Component<any> {
       boxShadow: '1px 1px 5px 1px #d0d0d0',
     }
     return (
-      <Form>
+      <Form formControlProps={{height:this.height}}>
         <FormItem
-          height={this.height}
           control={this.state.form.get('name')}
           onChange={this.onChange}
         />
         <FormItem
-          height={this.height}
           control={this.state.form.get('age')}
           onChange={this.onChange}
         />
