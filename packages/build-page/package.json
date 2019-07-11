@@ -1,0 +1,34 @@
+{
+  "name": "@react-efficiency/build-page",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "高效组件页面",
+  "keywords": [
+    "react",
+    "build-page"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.1",
+    "@types/redux-actions": "^2.3.0",
+    "@types/uuid": "^3.4.4"
+  },
+  "dependencies": {
+    "@react-efficiency/decorators": "^0.0.1",
+    "axios": "^0.18.0",
+    "immutable": "^3.8.2",
+    "lodash-es": "^4.17.11",
+    "react": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.5",
+    "uuid": "^3.3.2"
+  },
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/build-page"
+}

@@ -11,6 +11,9 @@
     "params",
     "change"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "@react-efficiency/decorators": "^0.0.1",

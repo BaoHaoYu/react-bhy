@@ -182,7 +182,7 @@ export function addInfo(tree: NTree.TreeDataDeal) {
  * @param tree
  * @param search
  */
-export function searchTree(tree: NTree.TreeDataDeal, search: string) {
+export function searchTree(tree: NTree.TreeDataDeal, search?: string) {
   return tree.map((item) => {
     if (item.title.indexOf(search) !== -1) {
       item._matchSearch = true

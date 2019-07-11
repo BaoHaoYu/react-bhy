@@ -32,7 +32,7 @@ import { openSeletedNodes } from './util/open-seleted-nodes'
 
 // 复杂逻辑使用immutalbe
 class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
-  public static defaultProps: NTree.IDefaultProps
+  public static defaultProps: Partial<NTree.IProps>
 
   /**
    * 主要在这里派生数据

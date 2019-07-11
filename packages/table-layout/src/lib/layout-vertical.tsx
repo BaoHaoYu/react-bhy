@@ -16,29 +16,32 @@ export const TableLayoutVertical: React.StatelessComponent<
   const childrenList = React.Children.toArray(props.children)
   const children = childrenList.map(
     (item: React.ReactElement<IRowTdProps>, index: number) => {
-      let spaceTop: number | undefined
-      let spaceBottom: number | undefined
+      let paddingTop: number | undefined
+      let paddingBottom: number | undefined
       if (props.space !== undefined) {
-        spaceTop = props.space / 2
-        spaceBottom = props.space / 2
+        paddingTop = props.space / 2
+        paddingBottom = props.space / 2
         // 只有一个元素，没有任何边距
         if (childrenList.length === 1) {
-          spaceTop = undefined
-          spaceBottom = undefined
+          paddingTop = undefined
+          paddingBottom = undefined
         }
         // 第一个只有边距
         if (index === 0) {
-          spaceTop = undefined
+          paddingTop = undefined
         }
         // 最后一个只有上边距
         if (index === childrenList.length - 1) {
-          spaceBottom = undefined
+          paddingBottom = undefined
         }
       }
       return React.cloneElement(item, {
         ...item.props,
-        spaceBottom,
-        spaceTop,
+        style: {
+          paddingTop,
+          paddingBottom,
+          ...item.props.style,
+        },
         key: index,
       })
     },
