@@ -3,7 +3,7 @@
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "react-virtualized列表",
   "keywords": [
@@ -13,8 +13,8 @@
   ],
   "devDependencies": {
     "@types/classnames": "^2.2.6",
-    "@types/react-dom": "^16.8.4",
-    "@types/lodash-es": "^4.17.1"
+    "@types/lodash-es": "^4.17.1",
+    "@types/react-dom": "^16.8.4"
   },
   "dependencies": {
     "classnames": "^2.2.6",

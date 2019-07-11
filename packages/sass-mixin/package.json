@@ -1,9 +1,7 @@
 {
   "name": "@react-efficiency/sass-mixin",
   "main": "src/index.scss",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
-  "dependencies": {
-  },
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/sass-mixin"
 }

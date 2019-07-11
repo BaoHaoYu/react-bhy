@@ -3,7 +3,7 @@
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
     "react": "^16.8.6",
@@ -12,8 +12,8 @@
     "redux": "^4.0.1"
   },
   "devDependencies": {
-    "@types/react-router": "^5.0.2",
-    "@types/react-redux": "^7.1.0"
+    "@types/react-redux": "^7.1.0",
+    "@types/react-router": "^5.0.2"
   },
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/decorators"
 }

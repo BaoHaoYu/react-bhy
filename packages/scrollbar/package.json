@@ -3,15 +3,15 @@
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "keywords": [
     "react",
     "scrollbars"
   ],
   "devDependencies": {
-    "@types/react-custom-scrollbars": "^4.0.5",
     "@types/lodash-es": "^4.17.1",
+    "@types/react-custom-scrollbars": "^4.0.5",
     "@types/uuid": "^3.4.4"
   },
   "dependencies": {
