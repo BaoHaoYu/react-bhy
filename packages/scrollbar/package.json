@@ -9,9 +9,12 @@
     "react",
     "scrollbars"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
-    "@types/react-custom-scrollbars": "^4.0.5",
     "@types/lodash-es": "^4.17.1",
+    "@types/react-custom-scrollbars": "^4.0.5",
     "@types/uuid": "^3.4.4"
   },
   "dependencies": {
