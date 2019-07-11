@@ -123,7 +123,6 @@ FormControl.defaultProps = {
   require: false,
   asteriskColor: 'red',
   asteriskSize: 10,
-  _type: 'control',
 }
 
 FormControl.displayName = '表单控制'

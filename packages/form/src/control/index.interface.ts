@@ -80,6 +80,4 @@ export interface IFormControlProps {
    * 样式
    */
   style?: React.CSSProperties
-
-  _type?: 'row' | 'control'
 }

@@ -5,8 +5,6 @@ export interface IFowRowProps {
   style?: React.CSSProperties
 
   layout?: 'x' | 'y'
-
-  _type?: 'row' | 'control'
 }
 
 export const FowRow: React.FunctionComponent<IFowRowProps> = (props) => {
@@ -37,5 +35,4 @@ export const FowRow: React.FunctionComponent<IFowRowProps> = (props) => {
 
 FowRow.defaultProps = {
   layout: 'x',
-  _type: 'row',
 }

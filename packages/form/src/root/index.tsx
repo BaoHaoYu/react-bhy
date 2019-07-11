@@ -46,12 +46,7 @@ export class Form extends React.Component<IFormProps> {
 
         return React.cloneElement(
           child,
-          child.props._type === 'control'
-            ? fprops
-            : {
-                ...child.props,
-                layout: formControlProps.layout,
-              },
+          fprops,
         )
       },
     )
