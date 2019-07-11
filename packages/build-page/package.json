@@ -3,7 +3,7 @@
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "高效组件页面",
   "keywords": [
@@ -19,7 +19,7 @@
     "@types/uuid": "^3.4.4"
   },
   "dependencies": {
-    "@react-efficiency/decorators": "^0.0.1",
+    "@react-efficiency/decorators": "^0.0.2",
     "axios": "^0.18.0",
     "immutable": "^3.8.2",
     "lodash-es": "^4.17.11",
