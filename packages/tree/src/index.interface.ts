@@ -1,26 +1,4 @@
-import { RequiredPick } from '@efficiency/react-interface-base'
 import * as TreeNode from './components/node/index.interface'
-
-/**
- * 默认props
- */
-export type IDefaultProps = RequiredPick<
-  ITreeProps,
-  | 'search'
-  | 'contentHeight'
-  | 'selectStyle'
-  | 'hasOpenBtn'
-  | 'rowHeight'
-  | 'hasLocalBtn'
-  | 'toggleSelect'
-  | 'toggleCheck'
-  | 'leftSpace'
-  | 'offsetX'
-  | 'deepSpace'
-  | 'iconSpace'
-  | 'overscanRowCount'
-  | 'scrollElement'
->
 
 export interface ITreeProps extends TreeNode.ICommon {
   /**
@@ -108,7 +86,7 @@ export interface ITreeProps extends TreeNode.ICommon {
   onInit?(treeDataDeal: TreeDataDeal): void
 }
 
-export type IProps = ITreeProps & IDefaultProps
+export type IProps = ITreeProps
 
 /**
  * 树的数据，嵌套格式
@@ -148,7 +126,7 @@ export interface ITreeState {
   /**
    * 搜索的内容
    */
-  search: string
+  search?: string
   /**
    * 是否处于搜索状态
    */
