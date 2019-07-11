@@ -29,7 +29,6 @@ const config = globby.sync(['packages/*/package.json','!packages/sass-mixin/pack
                 extensions: ['.js', '.jsx', '.ts', '.tsx']
             }),
             typescript({
-                check: false,
                 tsconfigOverride: {
                     compilerOptions: {
                         baseUrl: libRoot,
