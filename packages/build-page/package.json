@@ -10,6 +10,9 @@
     "react",
     "build-page"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/lodash-es": "^4.17.1",
     "@types/redux-actions": "^2.3.0",

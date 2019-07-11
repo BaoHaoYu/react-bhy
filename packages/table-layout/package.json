@@ -10,6 +10,9 @@
     "table",
     "layout"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "@types/classnames": "^2.2.6",

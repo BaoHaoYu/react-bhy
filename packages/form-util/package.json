@@ -9,6 +9,9 @@
     "react",
     "form"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "lodash-es": "^4.17.10",
