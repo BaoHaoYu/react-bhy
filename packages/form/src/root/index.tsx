@@ -44,10 +44,7 @@ export class Form extends React.Component<IFormProps> {
           ...formControlProps,
         }
 
-        return React.cloneElement(
-          child,
-          fprops,
-        )
+        return React.cloneElement(child, fprops)
       },
     )
   }
