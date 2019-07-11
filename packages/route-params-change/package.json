@@ -4,7 +4,7 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "description": "路由的params改变",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "react",
     "route",
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@react-efficiency/decorators": "^0.0.1",
+    "@react-efficiency/decorators": "^0.0.2",
     "lodash-es": "^4.17.10",
     "react": "^16.8.6"
   },

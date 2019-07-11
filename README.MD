@@ -12,7 +12,8 @@
     - [格式化ts](#%E6%A0%BC%E5%BC%8F%E5%8C%96ts)
     - [发布到npm](#%E5%8F%91%E5%B8%83%E5%88%B0npm)
 - [特性](#%E7%89%B9%E6%80%A7)
-- [注意](#%E6%B3%A8%E6%84%8F)
+- [发布](#%E5%8F%91%E5%B8%83)
+    - [.npmrc](#npmrc)
     - [Annotated Tags](#Annotated-Tags)
     - [--no-git-tag-version](#no-git-tag-version)
     - [--no-git-reset](#no-git-reset)
@@ -66,9 +67,13 @@ rollup + yarn workspaces 管理多个包
 - `husky` √
 - `lint-staged` √
 
-## 注意
+## 发布
 > 要打上标签，`lerna diff`对比的是上个打上标签的提交，和最后提交这俩个提交进行对比的
 > 所以，建议每次发布都打上标签如 v0.0.1，v0.0.2之类的，Annotated Tags语句
+
+#### .npmrc
+填写`token`到`.npmrc`中，内容如下
+`//registry.npmjs.org/:_authToken=.................`
 
 #### Annotated Tags
 `git tag -a v0.0.1 -m "my version 0.0.1"`
