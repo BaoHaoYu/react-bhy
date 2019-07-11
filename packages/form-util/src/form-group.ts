@@ -8,16 +8,4 @@ export class FormGroup extends FormCommom<Config> {
   constructor(config: Config) {
     super(config)
   }
-
-  public addItem() {
-    return
-  }
-
-  public removeItem() {
-    return
-  }
-
-  public setItem() {
-    return
-  }
 }

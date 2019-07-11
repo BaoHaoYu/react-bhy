@@ -24,7 +24,8 @@ export interface IResult {
 export type ValidatorFn = (value: any) => IResult
 
 /**
- * 必填验证
+ * 必填验证，如果需要修改默认的提示，则
+ * const newNeed = （） => need(newDefaultError)
  * @param error 错误提示
  */
 export const need = (error = '[label]必填'): ValidatorFn => (value: any) => {
@@ -121,7 +122,7 @@ export const regExpReverse = (
 
 /**
  * 等值验证，等于谁
- * @param control 表单控制
+ * @param control 要等于的表单控制
  * @param error 错误提示
  */
 export const equal = (
@@ -137,14 +138,11 @@ export const equal = (
 }
 
 /**
- * 等值验证，被谁相等
- * @param control 表单控制
+ * 等值验证，被谁相等，修改值得时候，都会触发 被相等的表单 的验证函数
+ * @param control 被相等的表单控制
  * @param error 错误提示
  */
-export const beEqual = (
-  control: FormControl,
-  error: string = `[label]和${control.label}必须相同`,
-): ValidatorFn => (value: any) => {
+export const beEqual = (control: FormControl): ValidatorFn => (value: any) => {
   control.verify()
   return {
     pass: true,
