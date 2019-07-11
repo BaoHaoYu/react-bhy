@@ -24,6 +24,4 @@ const RowTdY: React.StatelessComponent<IRowTdProps> = (props) => {
 
 RowTdY.defaultProps = {}
 
-export default RowTdY as React.StatelessComponent<
-  Omit<IRowTdProps, 'spaceTop' | 'spaceBottom'>
->
+export default RowTdY
