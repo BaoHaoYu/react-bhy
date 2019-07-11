@@ -47,7 +47,11 @@ const config = globby.sync(['packages/*/package.json','!packages/sass-mixin/pack
                 include: path.join(__dirname, 'node_modules/**'),
             }),
         ],
-        external: Object.keys(pkg.dependencies),
+        external: [
+            'immutable/contrib/cursor',
+            'react-icons/fa',
+            ...Object.keys(pkg.dependencies)
+        ],
         output: [
             {
                 file: path.join(libRoot, pkg.main),
