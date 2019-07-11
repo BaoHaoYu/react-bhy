@@ -98,6 +98,8 @@ v0.0.1
 `pack1`版本是`0.0.1`，推送到`npm`后，本地依旧是`0.0.1`
 - `lerna publish`：自动更新包的版本，为最后的提交打上每个包的版本标签，然后再推送
 
+lerna只会找当前的分支进行标签对比，然后判断是否要发布，如果标签打在其他分支上面，lerna会忽略
+
 #### --no-git-reset
 - `lerna publish --no-git-reset`:`lerna`自动更新包的版本了
 - `lerna publish`:`lerna`根据上个标签的更新包的版本
