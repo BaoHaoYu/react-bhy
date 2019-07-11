@@ -10,17 +10,18 @@ export interface IFowRowProps {
 }
 
 export const FowRow: React.FunctionComponent<IFowRowProps> = (props) => {
-  if(props.layout === 'x'){
+  if (props.layout === 'x') {
     return (
       <div
         className={props.className}
         style={{ ...props.style, display: 'table-row' }}>
         <div style={{ display: 'table-cell' }} />
-  
-        <div style={{ 
-          display: 'table-cell', 
-          textAlign: 'left' 
-        }}>
+
+        <div
+          style={{
+            display: 'table-cell',
+            textAlign: 'left',
+          }}>
           {props.children}
         </div>
       </div>
@@ -36,5 +37,5 @@ export const FowRow: React.FunctionComponent<IFowRowProps> = (props) => {
 
 FowRow.defaultProps = {
   layout: 'x',
-  _type: 'row'
+  _type: 'row',
 }

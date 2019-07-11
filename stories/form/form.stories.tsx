@@ -1,7 +1,12 @@
 import { boolean, number, radios, withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { Form, FormControl, IFormControlProps, FowRow } from '../../packages/form/src'
+import {
+  Form,
+  FormControl,
+  FowRow,
+  IFormControlProps,
+} from '../../packages/form/src'
 
 storiesOf('form 表单', module)
   .addDecorator(withKnobs)
