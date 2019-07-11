@@ -206,12 +206,7 @@ const buildPageWidgets: NPage.Base = (config) => {
                 meta: ap.meta,
               }),
             )
-            dispatch(
-              actions.setErrorToStore({
-                key: ap.key,
-                responseData: thrown.response.data,
-              }),
-            )
+            dispatch(actions.setErrorToStore(ap.key, thrown.response.data))
             // 取消请求
             if (axios.isCancel(thrown)) {
               // 取消回调
@@ -285,11 +280,14 @@ const buildPageWidgets: NPage.Base = (config) => {
         meta: buildMeta(meta, '简单改变'),
       }
     },
-    setErrorToStore: (p) => {
+    setErrorToStore: (key, responseData, meta?: string) => {
       return {
         type: types.SET_ERROR,
-        payload: p,
-        mete: buildMeta(p.meta, '设置错误'),
+        payload: {
+          key,
+          responseData,
+        },
+        mete: buildMeta(meta, '设置错误'),
       }
     },
   }
@@ -298,48 +296,48 @@ const buildPageWidgets: NPage.Base = (config) => {
    * 封装数据服务
    */
   const createServerActions = (
-    rootP: NPage.ICreateServerActions,
+    rootConfig: NPage.ICreateServerActions,
   ): NPage.IServerActions => {
     const pageAxiosOpt = defaultTo(config.axiosOpt, {})
 
-    let axiosOpt = { ...pageAxiosOpt, ...rootP.axiosOpt }
-    const key = rootP.key
+    let axiosOpt = { ...pageAxiosOpt, ...rootConfig.axiosOpt }
+    const rootKey = rootConfig.key
     const serverActions: NPage.IServerActions = {
       getServerDataFromStore: (ap = { isMap: false }) => {
-        return actions.getServerData(key, ap.isMap)
+        return actions.getServerData(rootKey, ap.isMap)
       },
       setRequesting: (ap) => {
         return actions.setRequesting({
-          key,
+          key: rootKey,
           value: ap.value,
           meta: ap.meta,
         })
       },
       setDataToStroe: (ap) => {
         return actions.setDataToStroe({
-          meta: rootP.desc,
-          key,
+          meta: rootConfig.desc,
+          key: rootKey,
           responseData: ap.responseData,
         })
       },
       getServerFromStore: () => {
-        return actions.getKeyServer(key)
+        return actions.getKeyServer(rootKey)
       },
       isRequesting: () => {
-        return actions.isRequesting(key)
+        return actions.isRequesting(rootKey)
       },
       isError: () => {
-        return actions.isError(key)
+        return actions.isError(rootKey)
       },
       startRequest: (ap) => {
         axiosOpt = { ...axiosOpt, ...ap.axiosOpt }
         return actions.startRequest({
-          key,
-          isInitData: rootP.isInitData,
+          key: rootKey,
+          isInitData: rootConfig.isInitData,
           axiosOpt,
-          delay: defaultTo(ap.delay, rootP.delay),
-          force: defaultTo(ap.force, rootP.force),
-          meta: rootP.desc,
+          delay: defaultTo(ap.delay, rootConfig.delay),
+          force: defaultTo(ap.force, rootConfig.force),
+          meta: rootConfig.desc,
         })
       },
       getServerDataToStore: (ap = { axiosOpt: {} }) => async (
@@ -349,11 +347,11 @@ const buildPageWidgets: NPage.Base = (config) => {
         const response: AxiosResponse = await dispatch(
           serverActions.startRequest({
             axiosOpt,
-            force: defaultTo(ap.force, rootP.force),
+            force: defaultTo(ap.force, rootConfig.force),
           }),
         )
         let error = false
-        const isError = defaultTo(rootP.isError, config.isError)
+        const isError = defaultTo(rootConfig.isError, config.isError)
         // 如果定义的错误判断函数
         if (isError) {
           // 获得请求是否发生错误
@@ -361,7 +359,7 @@ const buildPageWidgets: NPage.Base = (config) => {
           // 如果发生错误，判断是否需要重复这个请求
           if (error) {
             const errorAgainRequest = defaultTo(
-              rootP.errorAgainRequest,
+              rootConfig.errorAgainRequest,
               config.errorAgainRequest,
             )
             if (errorAgainRequest) {
@@ -374,7 +372,7 @@ const buildPageWidgets: NPage.Base = (config) => {
                   serverActions.getServerFromStore(),
                 ).get('againRequestNumber')
                 // 重复请求次数在允许的范围内
-                if (againRequestNumber < defaultTo(rootP.errorAgainNum, 1)) {
+                if (againRequestNumber < defaultTo(rootConfig.errorAgainNum, 1)) {
                   dispatch(serverActions.updateAgainRequestNumber())
                   dispatch(
                     serverActions.getServerDataToStore({ ...ap, axiosOpt }),
@@ -415,7 +413,7 @@ const buildPageWidgets: NPage.Base = (config) => {
 
         return response
       },
-      cancelRequest: (ap: { msg: string } = { msg: rootP.desc }) => (
+      cancelRequest: (ap: { msg: string } = { msg: rootConfig.desc }) => (
         dispatch: any,
       ) => {
         const axiosSource = (dispatch(
@@ -429,18 +427,15 @@ const buildPageWidgets: NPage.Base = (config) => {
       updateAgainRequestNumber: () => {
         return {
           type: types.UPDATE_AGAIN_REQUEST_NUMBER,
-          payload: { key: rootP.key },
+          payload: { key: rootConfig.key },
           meta: '重复请求数+1',
         }
       },
       resetAgainRequestNumber: () => {
         return {}
       },
-      setErrorToStore: (p) => {
-        return actions.setErrorToStore({
-          key: rootP.key,
-          responseData: p.responseData,
-        })
+      setErrorToStore: (key, responseData) => {
+        return actions.setErrorToStore(rootConfig.key, responseData)
       },
     }
     return serverActions

@@ -135,7 +135,7 @@ export interface IPageActions {
   /**
    * 设置错误内容
    */
-  setErrorToStore: (p: ISetErrorToStore) => any
+  setErrorToStore: (key: string, responseData: IData, meta?: string) => any
 }
 
 /**
@@ -229,7 +229,7 @@ export interface IServerActions {
   /**
    * 设置错误内容
    */
-  setErrorToStore: (p: Omit<ISetErrorToStore, 'key'>) => any
+  setErrorToStore: (responseData: IData, meta?: string) => any
 }
 
 /**
