@@ -86,7 +86,7 @@ export class FormCommom<T extends {}> {
           } else {
             form[key] = item.getValue()
           }
-        } 
+        }
         // 继续递归遍历
         else {
           if (isArray(form)) {

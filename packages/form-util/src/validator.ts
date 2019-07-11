@@ -142,9 +142,7 @@ export const equal = (
  * @param control 被相等的表单控制
  * @param error 错误提示
  */
-export const beEqual = (
-  control: FormControl,
-): ValidatorFn => (value: any) => {
+export const beEqual = (control: FormControl): ValidatorFn => (value: any) => {
   control.verify()
   return {
     pass: true,

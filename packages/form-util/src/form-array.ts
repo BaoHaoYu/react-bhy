@@ -15,7 +15,7 @@ export class FormArray extends FormCommom<Config> {
 
   /**
    * @deprecated config.map
-   * @param cb 
+   * @param cb
    */
   public map(cb: any) {
     return this.config.map(cb)
