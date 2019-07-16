@@ -1,0 +1,17 @@
+{
+  "name": "@react-efficiency/triangle",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "triangle"
+  ],
+  "dependencies": {
+    "@types/classnames": "^2.2.6",
+    "classnames": "^2.2.6",
+    "react": "^16.8.6"
+  }
+}
