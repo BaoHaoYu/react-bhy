@@ -2793,6 +2793,16 @@
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
 
+"@types/react-redux@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.npmjs.org/@types/react-redux/-/react-redux-7.1.1.tgz#eb01e89cf71cad77df9f442b819d5db692b997cb"
+  integrity sha512-owqNahzE8en/jR4NtrUJDJya3tKru7CIEGSRL/pVS84LtSCdSoT7qZTkrbBd3S4Lp11sAp+7LsvxIeONJVKMnw==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.0"
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+    redux "^4.0.0"
+
 "@types/react-router@^5.0.2":
   version "5.0.2"
   resolved "https://registry.npm.taobao.org/@types/react-router/download/@types/react-router-5.0.2.tgz#619850cf28245d97bfa205f1fa7136451ba384bc"
@@ -2815,7 +2825,7 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/redux-actions@^2.3.0":
+"@types/redux-actions@^2.3.0", "@types/redux-actions@^2.6.1":
   version "2.6.1"
   resolved "https://registry.npmjs.org/@types/redux-actions/-/redux-actions-2.6.1.tgz#0940e97fa35ad3004316bddb391d8e01d2efa605"
   integrity sha512-zKgK+ATp3sswXs6sOYo1tk8xdXTy4CTaeeYrVQlClCjeOpag5vzPo0ASWiiBJ7vsiQRAdb3VkuFLnDoBimF67g==
