@@ -58,11 +58,11 @@ function getStyle(key: IStyleKey, color: string, width: number) {
 }
 
 // 三角形
-const Triangle: React.FunctionComponent<ITriangleProps> = (
-  props,
-) => {
+const Triangle: React.FunctionComponent<ITriangleProps> = (props) => {
   const { color, width, styleKey, className } = props
-  return <div className={className} style={getStyle(styleKey!, color!, width!)} />
+  return (
+    <div className={className} style={getStyle(styleKey!, color!, width!)} />
+  )
 }
 
 Triangle.defaultProps = {
