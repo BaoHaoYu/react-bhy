@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "build:w": "rollup -c rollup.config.js -w",
-    "tslint": "tslint --fix packages/**/*{.ts,.tsx} .storybook/*.ts stories/**/*{.ts,.tsx} webpack-ts/**/*",
+    "tslint": "tslint --fix packages/**/*{.ts,.tsx} .storybook/*.ts stories/**/*{.ts,.tsx} webpack-ts/**/* config/*.ts",
     "stylelint": "stylelint --fix packages/**/*.scss",
     "prettier": "prettier --write packages/**/*{.ts,.tsx}",
     "release": "lerna publish --no-push",
