@@ -50,14 +50,16 @@ export const TableLayoutHorizontal: React.StatelessComponent<
   return (
     <div
       className={classnames(props.className)}
-      style={{ ...props.style, ...rootStyle }}>
+      style={{ ...props.style, ...rootStyle }}
+    >
       <div
         style={{
           display: 'table',
           tableLayout: 'fixed',
           height: '100%',
           width: '100%',
-        }}>
+        }}
+      >
         <div style={{ display: 'table-row' }}>{children}</div>
       </div>
     </div>

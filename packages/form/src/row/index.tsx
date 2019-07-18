@@ -12,14 +12,16 @@ export const FowRow: React.FunctionComponent<IFowRowProps> = (props) => {
     return (
       <div
         className={props.className}
-        style={{ ...props.style, display: 'table-row' }}>
+        style={{ ...props.style, display: 'table-row' }}
+      >
         <div style={{ display: 'table-cell' }} />
 
         <div
           style={{
             display: 'table-cell',
             textAlign: 'left',
-          }}>
+          }}
+        >
           {props.children}
         </div>
       </div>

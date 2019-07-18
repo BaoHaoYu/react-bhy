@@ -46,7 +46,8 @@ export const FormControl: React.StatelessComponent<IFormControlProps> = (
       return (
         <label
           style={{ ...setTabelStyle(), width }}
-          className={s[NAME + '__label']}>
+          className={s[NAME + '__label']}
+        >
           {asterisk}
           <span>
             {props.label}
@@ -92,7 +93,8 @@ export const FormControl: React.StatelessComponent<IFormControlProps> = (
     return (
       <div
         className={rootClassName}
-        style={{ ...props.style, height: props.height }}>
+        style={{ ...props.style, height: props.height }}
+      >
         <div className={s[NAME + '__contain']}>
           {/* label */}
           {renderLabel()}
@@ -106,7 +108,8 @@ export const FormControl: React.StatelessComponent<IFormControlProps> = (
   return (
     <div
       className={rootClassName}
-      style={{ ...props.style, height: props.height }}>
+      style={{ ...props.style, height: props.height }}
+    >
       {/* label */}
       {renderLabel()}
 

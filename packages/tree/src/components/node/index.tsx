@@ -67,7 +67,8 @@ class Node extends React.Component<NNode.INodeProps, NNode.IState> {
             position: 'relative',
             height: '100%',
             paddingLeft: leftSpace,
-          }}>
+          }}
+        >
           <div style={{ height: '100%' }} className={contentClassName}>
             {/*默认触发展开的地方*/}
             <div className={s.row_toggleOpen}>{this.renderOpen()}</div>
@@ -110,7 +111,8 @@ class Node extends React.Component<NNode.INodeProps, NNode.IState> {
       <span
         className={s.row__open}
         style={{ visibility: this.props.showOpen ? 'visible' : 'hidden' }}
-        onClick={this.onOpen}>
+        onClick={this.onOpen}
+      >
         {this.props.open ? <FaAngleDown /> : <FaAngleRight />}
       </span>
     )

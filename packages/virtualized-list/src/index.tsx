@@ -108,7 +108,8 @@ export default class VirtualizedList extends React.Component<
       return (
         <div
           key={defaultTo(this.props.listData[p.index].id, p.key)}
-          style={p.style}>
+          style={p.style}
+        >
           <Row id={id} style={{ height: '100%' }}>
             {this.props.simpleRowRenderer(this.props.listData[p.index])}
           </Row>
@@ -200,7 +201,8 @@ export default class VirtualizedList extends React.Component<
     return (
       <div
         className={this.props.className}
-        style={{ overflowY: 'auto', ...this.props.style }}>
+        style={{ overflowY: 'auto', ...this.props.style }}
+      >
         {this.state.didMount && this.renderWindowScroller()}
       </div>
     )

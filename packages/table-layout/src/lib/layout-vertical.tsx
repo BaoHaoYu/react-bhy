@@ -54,7 +54,8 @@ export const TableLayoutVertical: React.StatelessComponent<
         ...rootStyle,
         display: 'table',
         tableLayout: 'fixed',
-      }}>
+      }}
+    >
       {children}
     </div>
   )
