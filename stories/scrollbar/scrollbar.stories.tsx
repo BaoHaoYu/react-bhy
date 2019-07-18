@@ -10,7 +10,8 @@ storiesOf('scrollbars 滚动', module)
       <div style={{ width: 500 }}>
         <Scrollbars
           scrollBarColor={color('scrollBarColor', '#d1d1d1')}
-          style={{ height: 400 }}>
+          style={{ height: 400 }}
+        >
           <div style={{ height: 900 }}>dddd</div>
         </Scrollbars>
       </div>
@@ -22,7 +23,8 @@ storiesOf('scrollbars 滚动', module)
         <Scrollbars
           verticalBarStyle={{ borderRadius: 5, width: 10 }}
           scrollBarColor={color('scrollBarColor', '#d1d1d1')}
-          style={{ height: 400 }}>
+          style={{ height: 400 }}
+        >
           <div style={{ height: 900 }}>dddd</div>
         </Scrollbars>
       </div>

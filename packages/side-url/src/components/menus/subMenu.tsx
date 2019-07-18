@@ -61,7 +61,8 @@ class SideSubMenu extends React.Component<NSubMenu.ISideSubMenuProps> {
         onClick={this.onClick}
         defaultSelectedKeys={defaultSelected}
         defaultOpenKeys={defaultOpen}
-        style={{ borderRight: 0, ...this.props.style }}>
+        style={{ borderRight: 0, ...this.props.style }}
+      >
         {this.renderSub(subMenuData)}
       </Menu>
     )

@@ -74,7 +74,8 @@ class MyScrollbars extends React.Component<IScrollbarsProps, IState> {
         id={this.id}
         renderThumbVertical={this.renderThumbVertical}
         renderThumbHorizontal={this.renderThumbHorizontal}
-        {...this.props}>
+        {...this.props}
+      >
         {this.renderChildren(props)}
       </Scrollbars>
     )

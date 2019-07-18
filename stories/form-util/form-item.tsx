@@ -13,7 +13,8 @@ export function FormItem(props: IProps) {
     <FormControl
       {...props}
       error={props.control.error}
-      label={props.control.label}>
+      label={props.control.label}
+    >
       <input
         type={'text'}
         value={props.control.getValue()}
