@@ -82,7 +82,7 @@ class TreeDemo extends React.Component<any> {
   }
 
   public render() {
-    const rowHeight = number('rowHeight', Tree.defaultProps.rowHeight, {
+    const rowHeight = number('rowHeight', 30, {
       range: true,
       max: 200,
       min: 20,
@@ -133,7 +133,7 @@ class TreeDemo extends React.Component<any> {
   }
 }
 
-storiesOf('tree 树形控件', module)
+storiesOf('tree:树形控件', module)
   .addDecorator(withKnobs)
   .add('基本', () => {
     return <TreeDemo />
