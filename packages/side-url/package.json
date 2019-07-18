@@ -1,0 +1,24 @@
+{
+  "name": "@react-efficiency/side-url",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "url"
+  ],
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.3",
+    "@types/react-dom": "^16.0.9"
+  },
+  "dependencies": {
+    "antd": "^3.20.3",
+    "lodash-es": "^4.17.11",
+    "path-to-regexp": "^3.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/side-url"
+}
