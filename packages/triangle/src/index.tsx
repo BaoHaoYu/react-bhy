@@ -70,4 +70,4 @@ Triangle.defaultProps = {
   width: 6,
   styleKey: 'top',
 }
-export default Triangle as React.StatelessComponent<ITriangleProps>
+export default Triangle
