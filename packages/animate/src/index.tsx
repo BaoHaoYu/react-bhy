@@ -5,7 +5,9 @@ import { IAnimateProps } from './index.interface'
 import s from './style/index.scss'
 import { animateClass, transitionStyle } from './util'
 
-function Animate(props: IAnimateProps) {
+const Animate: React.FunctionComponent<IAnimateProps> = (
+  props: IAnimateProps,
+) => {
   return (
     <Transition {...props} timeout={props.timeout!}>
       {(status) => {
