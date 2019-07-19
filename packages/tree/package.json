@@ -3,7 +3,7 @@
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "keywords": [
     "react",
@@ -19,7 +19,7 @@
     "@types/uuid": "^3.4.3"
   },
   "dependencies": {
-    "@react-efficiency/virtualized-list": "^0.0.2",
+    "@react-efficiency/virtualized-list": "^0.0.3",
     "classnames": "^2.2.6",
     "lodash-es": "^4.17.11",
     "react": "^16.8.6",

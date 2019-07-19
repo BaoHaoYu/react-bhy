@@ -4,7 +4,7 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "description": "快速改变",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "react",
     "form"
@@ -16,12 +16,12 @@
   "dependencies": {
     "immutable": "^3.8.2",
     "react": "^16.8.6",
-    "redux-actions": "^2.6.5",
-    "react-redux": "^7.1.0"
+    "react-redux": "^7.1.0",
+    "redux-actions": "^2.6.5"
   },
   "devDependencies": {
-    "@types/react-redux": "^7.1.0",
     "@types/lodash-es": "^4.17.1",
+    "@types/react-redux": "^7.1.0",
     "@types/redux-actions": "^2.6.1"
   },
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/redux-fast"
