@@ -352,6 +352,9 @@ const buildPageWidgets: NPage.Base = (config) => {
         )
         let error = false
         const isError = defaultTo(rootConfig.isError, config.isError)
+        const saveError = serverActions.setErrorToStore({
+          responseData: fromJS(response.data),
+        })
         // 如果定义的错误判断函数
         if (isError) {
           // 获得请求是否发生错误
@@ -381,36 +384,20 @@ const buildPageWidgets: NPage.Base = (config) => {
                   )
                 } else {
                   // 把错误信息存储起来
-                  dispatch(
-                    serverActions.setErrorToStore({
-                      responseData: fromJS(response.data),
-                    }),
-                  )
+                  dispatch(saveError)
                 }
               }
             } else {
               // 把错误信息存储起来
-              dispatch(
-                serverActions.setErrorToStore({
-                  responseData: fromJS(response.data),
-                }),
-              )
+              dispatch(saveError)
             }
           } else {
             // 数据存储到redux的store
-            dispatch(
-              serverActions.setDataToStroe({
-                responseData: fromJS(response.data),
-              }),
-            )
+            dispatch(saveError)
           }
         } else {
           // 数据存储到redux的store
-          dispatch(
-            serverActions.setDataToStroe({
-              responseData: fromJS(response.data),
-            }),
-          )
+          dispatch(saveError)
         }
 
         return response
