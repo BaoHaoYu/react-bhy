@@ -10,39 +10,36 @@ storiesOf('animate 动画', module)
     const moveX = boolean('moveX', false)
     const fadeAndMoveX = boolean('fade and moveX', false)
     const fadeAndMoveY = boolean('fade and MoveY', false)
-    const enterTime = number('enterTime', Animate.defaultProps.enterTime!)
-    const levelTime = number('levelTime', Animate.defaultProps.levelTime!)
+    const enterTime = number('enterTime', 300)
+    const levelTime = number('levelTime', 300)
 
     return (
       <div>
-        <Animate show={fade} enterTime={enterTime} levelTime={levelTime}>
+        <Animate in={fade} timeout={{ enter: enterTime, exit: levelTime }}>
           <p>fade:ddddddddddd</p>
         </Animate>
 
         <Animate
           unmountOnExit={false}
-          show={moveX}
+          in={moveX}
           animateKey={['moveX']}
-          enterTime={enterTime}
-          levelTime={levelTime}
+          timeout={{ enter: enterTime, exit: levelTime }}
         >
           <p>moveX:ddddddddddd</p>
         </Animate>
 
         <Animate
-          show={fadeAndMoveX}
+          in={fadeAndMoveX}
           animateKey={['moveX', 'fade']}
-          enterTime={enterTime}
-          levelTime={levelTime}
+          timeout={{ enter: enterTime, exit: levelTime }}
         >
           <p>moveX and fade:ddddddddddd</p>
         </Animate>
 
         <Animate
-          show={fadeAndMoveY}
+          in={fadeAndMoveY}
           animateKey={['moveY', 'fade']}
-          enterTime={enterTime}
-          levelTime={levelTime}
+          timeout={{ enter: enterTime, exit: levelTime }}
         >
           <p>moveY and fade:ddddddddddd</p>
         </Animate>
