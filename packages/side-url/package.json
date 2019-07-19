@@ -9,6 +9,9 @@
     "react",
     "url"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/lodash-es": "^4.17.3",
     "@types/react-dom": "^16.0.9"
