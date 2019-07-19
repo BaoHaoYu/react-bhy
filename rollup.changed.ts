@@ -4,7 +4,7 @@ import globby from 'globby'
 import path from 'path'
 import url from 'postcss-url'
 import precss from 'precss'
-import rollup, { InputOptions, OutputOptions, RollupOutput } from 'rollup'
+import { InputOptions, OutputOptions, rollup, RollupOutput } from 'rollup'
 import commonjs from 'rollup-plugin-commonjs'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import pluPostcss from 'rollup-plugin-postcss'
@@ -109,7 +109,7 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
   optList.map(async (opt) => {
     console.log('build: ' + opt.input)
 
-    const bundle = await rollup.rollup({
+    const bundle = await rollup({
       input: opt.input,
       plugins: opt.plugins,
       external: opt.external,
