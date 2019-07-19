@@ -6,7 +6,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js",
+    "build:changed": "ts-node rollup.changed.ts",
+    "build:all": "rollup -c rollup.config.js",
     "build:w": "rollup -c rollup.config.js -w",
     "tslint": "tslint --fix packages/**/*{.ts,.tsx} .storybook/*.ts stories/**/*{.ts,.tsx} webpack-ts/**/* config/*.ts",
     "stylelint": "stylelint --fix packages/**/*.scss",
@@ -14,7 +15,7 @@
     "release": "lerna publish --no-push",
     "link": "lerna exec -- yarn link",
     "updated": "lerna updated",
-    "changed": "lerna changed",
+    "changed": "lerna changed --json",
     "diff": "lerna diff",
     "server": "ts-node server/bin/www.ts",
     "storybook": "start-storybook -p 6006",
