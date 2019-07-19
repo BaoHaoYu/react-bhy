@@ -38,7 +38,7 @@ const buildPageWidgets: NPage.Base = (config) => {
   }
   const reducerMap = {
     [types.SET_AJAXING]: (state: any, action: Action<NPage.ISetRequesting>) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(
         ['server', payload.key],
         ($$item: NPage.MapServerData) => {
@@ -51,7 +51,7 @@ const buildPageWidgets: NPage.Base = (config) => {
       )
     },
     [types.SET_DATA]: (state: any, action: Action<NPage.ISetData>) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v
           .set('responseData', payload.responseData)
@@ -64,13 +64,13 @@ const buildPageWidgets: NPage.Base = (config) => {
       state: any,
       action: Action<NPage.ISetData>,
     ) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v.update('againRequestNumber', (value: number) => value + 1),
       )
     },
     [types.SET_ERROR]: (state: any, action: Action<NPage.ISetErrorToStore>) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v
           .set('hash', uuid.v4())
@@ -82,7 +82,7 @@ const buildPageWidgets: NPage.Base = (config) => {
       state: any,
       action: Action<NPage.ISetData>,
     ) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v.set('againRequestNumber', 0),
       )
