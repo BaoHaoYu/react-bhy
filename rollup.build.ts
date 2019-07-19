@@ -12,6 +12,8 @@ import pluPostcss from 'rollup-plugin-postcss'
 import typescript from 'rollup-plugin-typescript2'
 import ts from 'typescript'
 import yargs from 'yargs-parser'
+import lernaJson from './lerna.json'
+
 // 命令要做什么，all则编译所有包，changed则编译发生改变的包，默认为all
 const type: 'all' | 'changed' | undefined = yargs(process.argv).type
 
@@ -43,7 +45,9 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
   })
 
   const optList = rollupConfigs(
-    type === 'changed' ? changedPkgPaths : ['packages/*/package.json'],
+    type === 'changed'
+      ? changedPkgPaths
+      : lernaJson.packages.map((p) => path.join(p, 'package.json')),
   )
 
   optList.map(async (opt, index) => {
