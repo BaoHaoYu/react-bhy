@@ -94,7 +94,7 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
     .map((item) => {
       return JSON.parse(item)
     })
-
+  console.log('\n')
   console.log('find changed: ')
   changes.map((item) => {
     console.log(item.name)
@@ -106,6 +106,7 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
 
   const optList = config(pkgPaths)
 
+  console.log('\n')
   optList.map(async (opt) => {
     console.log('build: ' + opt.input)
 
@@ -116,6 +117,9 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
     })
 
     opt.output.map(async (out, index) => {
+      if (index === 0) {
+        console.log('\n')
+      }
       const outOpt = out as OutputOptions
       await bundle.generate(outOpt)
       await bundle.write(outOpt)
