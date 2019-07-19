@@ -1,3 +1,5 @@
+import { withKnobs } from '@storybook/addon-knobs'
+import { storiesOf } from '@storybook/react'
 import 'normalize.css'
 import * as React from 'react'
 import {
@@ -13,7 +15,14 @@ import {
 import { Form, FormControl, FowRow } from '../../packages/form/src'
 import { FormItem } from './form-item'
 
-export class Base extends React.Component<any> {
+const cardStyle = {
+  border: '1px solid #d0d0d0',
+  borderRadius: 5,
+  padding: 10,
+  width: 300,
+  boxShadow: '1px 1px 5px 1px #d0d0d0',
+}
+class Base extends React.Component<any> {
   public state: {
     form: FormGroupUtil
   }
@@ -94,7 +103,7 @@ export class Base extends React.Component<any> {
    * 添加表单
    */
   public addFamily = () => {
-    ;(this.state.form.get('family') as FormArrayUtil).push(
+    ;(this.state.form.get('family') as FormArrayUtil).config.push(
       new FormGroupUtil({
         name: new FormControlUtil([need(), maxLength(4)], '', '名字'),
         type: new FormControlUtil([need()], '', '关系'),
@@ -110,7 +119,7 @@ export class Base extends React.Component<any> {
    * @param index
    */
   public deleteFamily = (index: number) => () => {
-    ;(this.state.form.get('family') as FormArrayUtil).removeAt(index)
+    ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
 
     this.setState(this.state)
   }
@@ -128,13 +137,7 @@ export class Base extends React.Component<any> {
   }
 
   public render() {
-    const card = {
-      border: '1px solid #d0d0d0',
-      borderRadius: 5,
-      padding: 10,
-      width: 300,
-      boxShadow: '1px 1px 5px 1px #d0d0d0',
-    }
+    const card = cardStyle
     return (
       <Form formControlProps={{ height: this.height }}>
         <FormItem
@@ -148,7 +151,7 @@ export class Base extends React.Component<any> {
 
         <FormControl label={'家庭人员'}>
           <div>
-            {(this.state.form.get('family') as FormArrayUtil).map(
+            {(this.state.form.get('family') as FormArrayUtil).config.map(
               (group: FormGroupUtil, index: number) => {
                 return (
                   <div key={index} style={{ marginBottom: 10 }}>
@@ -206,3 +209,13 @@ export class Base extends React.Component<any> {
     )
   }
 }
+
+storiesOf('form-util 表单数据分离', module)
+  .addDecorator(withKnobs)
+  .add('基础', () => {
+    return (
+      <div>
+        <Base />
+      </div>
+    )
+  })
