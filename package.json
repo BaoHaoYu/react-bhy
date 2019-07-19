@@ -6,8 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build:changed": "ts-node rollup.changed.ts",
-    "build:all": "rollup -c rollup.config.js",
+    "build:changed": "ts-node rollup.build.ts --type changed",
+    "build:all": "ts-node rollup.build.ts --type all",
+    "build": "rollup -c rollup.config.js",
     "build:w": "rollup -c rollup.config.js -w",
     "tslint": "tslint --fix packages/**/*{.ts,.tsx} .storybook/*.ts stories/**/*{.ts,.tsx} webpack-ts/**/* config/*.ts",
     "stylelint": "stylelint --fix packages/**/*.scss",
@@ -68,6 +69,7 @@
     "@types/storybook__addon-links": "^3.3.5",
     "@types/storybook__react": "^4.0.2",
     "@types/webpack": "^4.4.32",
+    "@types/yargs-parser": "^13.0.0",
     "babel-loader": "^8.0.6",
     "chalk": "^2.4.2",
     "css-loader": "^3.0.0",
@@ -119,7 +121,8 @@
     "typescript": "^3.5.2",
     "url": "^0.11.0",
     "url-loader": "^2.0.0",
-    "webpack": "^4.34.0"
+    "webpack": "^4.34.0",
+    "yargs-parser": "^13.1.1"
   },
   "dependencies": {
     "redux-logger": "^3.0.6",

@@ -14,7 +14,7 @@
     "packages",
     "stories",
     ".storybook/*",
-    "rollup.changed.ts"
+    "rollup.build.ts"
   ],
   "exclude": [
     "node_modules",

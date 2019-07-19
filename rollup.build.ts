@@ -11,8 +11,11 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import pluPostcss from 'rollup-plugin-postcss'
 import typescript from 'rollup-plugin-typescript2'
 import ts from 'typescript'
+import yargs from 'yargs-parser'
+// 命令要做什么，all则编译所有包，changed则编译发生改变的包，默认为all
+const type: 'all' | 'changed' | undefined = yargs(process.argv).type
 
-function config(packages: string[]): Array<RollupOutput & InputOptions> {
+function rollupConfig(packages: string[]): Array<RollupOutput & InputOptions> {
   const pkgAbPaths: string[] = globby.sync([
     ...packages,
     '!packages/sass-mixin/package.json',
@@ -91,7 +94,7 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
     version: string
   }> = stdout
     .replace(/[\r\n]/g, '')
-    .match(/{.+?}/g)!
+    .match(/{.+?}/g)
     .map((item) => {
       return JSON.parse(item)
     })
@@ -100,11 +103,13 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
     console.log(item.name)
   })
 
-  const pkgPaths = changes.map((item) => {
+  const changedPkgPaths = changes.map((item) => {
     return item.location + '\\package.json'
   })
 
-  const optList = config(pkgPaths)
+  const optList = rollupConfig(
+    type === 'changed' ? changedPkgPaths : ['packages/*/package.json'],
+  )
 
   optList.map(async (opt, index) => {
     console.log(chalk.hex('#009dff')('build: ') + opt.input)
