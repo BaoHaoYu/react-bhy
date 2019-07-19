@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import child_process from 'child_process'
 import fse from 'fs-extra'
 import globby from 'globby'
@@ -94,8 +95,7 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
     .map((item) => {
       return JSON.parse(item)
     })
-  console.log('\n')
-  console.log('find changed: ')
+  console.log(chalk.hex('#009dff').bold('find changed: '))
   changes.map((item) => {
     console.log(item.name)
   })
@@ -106,24 +106,22 @@ child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
 
   const optList = config(pkgPaths)
 
-  console.log('\n')
-  optList.map(async (opt) => {
-    console.log('build: ' + opt.input)
+  optList.map(async (opt, index) => {
+    console.log(chalk.hex('#009dff')('build: ') + opt.input)
 
+    // 打包
     const bundle = await rollup({
       input: opt.input,
       plugins: opt.plugins,
       external: opt.external,
     })
 
-    opt.output.map(async (out, index) => {
-      if (index === 0) {
-        console.log('\n')
-      }
+    // 输出
+    opt.output.map(async (out) => {
       const outOpt = out as OutputOptions
       await bundle.generate(outOpt)
       await bundle.write(outOpt)
-      console.log(`finish: ${outOpt.file}`)
+      console.log(chalk.hex('#3fda00')('finish: ') + outOpt.file)
     })
   })
 })
