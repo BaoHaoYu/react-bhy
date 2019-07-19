@@ -49,6 +49,10 @@ const config = globby.sync(['packages/*/package.json','!packages/sass-mixin/pack
         external: [
             'immutable/contrib/cursor',
             'react-icons/fa',
+            'antd/lib/icon',
+            'antd/lib/menu',
+            'antd/lib/icon/style/css',
+            'antd/lib/menu/style/css',
             ...Object.keys(pkg.dependencies)
         ],
         output: [

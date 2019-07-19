@@ -48,11 +48,12 @@ export class FormControl {
   }
 
   /**
-   * 验证函数
+   * 验证函数，会对IResult.error中的[label]字符进行替换
    */
   public verify(): IResult[] {
     const verifyResult: IResult[] = []
 
+    // 循环所有的验证函数，保存每个验证函数的验证结果
     this.validatorFn.forEach((validatorFn) => {
       const result = validatorFn(this.value)
       if (result.error) {
@@ -64,6 +65,7 @@ export class FormControl {
     // 找到第一个没有验证的通过
     const findNotPass = verifyResult.find((v) => !v.pass)
 
+    // 保存第一个没有验证通过的结果，因为多个验证函数没有通过验证，则显示第一个
     if (!findNotPass) {
       this.error = null
       this.pass = true
@@ -102,10 +104,10 @@ export class FormControl {
   }
 
   /**
-   * 设置错误提示
+   * 设置错误提示，如果为null则表示清除错误
    * @param error 错误提示
    */
-  public setError(error: string) {
+  public setError(error?: string | null) {
     this.error = error
     if (error !== null || error !== undefined) {
       this.pass = false

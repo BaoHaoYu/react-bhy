@@ -15,7 +15,8 @@ const RowTdY: React.StatelessComponent<IRowTdProps> = (props) => {
     <div style={{ height: props.height, display: 'table-row' }}>
       <div
         style={{ ...props.style, display: 'table-cell' }}
-        className={props.className}>
+        className={props.className}
+      >
         {props.children}
       </div>
     </div>

@@ -20,7 +20,8 @@ storiesOf('table-layout', module)
               height: 50,
               verticalAlign: 'middle',
               backgroundColor: 'rgb(255, 188, 88)',
-            }}>
+            }}
+          >
             <div>卡片标题：固定高度</div>
           </RowTd>
 
@@ -42,7 +43,8 @@ storiesOf('table-layout', module)
           <ColTd
             hidden={hidden}
             width={100}
-            style={{ backgroundColor: 'rgb(255, 188, 88)' }}>
+            style={{ backgroundColor: 'rgb(255, 188, 88)' }}
+          >
             <div>
               <h2>菜单</h2>
               <button>>菜单1</button>

@@ -11,7 +11,8 @@ class Row extends React.Component<IRowProps> {
     return (
       <div
         style={this.props.style}
-        className={classnames(this.props.className, s.row)}>
+        className={classnames(this.props.className, s.row)}
+      >
         {this.props.children}
       </div>
     )

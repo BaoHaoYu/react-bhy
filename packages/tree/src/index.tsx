@@ -34,49 +34,29 @@ import { openSeletedNodes } from './util/open-seleted-nodes'
 class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
   public static defaultProps: Partial<NTree.IProps>
 
-  /**
-   * 主要在这里派生数据
-   */
-  public static getDerivedStateFromProps(
-    nextProps: NTree.IProps,
-    nextState: NTree.ITreeState,
-  ): Partial<NTree.ITreeState> | null {
-    // 搜索条件发生改变
-    if (nextProps.search !== nextState.search && nextProps.search !== '') {
-      const treeDataSearch = searchTree(
-        nextProps.treeData as NTree.TreeDataDeal,
-        nextProps.search,
-      )
-      nextProps.onSearch && nextProps.onSearch({ treeData: treeDataSearch })
+  // 滚动的高度
+  public scrollTop = 0
 
-      const treeDataSimple = changeWholeTreeToSimpleTree({
-        treeData: nextProps.treeData as NTree.TreeDataDeal,
-        isSearching: true,
-        openMatchSerchParents: true,
-      })
+  public state: NTree.ITreeState = {
+    treeData: this.props.treeData as NTree.TreeDataDeal,
+    isSearching: this.props.search !== '',
+    isDraging: false,
+    didMount: false,
+    search: this.props.search,
+    treeDataSimple: [],
+    searchOpen: true,
+    changeToSearch: this.props.changeToSearch,
+  }
 
-      return {
-        treeDataSimple,
-        search: nextProps.search,
-        isSearching: true,
-      }
-    } else if (nextProps.search === '' && nextState.isSearching) {
-      const treeDataSimple = changeWholeTreeToSimpleTree({
-        treeData: nextProps.treeData as NTree.TreeDataDeal,
-        isSearching: false,
-        openMatchSerchParents: false,
-      })
-      return {
-        treeDataSimple,
-        search: nextProps.search,
-        isSearching: false,
-      }
-    }
-    // 树的数据发生改变
-    if (nextProps.treeData !== nextState.treeData) {
-      return Tree.initData(nextProps, nextState)
-    }
-    return null
+  constructor(p: NTree.IProps) {
+    super(p)
+    const { treeDataSimple, treeDataDeal } = this.initData(
+      this.props,
+      this.state,
+    )
+    this.state.treeDataSimple = treeDataSimple
+    this.state.treeData = treeDataDeal
+    this.props.onInit && this.props.onInit(treeDataDeal)
   }
 
   /**
@@ -84,7 +64,7 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
    * @param props
    * @param state
    */
-  public static initData(
+  public initData(
     props: NTree.IProps,
     state: NTree.ITreeState,
   ): {
@@ -104,29 +84,56 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
     }
   }
 
-  // 滚动的高度
-  public scrollTop = 0
+  public getSnapshotBeforeUpdate(
+    preProps: NTree.IProps,
+    preState: NTree.ITreeState,
+  ) {
+    const nextProps = this.props
+    const nextState = this.state
+    // 搜索条件发生改变
+    if (nextProps.search !== preProps.search && nextProps.search !== '') {
+      const treeDataSearch = searchTree(
+        nextProps.treeData as NTree.TreeDataDeal,
+        nextProps.search,
+      )
+      nextProps.onSearch && nextProps.onSearch({ treeData: treeDataSearch })
 
-  public state: NTree.ITreeState = {
-    treeData: this.props.treeData as NTree.TreeDataDeal,
-    isSearching: this.props.search !== '',
-    isDraging: false,
-    didMount: false,
-    search: this.props.search,
-    treeDataSimple: [],
-    searchOpen: true,
-    changeToSearch: this.props.changeToSearch,
-  }
+      const treeDataSimple = changeWholeTreeToSimpleTree({
+        treeData: nextProps.treeData as NTree.TreeDataDeal,
+        isSearching: true,
+        openMatchSerchParents: true,
+      })
+      this.setState({
+        ...this.state,
+        treeDataSimple,
+        search: nextProps.search,
+        isSearching: true,
+      })
+      return
+    } else if (nextProps.search === '' && nextState.isSearching) {
+      const treeDataSimple = changeWholeTreeToSimpleTree({
+        treeData: nextProps.treeData as NTree.TreeDataDeal,
+        isSearching: false,
+        openMatchSerchParents: false,
+      })
+      this.setState({
+        ...this.state,
+        treeDataSimple,
+        search: nextProps.search,
+        isSearching: false,
+      })
+      return
+    }
+    // 树的数据发生改变
+    if (nextProps.treeData !== preProps.treeData) {
+      this.setState({
+        ...this.state,
+        ...this.initData(nextProps, nextState),
+      })
+      return
+    }
 
-  constructor(p: NTree.IProps) {
-    super(p)
-    const { treeDataSimple, treeDataDeal } = Tree.initData(
-      this.props,
-      this.state,
-    )
-    this.state.treeDataSimple = treeDataSimple
-    this.state.treeData = treeDataDeal
-    this.props.onInit && this.props.onInit(treeDataDeal)
+    return
   }
 
   /**
@@ -353,7 +360,7 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
    */
   public onClickLocal: NNode.HandleNode = (props: NNode.INodeProps): void => {
     this.state.isSearching = false
-    const info = Tree.initData(this.props, this.state)
+    const info = this.initData(this.props, this.state)
     // @ts-ignore
     const findItem = find(
       info.treeDataSimple,

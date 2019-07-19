@@ -77,14 +77,18 @@ export class FormCommom<T extends {}> {
     ): any => {
       // 根据类型的不同，封装数据也是不同的
       const form = formType === 'array' ? [] : {}
+      // 遍历配置，每个元素可能是 FormControlUtil ，FormGroupUtil , FormArrayUtil
       map(config, (item, key: string | number) => {
+        // 如果是最基础的控制 FormControlUtil，则直接获取其value封装到form中
         if (item.formType === 'control') {
           if (isArray(form)) {
             form.push(item.getValue())
           } else {
             form[key] = item.getValue()
           }
-        } else {
+        }
+        // 继续递归遍历
+        else {
           if (isArray(form)) {
             form.push(_getValue(item.config, item.formType))
           } else {

@@ -1,0 +1,33 @@
+.fade {
+  opacity: 0;
+
+  &.entering {
+    opacity: 0;
+  }
+
+  &.entered {
+    opacity: 1;
+  }
+}
+
+.moveX {
+  &.entering {
+    transform: translateX(0);
+  }
+
+  &.entered {
+    transform: translateX(100px);
+  }
+}
+
+.moveY {
+  transform: translateY(-100px);
+
+  &.entering {
+    transform: translateY(-100px);
+  }
+
+  &.entered {
+    transform: translateY(0);
+  }
+}

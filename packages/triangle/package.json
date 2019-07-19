@@ -1,0 +1,22 @@
+{
+  "name": "@react-efficiency/triangle",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.2",
+  "license": "MIT",
+  "description": "css生成的三角形",
+  "keywords": [
+    "react",
+    "triangle"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@types/classnames": "^2.2.6",
+    "classnames": "^2.2.6",
+    "react": "^16.8.6"
+  },
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/triangle"
+}
