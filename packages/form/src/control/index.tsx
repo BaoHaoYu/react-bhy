@@ -10,7 +10,7 @@ export * from './index.interface'
 
 const NAME = 'form-control'
 
-export const FormControl: React.StatelessComponent<IFormControlProps> = (
+export const FormControl: React.FunctionComponent<IFormControlProps> = (
   props,
 ) => {
   /**

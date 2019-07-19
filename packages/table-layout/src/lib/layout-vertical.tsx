@@ -6,7 +6,7 @@ import { IRowTdProps } from './row-td'
 /**
  * 垂直布局
  */
-export const TableLayoutVertical: React.StatelessComponent<
+export const TableLayoutVertical: React.FunctionComponent<
   ITableLayoutYProps
 > = (props) => {
   let rootStyle: React.CSSProperties = {}

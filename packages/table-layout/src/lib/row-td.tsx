@@ -10,7 +10,7 @@ export interface IRowTdProps extends React.HTMLAttributes<any> {
   height?: number | string
 }
 
-const RowTdY: React.StatelessComponent<IRowTdProps> = (props) => {
+const RowTdY: React.FunctionComponent<IRowTdProps> = (props) => {
   return (
     <div style={{ height: props.height, display: 'table-row' }}>
       <div
