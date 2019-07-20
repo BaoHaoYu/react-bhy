@@ -86,7 +86,7 @@ export interface IMapProps<Params = {}> extends IPageComponentProps<Params> {
 /**
  * 页面组件注入的props
  */
-export type IPageComponentProps<Params = {}> = {
+export interface IPageComponentProps<Params = {}> extends RouteComponentProps<Params>,IPageServerData {
   /**
    * redux整个状态树
    */
@@ -99,5 +99,4 @@ export type IPageComponentProps<Params = {}> = {
    * 依赖的数据都改变了，dataChangeNumber值会+1
    */
   dataChangeNumber: number
-} & RouteComponentProps<Params> &
-  IPageServerData
+}

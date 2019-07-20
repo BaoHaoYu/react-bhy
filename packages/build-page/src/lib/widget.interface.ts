@@ -195,7 +195,7 @@ export interface IServerActions {
   /**
    * 获得redux的状态,带有keyPath
    */
-  getServerDataFromStore: (ap?: { isMap?: boolean }) => any
+  getServerDataFromStore: (isMap?: boolean) => any
   /**
    * 获得整个server的数据
    */
@@ -217,7 +217,7 @@ export interface IServerActions {
   /**
    * 取消请求
    */
-  cancelRequest: (ap: { msg: string }) => void
+  cancelRequest: (msg: string) => void
   /**
    * 取消请求
    */

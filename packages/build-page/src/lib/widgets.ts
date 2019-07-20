@@ -303,8 +303,8 @@ const buildPageWidgets: NPage.Base = (config) => {
     let axiosOpt = { ...pageAxiosOpt, ...rootConfig.axiosOpt }
     const rootKey = rootConfig.key
     const serverActions: NPage.IServerActions = {
-      getServerDataFromStore: (ap = { isMap: false }) => {
-        return actions.getServerData(rootKey, ap.isMap)
+      getServerDataFromStore: (isMap = false) => {
+        return actions.getServerData(rootKey, isMap)
       },
       setRequesting: (ap) => {
         return actions.setRequesting({
@@ -352,9 +352,7 @@ const buildPageWidgets: NPage.Base = (config) => {
         )
         let error = false
         const isError = defaultTo(rootConfig.isError, config.isError)
-        const saveError = serverActions.setErrorToStore({
-          responseData: fromJS(response.data),
-        })
+        const saveError = serverActions.setErrorToStore(fromJS(response.data))
         // 如果定义的错误判断函数
         if (isError) {
           // 获得请求是否发生错误
@@ -402,15 +400,13 @@ const buildPageWidgets: NPage.Base = (config) => {
 
         return response
       },
-      cancelRequest: (ap: { msg: string } = { msg: rootConfig.desc }) => (
-        dispatch: any,
-      ) => {
+      cancelRequest: (msg = rootConfig.desc) => (dispatch: any) => {
         const axiosSource = (dispatch(
           serverActions.getServerFromStore(),
         ) as NPage.MapServerData).get('axiosSource')
 
         if (axiosSource) {
-          axiosSource.cancel(ap.msg)
+          axiosSource.cancel(msg)
         }
       },
       updateAgainRequestNumber: () => {
@@ -423,7 +419,7 @@ const buildPageWidgets: NPage.Base = (config) => {
       resetAgainRequestNumber: () => {
         return {}
       },
-      setErrorToStore: (key, responseData) => {
+      setErrorToStore: (responseData) => {
         return actions.setErrorToStore(rootConfig.key, responseData)
       },
     }
