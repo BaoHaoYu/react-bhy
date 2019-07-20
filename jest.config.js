@@ -13,7 +13,7 @@ module.exports = {
         "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$",
-    "moduleNameMapper": {
-        "^lodash-es$": "lodash"
-    }
+    "transformIgnorePatterns": [
+        "<rootDir>/node_modules/(?!lodash-es)"
+    ]
 }
