@@ -86,7 +86,9 @@ export interface IMapProps<Params = {}> extends IPageComponentProps<Params> {
 /**
  * 页面组件注入的props
  */
-export interface IPageComponentProps<Params = {}> extends RouteComponentProps<Params>,IPageServerData {
+export interface IPageComponentProps<Params = {}>
+  extends RouteComponentProps<Params>,
+    IPageServerData {
   /**
    * redux整个状态树
    */
