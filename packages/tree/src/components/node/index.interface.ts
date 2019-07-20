@@ -233,6 +233,11 @@ export interface INodeData extends INodeDefaultto {
   iconClass?: string
 
   /**
+   * 节点的附加类
+   */
+  className?: string
+
+  /**
    * 完全自定义icon
    */
   icon?: any

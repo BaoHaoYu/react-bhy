@@ -12,5 +12,8 @@ module.exports = {
     "transform": {
         "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$"
+    "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$",
+    "moduleNameMapper": {
+        "^lodash-es$": "lodash"
+    }
 }

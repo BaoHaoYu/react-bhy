@@ -1,11 +1,5 @@
-import {
-  boolean,
-  number,
-  radios,
-  text,
-  withKnobs,
-} from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
+import Enzyme, { shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import { cloneDeep, range } from 'lodash-es'
 import * as React from 'react'
 import uuid from 'uuid'
@@ -14,22 +8,24 @@ import Tree, {
   deleteNodesByIds,
   ITreeProps,
   openNodesByIds,
-  openSeletedNodes,
 } from '../../packages/tree/src'
+// @ts-ignore
+import s from '../../packages/tree/src/components/node/style.scss'
 
+Enzyme.configure({ adapter: new Adapter() })
 const data: ITreeProps['treeData'] = range(0, 3).map((a) => {
   return {
-    class: `${a}`,
+    className: `${a}`,
     title: `${a}`,
     id: `${a}`,
     children: range(0, 3).map((b) => {
       return {
-        class: `${a}-${b}`,
+        className: `${a}-${b}`,
         title: `${a}-${b}`,
         id: `${a}-${b}`,
         children: range(0, 3).map((c) => {
           return {
-            class: `${a}-${b}-${c}`,
+            className: `${a}-${b}-${c}`,
             title: `${a}-${b}-${c}`,
             id: `${a}-${b}-${c}`,
           }
@@ -38,8 +34,7 @@ const data: ITreeProps['treeData'] = range(0, 3).map((a) => {
     }),
   }
 })
-
-export class TreeDemo extends React.Component<any> {
+class TreeDemo extends React.Component<any> {
   public state = {
     treeData: cloneDeep(data),
   }
@@ -85,26 +80,6 @@ export class TreeDemo extends React.Component<any> {
   }
 
   public render() {
-    const rowHeight = number('rowHeight', 30, {
-      range: true,
-      max: 200,
-      min: 20,
-      step: 1,
-    })
-
-    const selectStyle = radios(
-      'selectStyle',
-      {
-        row: 'row',
-        title: 'title',
-        content: 'content',
-      },
-      'row',
-    ) as ITreeProps['selectStyle']
-
-    const selectable = boolean('selectable', false)
-    const checkable = boolean('checkable', true)
-
     return (
       <div>
         <button onClick={this.openIds}>openIds</button>
@@ -114,17 +89,13 @@ export class TreeDemo extends React.Component<any> {
         <button onClick={this.deleteNodesByIds}>deleteNodesByIds</button>
 
         <Tree
-          search={text('search', '')}
+          search={''}
           scrollElement={window}
-          selectStyle={selectStyle}
-          rowHeight={rowHeight}
-          selectable={selectable}
-          singleSelect={selectable ? boolean('singleSelect', false) : false}
-          toggleSelect={selectable ? boolean('toggleSelect', false) : false}
+          singleSelect={true}
+          toggleSelect={true}
           onSearch={this.onSearch}
-          checkable={checkable}
-          singleCheck={checkable ? boolean('singleCheck', false) : false}
-          toggleCheck={checkable ? boolean('toggleCheck', false) : false}
+          singleCheck={false}
+          toggleCheck={true}
           onInit={this.onInit}
           treeData={this.state.treeData}
           onSelect={this.onSelect}
@@ -135,15 +106,66 @@ export class TreeDemo extends React.Component<any> {
     )
   }
 }
+describe('tree', () => {
+  test('render', () => {
+    const tree = shallow(<TreeDemo />)
 
-storiesOf('tree:树形控件', module)
-  .addDecorator(withKnobs)
-  .add('基本', () => {
-    return <TreeDemo />
+    expect(tree.find('.' + s.row).length).toEqual(3)
   })
-  .add('自动打开父节点', () => {
-    let treeData = cloneDeep(data)
-    treeData[0].children![0].children![0].selected = true
-    treeData = openSeletedNodes(treeData)
-    return <Tree scrollElement={window} treeData={treeData} />
+  test('open and close', () => {
+    const tree = shallow(<TreeDemo />)
+
+    tree
+      .find('.' + s.row__open)
+      .first()
+      .simulate('click')
+
+    expect(tree.find('.' + s.row).length).toEqual(6)
+
+    tree
+      .find('.' + s.row__open)
+      .at(2)
+      .simulate('click')
+    expect(tree.find('.' + s.row).length).toEqual(9)
+
+    tree
+      .find('.' + s.row__open)
+      .first()
+      .simulate('click')
+
+    expect(tree.find('.' + s.row).length).toEqual(3)
   })
+  test('checked', () => {
+    const tree = shallow(<TreeDemo />)
+
+    // 勾选
+    tree
+      .find('.' + s.row__checkbox)
+      .first()
+      .simulate('click')
+
+    // 勾选的checkbox，自动添加class .row__checkbox--checked
+    expect(
+      tree
+        .find('.' + s.row__checkbox)
+        .hasClass('.' + s['row__checkbox--checked']),
+    ).toEqual(true)
+
+    // 展开第一个
+    tree
+      .find('.' + s.row__open)
+      .first()
+      .simulate('click')
+
+    // 子节点勾线了3个，父节点一个，一共勾选了4个
+    expect(tree.find('.' + s['row__checkbox--checked']).length).toEqual(4)
+
+    // 第一个节点的第一个
+    tree
+      .find('.' + s.row__open)
+      .at(1)
+      .simulate('click')
+
+    expect(tree.find('.' + s['row__checkbox--checked']).length).toEqual(7)
+  })
+})
