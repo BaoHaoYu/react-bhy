@@ -1,6 +1,6 @@
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { cloneDeep, range } from 'lodash-es'
+import _ from 'lodash'
 import * as React from 'react'
 import uuid from 'uuid'
 import Tree, {
@@ -13,17 +13,17 @@ import Tree, {
 import s from '../../packages/tree/src/components/node/style.scss'
 
 Enzyme.configure({ adapter: new Adapter() })
-const data: ITreeProps['treeData'] = range(0, 3).map((a) => {
+const data: ITreeProps['treeData'] = _.range(0, 3).map((a) => {
   return {
     className: `${a}`,
     title: `${a}`,
     id: `${a}`,
-    children: range(0, 3).map((b) => {
+    children: _.range(0, 3).map((b) => {
       return {
         className: `${a}-${b}`,
         title: `${a}-${b}`,
         id: `${a}-${b}`,
-        children: range(0, 3).map((c) => {
+        children: _.range(0, 3).map((c) => {
           return {
             className: `${a}-${b}-${c}`,
             title: `${a}-${b}-${c}`,
@@ -36,7 +36,7 @@ const data: ITreeProps['treeData'] = range(0, 3).map((a) => {
 })
 class TreeDemo extends React.Component<any> {
   public state = {
-    treeData: cloneDeep(data),
+    treeData: _.cloneDeep(data),
   }
 
   public onSelect: ITreeProps['onSelect'] = (p) => {
