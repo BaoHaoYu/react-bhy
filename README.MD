@@ -18,6 +18,7 @@
     - [Annotated Tags](#Annotated-Tags)
     - [--no-git-tag-version](#no-git-tag-version)
     - [--no-git-reset](#no-git-reset)
+- [其他](#%E5%85%B6%E4%BB%96)
 - [TODO](#TODO)
 <!-- tocstop -->
 
@@ -107,6 +108,9 @@ lerna只会找当前的分支进行标签对比，然后判断是否要发布，
 #### --no-git-reset
 - `lerna publish --no-git-reset`:`lerna`自动更新包的版本了
 - `lerna publish`:`lerna`根据上个标签的更新包的版本
+
+## 其他
+[如何让jest快速运行](https://itnext.io/how-to-make-your-sluggish-jest-v23-tests-go-faster-1d4f3388bcdd)
 
 ## TODO
 
