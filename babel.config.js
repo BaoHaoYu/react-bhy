@@ -1,7 +1,7 @@
-{
+module.exports = {
   "presets": [
     [
-      "@babel/preset-env"
+      "@babel/preset-env",
     ],
     "@babel/preset-typescript",
     "@babel/preset-react"
@@ -22,6 +22,9 @@
     ],
     [
       "@babel/plugin-syntax-dynamic-import"
+    ],
+    [
+      "@babel/plugin-transform-modules-commonjs"
     ],
     "react-hot-loader/babel"
   ]
