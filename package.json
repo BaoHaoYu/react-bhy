@@ -22,7 +22,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "jest:generate-output": "jest --json --outputFile=.jest-test-results.json",
-    "jest": "jest table-layout --watch",
+    "jest": "jest tree --watch",
     "fast": "npm run jest --runInBand --maxWorkers=4"
   },
   "husky": {
