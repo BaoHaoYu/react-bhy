@@ -97,6 +97,7 @@ function rollupConfigs(packages: string[]): Array<RollupOutput & InputOptions> {
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
         typescript({
+          check: false,
           tsconfigOverride: {
             compilerOptions: {
               baseUrl: libRoot,
