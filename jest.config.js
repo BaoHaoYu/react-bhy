@@ -16,6 +16,6 @@ module.exports = {
     },
     "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$",
     "transformIgnorePatterns": [
-        "/node_modules/(?!odash-es).+\\.js$"
+        "<rootDir>/node_modules/(?!(lodash-es|other-es-lib))"
     ]
 }
