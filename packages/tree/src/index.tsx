@@ -109,7 +109,7 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
         search: nextProps.search,
         isSearching: true,
       })
-      return
+      return null
     } else if (nextProps.search === '' && nextState.isSearching) {
       const treeDataSimple = changeWholeTreeToSimpleTree({
         treeData: nextProps.treeData as NTree.TreeDataDeal,
@@ -122,7 +122,7 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
         search: nextProps.search,
         isSearching: false,
       })
-      return
+      return null
     }
     // 树的数据发生改变
     if (nextProps.treeData !== preProps.treeData) {
@@ -130,10 +130,10 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
         ...this.state,
         ...this.initData(nextProps, nextState),
       })
-      return
+      return null
     }
 
-    return
+    return null
   }
 
   /**
@@ -151,7 +151,7 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
         <VirtualizedList
           onScroll={this.onScroll}
           rowCount={treeDataSimple.length}
-          scrollElement={this.props.scrollElement}
+          scrollElement={defaultTo(this.props.scrollElement, window)}
           rowHeight={this.props.rowHeight}
           listData={treeDataSimple}
           simpleRowRenderer={this.simpleRowRenderer}
@@ -159,7 +159,6 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
       </div>
     )
   }
-
   /**
    * onScroll
    */
@@ -180,6 +179,7 @@ class Tree extends React.Component<NTree.IProps, NTree.ITreeState> {
 
     return (
       <Node
+        className={node.className}
         id={node.id}
         title={node.title}
         icon={node.icon}
@@ -391,7 +391,6 @@ Tree.defaultProps = {
   offsetX: 0,
   deepSpace: 25,
   iconSpace: 4,
-  scrollElement: window,
   overscanRowCount: 3,
 }
 
