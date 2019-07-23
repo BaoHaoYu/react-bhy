@@ -9,9 +9,7 @@ export interface IScrollbarsProps extends ScrollbarProps {
   /**
    * react组件的children
    */
-  children:
-    | React.ReactNode
-    | ((p: { scrollElement: Element }) => React.ReactNode)
+  children: React.ReactNode | ((scrollElement: HTMLElement) => React.ReactNode)
 
   /**
    * 滚动条颜色
@@ -51,9 +49,7 @@ export interface IScrollbarsProps extends ScrollbarProps {
   }): void
 }
 
-export type TChildrenFunc = (p: { scrollElement: Element }) => React.ReactNode
-
 export interface IState {
   didMount: boolean
-  scrollElement: Element | null
+  scrollElement?: HTMLElement
 }

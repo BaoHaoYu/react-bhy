@@ -23,7 +23,7 @@ export interface IColTdProps extends React.HTMLAttributes<any> {
   width?: number | string
 }
 
-const ColTd: React.StatelessComponent<IColTdProps> = (props) => {
+const ColTd: React.FunctionComponent<IColTdProps> = (props) => {
   const spaceStyle: React.CSSProperties = {}
   if (props.spaceRight !== undefined) {
     spaceStyle.paddingRight = props.spaceRight
@@ -49,6 +49,6 @@ ColTd.defaultProps = {
   verticalAlign: 'top',
 }
 
-export default ColTd as React.StatelessComponent<
+export default ColTd as React.FunctionComponent<
   Omit<IColTdProps, 'spaceLeft' | 'spaceRight'>
 >

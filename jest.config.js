@@ -1,6 +1,7 @@
 module.exports = {
     "verbose": true,
-    "collectCoverage": true,
+    // "collectCoverage": true,
+    // "testEnvironment": "node",
     "moduleFileExtensions": [
         "ts",
         "tsx",
@@ -10,7 +11,11 @@ module.exports = {
         "\\.(css|less|scss|sss|styl)$": "identity-obj-proxy"
     },
     "transform": {
-        "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+        "^.+\\.js$": "babel-jest",
+        "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
     },
-    "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$"
+    "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$",
+    "transformIgnorePatterns": [
+        "<rootDir>/node_modules/(?!(lodash-es|other-es-lib))"
+    ]
 }

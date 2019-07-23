@@ -6,6 +6,7 @@
     - [安装依赖](#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96)
     - [添加新的包到依赖，注意加入`-W`](#%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E5%8C%85%E5%88%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E6%84%8F%E5%8A%A0%E5%85%A5-W)
     - [编译所有包](#%E7%BC%96%E8%AF%91%E6%89%80%E6%9C%89%E5%8C%85)
+    - [编译发生改变的包](#%E7%BC%96%E8%AF%91%E5%8F%91%E7%94%9F%E6%94%B9%E5%8F%98%E7%9A%84%E5%8C%85)
     - [编译所有包同时监视](#%E7%BC%96%E8%AF%91%E6%89%80%E6%9C%89%E5%8C%85%E5%90%8C%E6%97%B6%E7%9B%91%E8%A7%86)
     - [启动storybook](#%E5%90%AF%E5%8A%A8storybook)
     - [启动jest监视，结果输出到.jest-test-results.json](#%E5%90%AF%E5%8A%A8jest%E7%9B%91%E8%A7%86%E7%BB%93%E6%9E%9C%E8%BE%93%E5%87%BA%E5%88%B0jest-test-resultsjson)
@@ -17,6 +18,7 @@
     - [Annotated Tags](#Annotated-Tags)
     - [--no-git-tag-version](#no-git-tag-version)
     - [--no-git-reset](#no-git-reset)
+- [其他](#%E5%85%B6%E4%BB%96)
 - [TODO](#TODO)
 <!-- tocstop -->
 
@@ -38,7 +40,10 @@ rollup + yarn workspaces 管理多个包
 `yarn add *any_pack* -W`
 
 #### 编译所有包
-`npm run build`
+`npm run build:all`
+
+#### 编译发生改变的包
+`npm run build:changed`
 
 #### 编译所有包同时监视
 `npm run build:w`
@@ -104,5 +109,16 @@ lerna只会找当前的分支进行标签对比，然后判断是否要发布，
 - `lerna publish --no-git-reset`:`lerna`自动更新包的版本了
 - `lerna publish`:`lerna`根据上个标签的更新包的版本
 
+## 其他
+[如何让jest快速运行](https://itnext.io/how-to-make-your-sluggish-jest-v23-tests-go-faster-1d4f3388bcdd)
+
 ## TODO
-- tslint.json的exclude无效
+
+SyntaxError: D:\project-demo\react-bhy\packages\tree\src\components\node\style.scss: Unexpected digit after hash token (1:8) 
+jest.config.js 下面的代码导致的错误 
+```json
+"moduleNameMapper": {
+    "^lodash-es$": "lodash"
+}
+
+```

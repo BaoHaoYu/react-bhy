@@ -1,3 +1,5 @@
+import { withKnobs } from '@storybook/addon-knobs'
+import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import {
   beEqual,
@@ -57,3 +59,12 @@ export class Equal extends React.Component<any> {
     )
   }
 }
+storiesOf('form-util 表单数据分离', module)
+  .addDecorator(withKnobs)
+  .add('等值验证', () => {
+    return (
+      <div>
+        <Equal />
+      </div>
+    )
+  })
