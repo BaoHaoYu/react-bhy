@@ -1,11 +1,14 @@
 import fse from 'fs-extra'
 import global from 'globby'
 import path from 'path'
-const str = ''
+
 const names = global
   .sync(path.join('../../node_modules', '@types\\lodash\\ts3.1\\*.d.ts'))
   .map((filePath) => {
     return path.basename(filePath).replace('.d.ts', '')
+  })
+  .filter((name) => {
+    return name !== 'noConflict' && name !== 'runInContext'
   })
 
 const imports = names.map((name) => {

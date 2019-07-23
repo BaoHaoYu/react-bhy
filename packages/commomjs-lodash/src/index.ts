@@ -173,7 +173,6 @@ import min from 'lodash/min'
 import minBy from 'lodash/minBy'
 import mixin from 'lodash/mixin'
 import negate from 'lodash/negate'
-import noConflict from 'lodash/noConflict'
 import noop from 'lodash/noop'
 import now from 'lodash/now'
 import nth from 'lodash/nth'
@@ -216,7 +215,6 @@ import rest from 'lodash/rest'
 import result from 'lodash/result'
 import reverse from 'lodash/reverse'
 import round from 'lodash/round'
-import runInContext from 'lodash/runInContext'
 import sample from 'lodash/sample'
 import sampleSize from 'lodash/sampleSize'
 import set from 'lodash/set'
@@ -474,7 +472,6 @@ export {
   minBy,
   mixin,
   negate,
-  noConflict,
   noop,
   now,
   nth,
@@ -517,7 +514,6 @@ export {
   result,
   reverse,
   round,
-  runInContext,
   sample,
   sampleSize,
   set,
