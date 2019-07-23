@@ -1,12 +1,12 @@
 import { FormControl } from './form-control'
 import { FormGroup } from './form-group'
-import { FormCommom } from './from-commom'
+import { FormCommon } from './from-common'
 type Config = Array<FormGroup | FormArray | FormControl>
 
 /**
  * 数组型表单
  */
-export class FormArray extends FormCommom<Config> {
+export class FormArray extends FormCommon<Config> {
   public formType: 'control' | 'group' | 'array' = 'array'
   public config: Config = []
   constructor(config: Config) {
