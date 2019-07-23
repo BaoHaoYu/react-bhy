@@ -59,7 +59,7 @@ class Node extends React.Component<NNode.INodeProps, NNode.IState> {
     })
 
     return (
-      <div className={classnames(s.row)}>
+      <div className={classnames(s.row, this.props.className)}>
         <div
           onClick={this.onClickNode}
           className={containClassName}
@@ -156,8 +156,8 @@ class Node extends React.Component<NNode.INodeProps, NNode.IState> {
         checkIcon = <FaCheckSquare />
       }
       const className = classnames(s.row__checkbox, {
-        [s['row__checkbox--checked']]:
-          this.props.halfChecked || this.props.checked,
+        [s['row__checkbox--checked']]: this.props.checked,
+        [s['row__checkbox--halfChecked']]: this.props.halfChecked,
       })
       return (
         <div className={className} onClick={this.onCheck}>

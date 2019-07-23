@@ -1,8 +1,9 @@
 import { isFunction } from 'lodash-es'
 import * as React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
+import * as Dom from 'react-dom'
 import * as uuid from 'uuid'
-import { IScrollbarsProps, IState, TChildrenFunc } from './index.interface'
+import { IScrollbarsProps, IState } from './index.interface'
 // @ts-ignore
 import s from './style.scss'
 
@@ -16,7 +17,7 @@ class MyScrollbars extends React.Component<IScrollbarsProps, IState> {
 
   public state: IState = {
     didMount: false,
-    scrollElement: null,
+    scrollElement: undefined,
   }
 
   public id = uuid.v4()
@@ -24,7 +25,7 @@ class MyScrollbars extends React.Component<IScrollbarsProps, IState> {
   public componentDidMount() {
     const props: IScrollbarsProps = this.props
     const scrollElement = (document.getElementById(this.id) as HTMLElement)
-      .children[0]
+      .children[0] as HTMLElement
     this.setState({ didMount: true, scrollElement })
     props.didMount && props.didMount({ scrollElement })
   }
@@ -34,7 +35,7 @@ class MyScrollbars extends React.Component<IScrollbarsProps, IState> {
   ): React.ReactNode | undefined => {
     if (this.state.didMount && this.state.scrollElement) {
       if (isFunction(props.children)) {
-        return props.children({ scrollElement: this.state.scrollElement })
+        return props.children(this.state.scrollElement)
       }
       return props.children
     }
@@ -82,6 +83,6 @@ class MyScrollbars extends React.Component<IScrollbarsProps, IState> {
   }
 }
 
-export { TChildrenFunc, IScrollbarsProps }
+export { IScrollbarsProps }
 
 export default MyScrollbars

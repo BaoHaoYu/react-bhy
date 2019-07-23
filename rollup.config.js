@@ -40,7 +40,7 @@ const config = globby.sync(['packages/*/package.json','!packages/sass-mixin/pack
                     ]
                 },
                 typescript: ts,
-                tsconfig: path.join(__dirname, 'tsconfig-main.json')
+                tsconfig: path.join(__dirname, 'tsconfig.app.json')
             }),
             commonjs({
                 include: path.join(__dirname, 'node_modules/**'),

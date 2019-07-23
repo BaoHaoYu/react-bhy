@@ -38,7 +38,7 @@ const buildPageWidgets: NPage.Base = (config) => {
   }
   const reducerMap = {
     [types.SET_AJAXING]: (state: any, action: Action<NPage.ISetRequesting>) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(
         ['server', payload.key],
         ($$item: NPage.MapServerData) => {
@@ -51,7 +51,7 @@ const buildPageWidgets: NPage.Base = (config) => {
       )
     },
     [types.SET_DATA]: (state: any, action: Action<NPage.ISetData>) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v
           .set('responseData', payload.responseData)
@@ -64,13 +64,13 @@ const buildPageWidgets: NPage.Base = (config) => {
       state: any,
       action: Action<NPage.ISetData>,
     ) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v.update('againRequestNumber', (value: number) => value + 1),
       )
     },
     [types.SET_ERROR]: (state: any, action: Action<NPage.ISetErrorToStore>) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v
           .set('hash', uuid.v4())
@@ -82,7 +82,7 @@ const buildPageWidgets: NPage.Base = (config) => {
       state: any,
       action: Action<NPage.ISetData>,
     ) => {
-      const payload = action.payload!
+      const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
         $$v.set('againRequestNumber', 0),
       )
@@ -303,8 +303,8 @@ const buildPageWidgets: NPage.Base = (config) => {
     let axiosOpt = { ...pageAxiosOpt, ...rootConfig.axiosOpt }
     const rootKey = rootConfig.key
     const serverActions: NPage.IServerActions = {
-      getServerDataFromStore: (ap = { isMap: false }) => {
-        return actions.getServerData(rootKey, ap.isMap)
+      getServerDataFromStore: (isMap = false) => {
+        return actions.getServerData(rootKey, isMap)
       },
       setRequesting: (ap) => {
         return actions.setRequesting({
@@ -352,6 +352,7 @@ const buildPageWidgets: NPage.Base = (config) => {
         )
         let error = false
         const isError = defaultTo(rootConfig.isError, config.isError)
+        const saveError = serverActions.setErrorToStore(fromJS(response.data))
         // 如果定义的错误判断函数
         if (isError) {
           // 获得请求是否发生错误
@@ -381,49 +382,31 @@ const buildPageWidgets: NPage.Base = (config) => {
                   )
                 } else {
                   // 把错误信息存储起来
-                  dispatch(
-                    serverActions.setErrorToStore({
-                      responseData: fromJS(response.data),
-                    }),
-                  )
+                  dispatch(saveError)
                 }
               }
             } else {
               // 把错误信息存储起来
-              dispatch(
-                serverActions.setErrorToStore({
-                  responseData: fromJS(response.data),
-                }),
-              )
+              dispatch(saveError)
             }
           } else {
             // 数据存储到redux的store
-            dispatch(
-              serverActions.setDataToStroe({
-                responseData: fromJS(response.data),
-              }),
-            )
+            dispatch(saveError)
           }
         } else {
           // 数据存储到redux的store
-          dispatch(
-            serverActions.setDataToStroe({
-              responseData: fromJS(response.data),
-            }),
-          )
+          dispatch(saveError)
         }
 
         return response
       },
-      cancelRequest: (ap: { msg: string } = { msg: rootConfig.desc }) => (
-        dispatch: any,
-      ) => {
+      cancelRequest: (msg = rootConfig.desc) => (dispatch: any) => {
         const axiosSource = (dispatch(
           serverActions.getServerFromStore(),
         ) as NPage.MapServerData).get('axiosSource')
 
         if (axiosSource) {
-          axiosSource.cancel(ap.msg)
+          axiosSource.cancel(msg)
         }
       },
       updateAgainRequestNumber: () => {
@@ -436,7 +419,7 @@ const buildPageWidgets: NPage.Base = (config) => {
       resetAgainRequestNumber: () => {
         return {}
       },
-      setErrorToStore: (key, responseData) => {
+      setErrorToStore: (responseData) => {
         return actions.setErrorToStore(rootConfig.key, responseData)
       },
     }

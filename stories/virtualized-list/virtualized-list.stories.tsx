@@ -132,12 +132,12 @@ storiesOf('virtualizedList 动态列表', module)
       )
     }
 
-    const children: IScrollbarsProps['children'] = (p) => {
+    const children: IScrollbarsProps['children'] = (scrollElement) => {
       return (
         <VirtualizedList
           listData={data}
           scrollToId={text('scrollToId', '')}
-          scrollElement={p.scrollElement}
+          scrollElement={scrollElement}
           rowHeight={rowHeight}
           rowCount={data.length}
           rowRenderer={rowRenderer}

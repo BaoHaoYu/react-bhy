@@ -115,6 +115,11 @@ $row: row;
     &--checked {
       color: $primary-color;
     }
+
+    // 勾选状态
+    &--halfChecked {
+      color: $primary-color;
+    }
   }
 
   // 标题

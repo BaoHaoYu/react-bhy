@@ -1,0 +1,25 @@
+{
+  "name": "commomjs-lodash",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "description": "export lodash as ems and cjs",
+  "version": "0.0.1",
+  "scripts": {
+    "build:index":"ts-node export.ts"
+  },
+  "keywords": [
+    "lodash"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash-es": "^4.17.10"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.1"
+  },
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/commomjs-lodash"
+}

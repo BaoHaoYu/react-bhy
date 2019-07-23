@@ -6,7 +6,7 @@ import { IColTdProps } from './col-td'
 /**
  * 水平布局
  */
-export const TableLayoutHorizontal: React.StatelessComponent<
+export const TableLayoutHorizontal: React.FunctionComponent<
   ITableLayoutYProps
 > = (props) => {
   let rootStyle: React.CSSProperties = {}
