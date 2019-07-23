@@ -4,9 +4,9 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "description": "export lodash as ems and cjs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
-    "build:index":"ts-node export.ts"
+    "build:index": "ts-node export.ts"
   },
   "keywords": [
     "lodash"
