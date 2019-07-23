@@ -1,6 +1,6 @@
 import { isArray, map } from 'lodash-es'
 
-export class FormCommom<T extends {}> {
+export class FormCommon<T extends {}> {
   public formType: 'control' | 'group' | 'array'
 
   /**
@@ -22,7 +22,7 @@ export class FormCommom<T extends {}> {
   public verify() {
     const resultObj = {}
     let pass = true
-    map(this.config, (value: FormCommom<T>, key: string) => {
+    map(this.config, (value: FormCommon<T>, key: string) => {
       resultObj[key] = value.verify()
 
       // 一个有错，则全部错误
