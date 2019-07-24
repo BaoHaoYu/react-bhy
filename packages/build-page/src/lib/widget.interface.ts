@@ -8,6 +8,17 @@ import { Map } from 'immutable'
 import { Dispatch } from 'redux'
 import { ActionMeta, ReducerMapMeta } from 'redux-actions'
 
+export interface ITypes {
+  SET_DATA: string
+  SET_AJAXING: string
+  LEVEL_PAGE: string
+  UPDATE_AGAIN_REQUEST_NUMBER: string
+  CLEARN_AGAIN_REQUEST_NUMBER: string
+  SET_ERROR: string
+  SIMPLE: string
+  SIMPLE_CB: string
+}
+
 /**
  * 服务器返回数据
  */
@@ -84,10 +95,6 @@ export interface IPageActions {
    */
   getRootState: (isCursor?: boolean) => any
   /**
-   * 请求方法
-   */
-  axios: (axiosOpt: AxiosRequestConfig) => any
-  /**
    * 推销:简单改变数据，因为很多情况下都是简单改变
    */
   simple: (state: any, meta: string) => ActionMeta<any, string>
@@ -160,7 +167,7 @@ export interface IServerActions {
    */
   startRequest: (
     ap: Omit<IStartXHR, 'key' | 'meta'>,
-  ) => (dispatch: Dispatch) => Promise<AxiosResponse>
+  ) => (dispatch: Dispatch) => Promise<AxiosResponse | { data: any }>
   /**
    * 执行请求，然后数据放入本地的redux的store
    */
@@ -172,7 +179,7 @@ export interface IServerActions {
    */
   cancelRequest: (msg: string) => void
   /**
-   * 取消请求
+   * 更新重新请求次数
    */
   updateAgainRequestNumber: () => any
   /**
@@ -243,7 +250,7 @@ export interface ISetRequesting {
   /**
    * axios对象
    */
-  axios?: AxiosStatic
+  axios?: Promise<AxiosResponse<any>>
 }
 
 /**

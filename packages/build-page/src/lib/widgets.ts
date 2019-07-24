@@ -124,12 +124,10 @@ const buildPageWidgets: NPage.Base = (config) => {
           if (ap.delay !== undefined) {
             await sleep(ap.delay)
           }
-          const oneAxios = dispatch(
-            actions.axios({
-              ...axiosOpt,
-              cancelToken: source.token,
-            }),
-          ).catch(
+          const oneAxios = axios({
+            ...axiosOpt,
+            cancelToken: source.token,
+          }).catch(
             (thrown: {
               config: AxiosRequestConfig
               response: AxiosResponse
@@ -246,7 +244,7 @@ function createTypes(
     hash: string
     axiosOpt?: AxiosRequestConfig | undefined // 终端请求之后的代码
   },
-) {
+): NPage.ITypes {
   return {
     SET_DATA: buildWidgetType('SET_DATA', _hash, config.hash),
     SET_AJAXING: buildWidgetType('SET_AJAXING', _hash, config.hash),
@@ -268,16 +266,7 @@ function createTypes(
 }
 
 function createPageActions(
-  types: {
-    SET_DATA: string
-    SET_AJAXING: string
-    LEVEL_PAGE: string
-    UPDATE_AGAIN_REQUEST_NUMBER: string
-    CLEARN_AGAIN_REQUEST_NUMBER: string
-    SET_ERROR: string
-    SIMPLE: string
-    SIMPLE_CB: string
-  },
+  types: NPage.ITypes,
   keyPath: string[],
 ): NPage.IPageActions {
   const actions: NPage.IPageActions = {
@@ -304,9 +293,6 @@ function createPageActions(
         return isCursor ? from(state[keyPath[0]]) : state[keyPath[0]]
       }
     },
-    axios: (axiosOpt: AxiosRequestConfig) => () => {
-      return axios(axiosOpt)
-    },
     simple: (ap) => {
       return {
         type: types.SIMPLE,
@@ -326,19 +312,7 @@ function createPageActions(
   return actions
 }
 
-function createReducerMap(
-  types: {
-    SET_DATA: string
-    SET_AJAXING: string
-    LEVEL_PAGE: string
-    UPDATE_AGAIN_REQUEST_NUMBER: string
-    CLEARN_AGAIN_REQUEST_NUMBER: string
-    SET_ERROR: string
-    SIMPLE: string
-    SIMPLE_CB: string
-  },
-  defaultData: any,
-) {
+function createReducerMap(types: NPage.ITypes, defaultData: any) {
   return {
     [types.SET_AJAXING]: (state: any, action: Action<NPage.ISetRequesting>) => {
       const payload = action.payload

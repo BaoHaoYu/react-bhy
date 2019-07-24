@@ -22,7 +22,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "jest:generate-output": "jest --json --outputFile=.jest-test-results.json",
-    "jest": "jest virtualized-list.test --runInBand --watch"
+    "jest": "jest table-layout.test --runInBand --watch"
   },
   "husky": {
     "hooks": {

@@ -5,7 +5,7 @@ const router = new KoaRouter()
 
 router.prefix('/data')
 
-export function sleep (time: number) {
+export function sleep(time: number) {
   return new Promise((r) => {
     setTimeout(() => {
       r()
@@ -22,17 +22,17 @@ router.get('/listFood.json', (ctx, next) => {
     data: [
       {
         name: '苹果',
-        id: '1'
+        id: '1',
       },
       {
         name: '梨子',
-        id: '2'
+        id: '2',
       },
       {
         name: '火龙果',
-        id: '3'
-      }
-    ]
+        id: '3',
+      },
+    ],
   }
 })
 
@@ -45,17 +45,17 @@ router.get('/listPeople.json', (ctx, next) => {
     data: [
       {
         name: '小明',
-        id: '1'
+        id: '1',
       },
       {
         name: '小红',
-        id: '2'
+        id: '2',
       },
       {
         name: '小光',
-        id: '3'
-      }
-    ]
+        id: '3',
+      },
+    ],
   }
 })
 
@@ -69,17 +69,17 @@ router.get('/listHehe.json', async (ctx, next) => {
     data: [
       {
         name: '哈哈-' + _.random(1, 100),
-        id: '1'
+        id: '1',
       },
       {
         name: '呵呵-' + _.random(1, 100),
-        id: '2'
+        id: '2',
       },
       {
         name: '拉拉-' + _.random(1, 100),
-        id: '3'
-      }
-    ]
+        id: '3',
+      },
+    ],
   }
 })
 /**
@@ -89,7 +89,18 @@ router.get('/hasError.json', async (ctx, next) => {
   ctx.response.status = 500
   ctx.body = {
     code: 1,
-    data: []
+    data: [],
   }
 })
+
+/**
+ * 列表3
+ */
+router.get('/hasError1.json', async (ctx, next) => {
+  ctx.body = {
+    code: 0,
+    data: '错误，错误，错误信息',
+  }
+})
+
 export default router
