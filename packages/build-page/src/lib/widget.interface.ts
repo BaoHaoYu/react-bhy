@@ -75,51 +75,14 @@ export type MapServerData = Map<keyof IServerData, any>
  */
 export interface IPageActions {
   /**
-   * 获得redux的状态,带有keyPath
-   */
-  getServerData: (key: string, isMap?: boolean) => any
-  /**
-   * 获得整个server的数据
-   */
-  getKeyServer: (
-    key: string,
-    isMap?: boolean,
-  ) => (dispatch: Dispatch) => Map<keyof IServerData, any>
-  /**
    * 离开页面
    */
   leavePage: (meta: string) => (dispatch: Dispatch) => any
-  /**
-   * 设置请求中
-   */
-  setRequesting: (
-    ap: ISetRequesting,
-  ) => ActionMeta<Omit<ISetRequesting, 'meta'>, string>
-  /**
-   * 设置来自服务器的数据，会更新hash
-   */
-  setDataToStroe: (
-    ap: ISetData & { meta: string },
-  ) => ActionMeta<ISetData, string>
-  /**
-   * 获得服务器的数据
-   */
-  startRequest: (
-    ap: IStartXHR,
-  ) => (dispatch: Dispatch) => Promise<AxiosResponse>
   /**
    * 获得在redux存储的数据
    * @param isCursor 是否带有keyPath的数据
    */
   getRootState: (isCursor?: boolean) => any
-  /**
-   * 是否在请求中
-   */
-  isRequesting: (key: string) => (dispatch: Dispatch) => boolean
-  /**
-   * 是否错误
-   */
-  isError: (key: string) => (dispatch: Dispatch) => boolean
   /**
    * 请求方法
    */
@@ -132,10 +95,6 @@ export interface IPageActions {
    * 推销:简单改变数据，通过cd回调，因为很多情况下都是简单改变
    */
   simpleCb: <T>(cb: (state: T) => T, meta: string) => ActionMeta<any, string>
-  /**
-   * 设置错误内容
-   */
-  setErrorToStore: (key: string, responseData: IData, meta?: string) => any
 }
 
 /**
@@ -146,34 +105,24 @@ export interface ICreateServerActions extends Omit<IStartXHR, 'meta'> {
    * 数据描述
    */
   desc: string
-  /**
-   * 重新请求的次数（默认：1）
-   */
-  errorAgainNum?: number
-  /**
-   * TODO：是否制作一个新的AxiosOpts配置（默认：false）
-   */
-  buildNewAxiosOpts?: boolean
 
-  /**
-   * 是否错误（会被 Base['isError'] 覆盖）
-   */
-  isError?(response: AxiosResponse): boolean
-
-  /**
-   * 错误重新请求（会被 Base['errorAgainRequest'] 覆盖）
-   * @return 新的axios请求参数，或者null，null表示不重复请求
-   */
-  errorAgainRequest?(p: {
-    response: AxiosResponse
-    axiosOpt: AxiosRequestConfig
-  }): AxiosRequestConfig | null
+  done?(
+    response: AxiosResponse,
+    serverActions: IServerActions,
+    dispatch: any,
+  ): void
 }
 
 /**
  * IOtherReturn.createServerActions的返回结果
  */
 export interface IServerActions {
+  /**
+   * 获得整个server的数据
+   */
+  getKeyServer: (
+    isMap?: boolean,
+  ) => (dispatch: Dispatch) => Map<keyof IServerData, any>
   /**
    * 是否在请求中
    */
@@ -196,6 +145,10 @@ export interface IServerActions {
    * 获得redux的状态,带有keyPath
    */
   getServerDataFromStore: (isMap?: boolean) => any
+  /**
+   *
+   */
+  getServerData: (isMap: boolean) => any
   /**
    * 获得整个server的数据
    */
@@ -349,19 +302,6 @@ export type Base = (p: {
    * 请求是否错误（会被ICreateServerActions['axiosOpt']覆盖）
    */
   axiosOpt?: AxiosRequestConfig
-  /**
-   * 请求是否错误（会被ICreateServerActions['isError']覆盖）
-   */
-  isError?(response: AxiosResponse): boolean
-
-  /**
-   * 错误重新请求（会被ICreateServerActions['errorAgainRequest']覆盖）
-   * @return 新的axios请求参数，或者null，null表示不重复请求
-   */
-  errorAgainRequest?(p: {
-    response: AxiosResponse
-    axiosOpt: AxiosRequestConfig
-  }): AxiosRequestConfig | null
 }) => {
   actions: IPageActions
   reducerMap: ReducerMapMeta<any, any, any>

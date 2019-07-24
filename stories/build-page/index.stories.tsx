@@ -4,8 +4,8 @@ import * as React from 'react'
 import { ProviderRoot } from '../store'
 import PageAsyncGetData from './page-async-getdata'
 import PageBase from './page-base'
+import PageCommonError from './page-common-error'
 import PageHandleError from './page-handle-error'
-
 storiesOf('build-page 页面快速搭建', module)
   .addDecorator(withKnobs)
   .addDecorator(ProviderRoot)
@@ -27,6 +27,13 @@ storiesOf('build-page 页面快速搭建', module)
     return (
       <div>
         <PageHandleError />
+      </div>
+    )
+  })
+  .add('4.自定义错误', () => {
+    return (
+      <div>
+        <PageCommonError />
       </div>
     )
   })
