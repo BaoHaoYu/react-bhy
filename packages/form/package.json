@@ -19,6 +19,7 @@
     "@types/lodash-es": "^4.17.1"
   },
   "dependencies": {
+    "@react-efficiency/form-util": "^0.0.5",
     "classnames": "^2.2.6",
     "lodash": "^4.17.10",
     "lodash-es": "^4.17.11",
