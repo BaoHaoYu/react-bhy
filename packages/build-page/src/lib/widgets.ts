@@ -139,7 +139,9 @@ const buildPageWidgets: NPage.Base = (config) => {
                   meta,
                 }),
               )
-              dispatch(serverActions.setErrorToStore(key, thrown.response.data))
+              dispatch(
+                serverActions.setErrorToStore(fromJS(thrown.response.data)),
+              )
               // 取消请求
               if (axios.isCancel(thrown)) {
                 // 取消回调
@@ -187,7 +189,6 @@ const buildPageWidgets: NPage.Base = (config) => {
         )
 
         rootConfig.done && rootConfig.done(response, serverActions, dispatch)
-
         dispatch(
           serverActions.setDataToStroe({ responseData: fromJS(response.data) }),
         )

@@ -30,11 +30,27 @@ export default function buildPageComponent<Props, State = {}>(
     class Build extends React.Component<Props & IPageComponentProps> {
       public static displayName = Target.displayName
 
-      public static getDerivedStateFromProps(
-        nextProps: Props & IPageComponentProps,
-        state: IState,
-      ) {
-        const info = Build.getInfo(nextProps)
+      public state: IState
+
+      public handler = p.buildHandler
+        ? p.buildHandler(this.props as Props & IPageComponentProps)
+        : {}
+      constructor(props: any) {
+        super(props)
+        this.state = {
+          dataChangeNumber: 0,
+          hashs: [],
+          requesting: this.getInfo().requesting,
+        }
+      }
+
+      /**
+       * getSnapshotBeforeUpdate
+       */
+      public getSnapshotBeforeUpdate() {
+        const nextProps = this.props
+        const state = this.state
+        const info = this.getInfo()
         const hashs: any[] = []
         p.serverActions.map((action) => {
           hashs.push(
@@ -56,10 +72,10 @@ export default function buildPageComponent<Props, State = {}>(
       }
 
       /**
-       * 获得最新的数据信息
+       * 获得最新的基本信息
        */
-      public static getInfo = (props: Props & IPageComponentProps) => {
-        const { dispatch } = props
+      public getInfo = () => {
+        const { dispatch } = this.props
         // 原始的数据
         const serverData: any[] = []
         // 是否有接口请求中
@@ -92,38 +108,16 @@ export default function buildPageComponent<Props, State = {}>(
         }
       }
 
-      public state: IState = {
-        dataChangeNumber: 0,
-        hashs: [],
-        requesting: Build.getInfo(this.props as Props & IPageComponentProps)
-          .requesting,
-      }
-
-      public handler = p.buildHandler
-        ? p.buildHandler(this.props as Props & IPageComponentProps)
-        : {}
-
-      public shouldComponentUpdate(nextProps: Props & IPageComponentProps) {
-        const nowInfo = Build.getInfo(this.props as Props & IPageComponentProps)
-        const nextInfo = Build.getInfo(nextProps)
-        // 如果数据处于在中，则不更新数据，是一个基本的优化手段
-        if (p.pure && nowInfo.requesting && nextInfo.requesting) {
-          return false
-        }
-        return true
-      }
-
       /**
        * 计算组件的props
        */
       public addProps = () => {
-        const info = Build.getInfo(this.props as Props & IPageComponentProps)
+        const info = this.getInfo()
         const newProps = p.mapStateToProps(this.props.state, {
           ...(this.props as any),
           ...info,
           dataChangeNumber: this.state.dataChangeNumber,
-          getInfo: () =>
-            Build.getInfo(this.props as Props & IPageComponentProps),
+          getInfo: () => this.getInfo(),
         })
         return {
           ...newProps,
@@ -144,6 +138,9 @@ export default function buildPageComponent<Props, State = {}>(
   }
 }
 
+/**
+ * 是否全部相同
+ */
 function isAllNotSame(list1: any[], list2: any[]) {
   for (let i = 0; i < list1.length; i++) {
     const item1 = list1[i]
