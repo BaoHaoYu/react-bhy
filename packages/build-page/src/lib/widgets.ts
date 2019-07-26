@@ -32,16 +32,15 @@ const buildPageWidgets: NPage.Base = (config) => {
     const key = rootConfig.key
     const meta = rootConfig.desc
     const serverActions: NPage.IServerActions = {
-      getResponseData: (isMap) => (dispatch: any) => {
-        return dispatch(actions.getRootState(!isMap)).getIn([
+      getResponseData: (isCursor = true) => (dispatch: any) => {
+        return dispatch(actions.getRootState(isCursor)).getIn([
           'server',
           key,
           'responseData',
         ])
       },
-      getServer: (isMap: boolean) => (dispatch: any) => {
-        const $$root = dispatch(actions.getRootState())
-        return (isMap ? $$root : from($$root)).getIn(['server', key])
+      getServer: (isCursor = true) => (dispatch: any) => {
+        return dispatch(actions.getRootState(isCursor)).getIn(['server', key])
       },
       setRequesting: (ap) => {
         return {
@@ -82,7 +81,7 @@ const buildPageWidgets: NPage.Base = (config) => {
 
         // 如果是初始化数据，一开始requesting一开始就是请求中，所以第一次请求不是重复请求
         const requesting = dispatch(serverActions.isRequesting())
-        const num = dispatch(serverActions.getServer(false)).get('number')
+        const num = dispatch(serverActions.getServer()).get('number')
         if (rootConfig.isInitData) {
           // 中断请求之后的代码
           if (requesting && num !== 0) {
@@ -104,15 +103,15 @@ const buildPageWidgets: NPage.Base = (config) => {
           }
         }
 
-        const serverData = dispatch(serverActions.getResponseData(true))
+        const $$serverData = dispatch(serverActions.getResponseData())
 
         // 如果不是生产环境，并且有数据就，不请求最新服务器了，加快ui开发
         if (
           process.env.NODE_ENV !== 'production' &&
-          serverData != null &&
+          $$serverData != null &&
           !ap.force
         ) {
-          return { data: serverData.toJS() }
+          return { data: $$serverData.toJS() }
         } else {
           // 延时
           if (ap.delay !== undefined) {

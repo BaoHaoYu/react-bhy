@@ -122,7 +122,7 @@ export interface IServerActions {
    * 获得整个server的数据
    */
   getServer: (
-    isMap?: boolean,
+    isCursor?: boolean,
   ) => (dispatch: Dispatch) => Map<keyof IServerData, any>
   /**
    * 是否在请求中
@@ -145,7 +145,7 @@ export interface IServerActions {
   /**
    * 获得相应数据
    */
-  getResponseData: (isMap?: boolean) => any
+  getResponseData: (isCursor?: boolean) => any
   /**
    * 获得服务器的数据
    */
