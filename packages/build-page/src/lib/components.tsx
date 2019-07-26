@@ -1,4 +1,4 @@
-import { addDispatchToProps, withRouter } from '@react-efficiency/decorators'
+import { addDispatchToProps } from '@react-efficiency/decorators'
 import { isEqual } from 'lodash-es'
 import * as React from 'react'
 import { IBuild, IPageComponentProps } from './main.interface'
@@ -25,7 +25,6 @@ export default function buildPageComponent<Props, State = {}>(
   p: IBuild<Props, State>,
 ) {
   return function build<T extends React.ComponentClass<Props>>(Target: T) {
-    @withRouter
     @addDispatchToProps
     class Build extends React.Component<Props & IPageComponentProps> {
       public static displayName = Target.displayName

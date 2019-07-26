@@ -1,12 +1,10 @@
 import { IPageActions, IServerActions } from './widget.interface'
 
-import { RouteComponentProps } from 'react-router'
-
 /**
  * 负责生成页面组件的类
  * @return React组件类
  */
-export interface IPage<Params = {}> {
+export interface IPage {
   /**
    * 负责执行离开页面，进入页面的设置
    */
@@ -15,13 +13,13 @@ export interface IPage<Params = {}> {
   /**
    * 设置数据，或者加载其他东西
    */
-  setData?(p: { props: IPageComponentProps<Params> }): Promise<any>
+  setData?(p: { props: IPageComponentProps }): Promise<any>
 }
 
 /**
  * IPage.setData的参数
  */
-export type SetData<Params = {}> = IPageComponentProps<Params>
+export type SetData = IPageComponentProps
 
 /**
  * 页面数据信息
@@ -76,7 +74,7 @@ export interface IBuild<Props, State = {}> {
 /**
  * IBuild.mapProps的参数
  */
-export interface IMapProps<Params = {}> extends IPageComponentProps<Params> {
+export interface IMapProps extends IPageComponentProps {
   /**
    * 获得借口数据最新的状态，如是否加载中，是否有错之类的
    */
@@ -86,9 +84,7 @@ export interface IMapProps<Params = {}> extends IPageComponentProps<Params> {
 /**
  * 页面组件注入的props
  */
-export interface IPageComponentProps<Params = {}>
-  extends RouteComponentProps<Params>,
-    IPageServerData {
+export interface IPageComponentProps extends IPageServerData {
   /**
    * redux整个状态树
    */
