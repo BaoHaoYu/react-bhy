@@ -12,8 +12,6 @@ export interface ITypes {
   SET_DATA: string
   SET_AJAXING: string
   LEVEL_PAGE: string
-  UPDATE_AGAIN_REQUEST_NUMBER: string
-  CLEARN_AGAIN_REQUEST_NUMBER: string
   SET_ERROR: string
   SIMPLE: string
   SIMPLE_CB: string
@@ -178,14 +176,6 @@ export interface IServerActions {
    * 取消请求
    */
   cancelRequest: (msg: string) => void
-  /**
-   * 更新重新请求次数
-   */
-  updateAgainRequestNumber: () => any
-  /**
-   * 重置请求次数
-   */
-  resetAgainRequestNumber: () => any
   /**
    * 设置错误内容
    */

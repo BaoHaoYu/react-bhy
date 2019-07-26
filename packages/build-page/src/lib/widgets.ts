@@ -204,16 +204,6 @@ const buildPageWidgets: NPage.Base = (config) => {
           axiosSource.cancel(msg)
         }
       },
-      updateAgainRequestNumber: () => {
-        return {
-          type: types.UPDATE_AGAIN_REQUEST_NUMBER,
-          payload: { key: rootConfig.key },
-          meta: '重复请求数+1',
-        }
-      },
-      resetAgainRequestNumber: () => {
-        return {}
-      },
       setErrorToStore: (responseData) => {
         return {
           type: types.SET_ERROR,
@@ -250,16 +240,6 @@ function createTypes(
     SET_DATA: buildWidgetType('SET_DATA', _hash, config.hash),
     SET_AJAXING: buildWidgetType('SET_AJAXING', _hash, config.hash),
     LEVEL_PAGE: buildWidgetType('LEVEL_PAGE', _hash, config.hash),
-    UPDATE_AGAIN_REQUEST_NUMBER: buildWidgetType(
-      'UPDATE_AGAIN_REQUEST_NUMBER',
-      _hash,
-      config.hash,
-    ),
-    CLEARN_AGAIN_REQUEST_NUMBER: buildWidgetType(
-      'CLEARN_AGAIN_REQUEST_NUMBER',
-      _hash,
-      config.hash,
-    ),
     SET_ERROR: buildWidgetType('SET_ERROR', _hash, config.hash),
     SIMPLE: buildWidgetType('SIMPLE', _hash, config.hash),
     SIMPLE_CB: buildWidgetType('SIMPLE_CB', _hash, config.hash),
@@ -338,15 +318,6 @@ function createReducerMap(types: NPage.ITypes, defaultData: any) {
           .set('againRequestNumber', 0),
       )
     },
-    [types.UPDATE_AGAIN_REQUEST_NUMBER]: (
-      state: any,
-      action: Action<NPage.ISetData>,
-    ) => {
-      const payload = action.payload
-      return state.updateIn(['server', payload.key], ($$v: any) =>
-        $$v.update('againRequestNumber', (value: number) => value + 1),
-      )
-    },
     [types.SET_ERROR]: (state: any, action: Action<NPage.ISetErrorToStore>) => {
       const payload = action.payload
       return state.updateIn(['server', payload.key], ($$v: any) =>
@@ -354,15 +325,6 @@ function createReducerMap(types: NPage.ITypes, defaultData: any) {
           .set('hash', uuid.v4())
           .set('error', true)
           .set('responseData', payload.responseData),
-      )
-    },
-    [types.CLEARN_AGAIN_REQUEST_NUMBER]: (
-      state: any,
-      action: Action<NPage.ISetData>,
-    ) => {
-      const payload = action.payload
-      return state.updateIn(['server', payload.key], ($$v: any) =>
-        $$v.set('againRequestNumber', 0),
       )
     },
     [types.LEVEL_PAGE]: (state: any) => {
