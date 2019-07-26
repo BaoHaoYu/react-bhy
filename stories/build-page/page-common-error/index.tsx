@@ -5,8 +5,8 @@ import * as widgets from './redux/widgets'
 
 @buildPageMain({
   pageActions: widgets.page.actions,
-  setData: async (p) => {
-    await p.props.dispatch(widgets.setAllData())
+  setData: async (props) => {
+    await props.dispatch(widgets.setAllData())
   },
 })
 export default class PageBase extends React.Component<any> {

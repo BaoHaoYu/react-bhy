@@ -13,7 +13,7 @@ export interface IPage {
   /**
    * 设置数据，或者加载其他东西
    */
-  setData?(p: { props: IPageComponentProps }): Promise<any>
+  setData?(props: { dispatch: any }): Promise<any>
 }
 
 /**
