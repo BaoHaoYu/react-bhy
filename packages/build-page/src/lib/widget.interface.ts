@@ -121,7 +121,7 @@ export interface IServerActions {
   /**
    * 获得整个server的数据
    */
-  getKeyServer: (
+  getServer: (
     isMap?: boolean,
   ) => (dispatch: Dispatch) => Map<keyof IServerData, any>
   /**
@@ -141,21 +141,11 @@ export interface IServerActions {
   /**
    * 设置来自服务器的数据，会更新hash
    */
-  setDataToStroe: (ap: Omit<ISetData, 'key'>) => ActionMeta<ISetData, string>
+  setData: (responseData: IData) => ActionMeta<ISetData, string>
   /**
-   * 获得redux的状态,带有keyPath
+   * 获得相应数据
    */
-  getServerDataFromStore: (isMap?: boolean) => any
-  /**
-   *
-   */
-  getServerData: (isMap: boolean) => any
-  /**
-   * 获得整个server的数据
-   */
-  getServerFromStore: (ap?: {
-    isMap?: boolean
-  }) => (dispatch: Dispatch) => Map<keyof IServerData, any>
+  getResponseData: (isMap?: boolean) => any
   /**
    * 获得服务器的数据
    */
@@ -165,7 +155,7 @@ export interface IServerActions {
   /**
    * 执行请求，然后数据放入本地的redux的store
    */
-  getServerDataToStore: (
+  requestAndSave: (
     ap?: Omit<IStartXHR, 'key' | 'meta'>,
   ) => (dispatch: Dispatch) => Promise<AxiosResponse>
   /**
@@ -175,7 +165,7 @@ export interface IServerActions {
   /**
    * 设置错误内容
    */
-  setErrorToStore: (responseData: IData, meta?: string) => any
+  setError: (responseData: Map<any, any>, meta?: string) => any
 }
 
 /**

@@ -53,9 +53,7 @@ export default function buildPageComponent<Props, State = {}>(
         const info = this.getInfo()
         const hashs: any[] = []
         p.serverActions.map((action) => {
-          hashs.push(
-            nextProps.dispatch(action.getServerFromStore()).get('hash'),
-          )
+          hashs.push(nextProps.dispatch(action.getServer()).get('hash'))
         })
         if (info.allDataLoad && !isEqual(hashs, state.hashs)) {
           if (p.serverRely) {
@@ -85,7 +83,7 @@ export default function buildPageComponent<Props, State = {}>(
         // 所有数据是否加载完毕
         let allDataLoad: boolean = true
         p.serverActions.map((serverAction) => {
-          const serverDataItme = dispatch(serverAction.getServerDataFromStore())
+          const serverDataItme = dispatch(serverAction.getResponseData())
           serverData.push(serverDataItme)
           // 只要有一个加载中，则表示数据在加载中
           if (dispatch(serverAction.isRequesting())) {
@@ -96,7 +94,7 @@ export default function buildPageComponent<Props, State = {}>(
             error = true
           }
           // 如果有有的数据为null则表示数据为没有加载完毕
-          if (dispatch(serverAction.getServerDataFromStore()) === undefined) {
+          if (dispatch(serverAction.getResponseData()) === undefined) {
             allDataLoad = false
           }
         })

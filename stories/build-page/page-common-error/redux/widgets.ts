@@ -33,7 +33,7 @@ export const dataOneServer = page.createServerActions({
   },
   done(respone, actions, dis) {
     if (respone.data.code === 0) {
-      dis(actions.setErrorToStore(respone.data, '自定义错误'))
+      dis(actions.setError(respone.data, '自定义错误'))
       throw { msg: respone.data }
     }
   },
@@ -44,5 +44,5 @@ export const dataOneServer = page.createServerActions({
 })
 
 export const setAllData = () => (dispatch: any) => {
-  dispatch(dataOneServer.getServerDataToStore())
+  dispatch(dataOneServer.requestAndSave())
 }

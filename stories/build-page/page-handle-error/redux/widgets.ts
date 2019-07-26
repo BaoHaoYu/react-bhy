@@ -38,5 +38,5 @@ export const dataOneServer = page.createServerActions({
 })
 
 export const setAllData = () => (dispatch: any) => {
-  dispatch(dataOneServer.getServerDataToStore())
+  dispatch(dataOneServer.requestAndSave())
 }

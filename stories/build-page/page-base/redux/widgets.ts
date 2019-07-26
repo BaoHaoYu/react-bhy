@@ -49,6 +49,6 @@ export const dataTwoServer = page.createServerActions({
 })
 
 export const setAllData = () => (dispatch: any) => {
-  dispatch(dataOneServer.getServerDataToStore())
-  dispatch(dataTwoServer.getServerDataToStore())
+  dispatch(dataOneServer.requestAndSave())
+  dispatch(dataTwoServer.requestAndSave())
 }

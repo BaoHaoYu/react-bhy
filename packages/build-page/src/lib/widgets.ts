@@ -32,17 +32,14 @@ const buildPageWidgets: NPage.Base = (config) => {
     const key = rootConfig.key
     const meta = rootConfig.desc
     const serverActions: NPage.IServerActions = {
-      getServerDataFromStore: (isMap = false) => {
-        return serverActions.getServerData(isMap)
-      },
-      getServerData: (isMap) => (dispatch: any) => {
+      getResponseData: (isMap) => (dispatch: any) => {
         return dispatch(actions.getRootState(!isMap)).getIn([
           'server',
           key,
           'responseData',
         ])
       },
-      getKeyServer: (isMap: boolean) => (dispatch: any) => {
+      getServer: (isMap: boolean) => (dispatch: any) => {
         const $$root = dispatch(actions.getRootState())
         return (isMap ? $$root : from($$root)).getIn(['server', key])
       },
@@ -58,18 +55,15 @@ const buildPageWidgets: NPage.Base = (config) => {
           meta: buildMeta(ap.meta, '设置请求中'),
         }
       },
-      setDataToStroe: (ap) => {
+      setData: (responseData) => {
         return {
           type: types.SET_DATA,
           payload: {
             key,
-            responseData: ap.responseData,
+            responseData,
           },
           meta: buildMeta(meta, '把数据保存到store'),
         }
-      },
-      getServerFromStore: () => {
-        return serverActions.getKeyServer()
       },
       isRequesting: () => (dispatch: any) => {
         return dispatch(actions.getRootState()).getIn([
@@ -88,7 +82,7 @@ const buildPageWidgets: NPage.Base = (config) => {
 
         // 如果是初始化数据，一开始requesting一开始就是请求中，所以第一次请求不是重复请求
         const requesting = dispatch(serverActions.isRequesting())
-        const num = dispatch(serverActions.getKeyServer(false)).get('number')
+        const num = dispatch(serverActions.getServer(false)).get('number')
         if (rootConfig.isInitData) {
           // 中断请求之后的代码
           if (requesting && num !== 0) {
@@ -110,7 +104,7 @@ const buildPageWidgets: NPage.Base = (config) => {
           }
         }
 
-        const serverData = dispatch(serverActions.getServerData(true))
+        const serverData = dispatch(serverActions.getResponseData(true))
 
         // 如果不是生产环境，并且有数据就，不请求最新服务器了，加快ui开发
         if (
@@ -139,9 +133,7 @@ const buildPageWidgets: NPage.Base = (config) => {
                   meta,
                 }),
               )
-              dispatch(
-                serverActions.setErrorToStore(fromJS(thrown.response.data)),
-              )
+              dispatch(serverActions.setError(fromJS(thrown.response.data)))
               // 取消请求
               if (axios.isCancel(thrown)) {
                 // 取消回调
@@ -177,9 +169,7 @@ const buildPageWidgets: NPage.Base = (config) => {
           return response
         }
       },
-      getServerDataToStore: (ap = { axiosOpt: {} }) => async (
-        dispatch: any,
-      ) => {
+      requestAndSave: (ap = { axiosOpt: {} }) => async (dispatch: any) => {
         axiosOpt = { ...axiosOpt, ...ap.axiosOpt }
         const response: AxiosResponse = await dispatch(
           serverActions.startRequest({
@@ -189,22 +179,20 @@ const buildPageWidgets: NPage.Base = (config) => {
         )
 
         rootConfig.done && rootConfig.done(response, serverActions, dispatch)
-        dispatch(
-          serverActions.setDataToStroe({ responseData: fromJS(response.data) }),
-        )
+        dispatch(serverActions.setData(fromJS(response.data)))
 
         return response
       },
       cancelRequest: (msg = rootConfig.desc) => (dispatch: any) => {
         const axiosSource = (dispatch(
-          serverActions.getServerFromStore(),
+          serverActions.getServer(),
         ) as NPage.MapServerData).get('axiosSource')
 
         if (axiosSource) {
           axiosSource.cancel(msg)
         }
       },
-      setErrorToStore: (responseData) => {
+      setError: (responseData) => {
         return {
           type: types.SET_ERROR,
           payload: {
@@ -314,7 +302,7 @@ function createReducerMap(types: NPage.ITypes, defaultData: any) {
         $$v
           .set('responseData', payload.responseData)
           .set('hash', uuid.v4())
-          .set('error', false)
+          .set('error', false),
       )
     },
     [types.SET_ERROR]: (state: any, action: Action<NPage.ISetErrorToStore>) => {
