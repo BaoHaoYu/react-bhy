@@ -109,7 +109,7 @@ export class FormControl {
    */
   public setError(error?: string | null) {
     this.error = error
-    if (error !== null || error !== undefined) {
+    if (error !== null && error !== undefined) {
       this.pass = false
     } else {
       this.pass = true
