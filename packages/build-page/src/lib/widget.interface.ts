@@ -53,10 +53,6 @@ export interface IServerData {
    */
   number: number
   /**
-   * 重新请求的次数
-   */
-  againRequestNumber: number
-  /**
    * 唯一标识符，每次请求完毕，并且数据没有发生错误，都会发生改变
    */
   hash?: string

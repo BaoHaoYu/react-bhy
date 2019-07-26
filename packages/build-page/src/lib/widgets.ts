@@ -315,7 +315,6 @@ function createReducerMap(types: NPage.ITypes, defaultData: any) {
           .set('responseData', payload.responseData)
           .set('hash', uuid.v4())
           .set('error', false)
-          .set('againRequestNumber', 0),
       )
     },
     [types.SET_ERROR]: (state: any, action: Action<NPage.ISetErrorToStore>) => {
@@ -349,7 +348,6 @@ export function initServerData(
     responseData: undefined,
     hash: undefined,
     number: 0,
-    againRequestNumber: 0,
     requesting: p.requesting,
     error: false,
   }
