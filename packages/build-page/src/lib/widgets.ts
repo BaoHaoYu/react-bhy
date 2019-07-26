@@ -18,16 +18,33 @@ const buildPageWidgets: NPage.Base = (config) => {
     ? config.reducerKey
     : [config.reducerKey]
   const defaultData = config.defaultData
-  const types = createTypes(_hash, config)
-  const reducerMap = createReducerMap(types, defaultData)
 
-  const actions: NPage.IPageActions = createPageActions(types, keyPath)
+  const types = buildTypes(_hash, config)
+  const reducerMap = buildReducerMap(types, defaultData)
+  const actions: NPage.IPageActions = buildPageActions(types, keyPath)
+  const createServerActions = buildServer(config, actions, types)
 
-  const createServerActions = (
-    rootConfig: NPage.ICreateServerActions,
-  ): NPage.IServerActions => {
+  return {
+    actions,
+    reducerMap,
+    createServerActions,
+  }
+}
+
+function buildServer(
+  config: {
+    // 终端请求之后的代码
+    reducerKey: string | string[]
+    defaultData: any
+    pageName: string
+    hash: string
+    axiosOpt?: AxiosRequestConfig | undefined
+  },
+  actions: NPage.IPageActions,
+  types: NPage.ITypes,
+) {
+  return (rootConfig: NPage.ICreateServerActions): NPage.IServerActions => {
     const pageAxiosOpt = defaultTo(config.axiosOpt, {})
-
     let axiosOpt = { ...pageAxiosOpt, ...rootConfig.axiosOpt }
     const key = rootConfig.key
     const meta = rootConfig.desc
@@ -78,7 +95,6 @@ const buildPageWidgets: NPage.Base = (config) => {
         axiosOpt = { ...axiosOpt, ...ap.axiosOpt }
         const CancelToken = axios.CancelToken
         const source = CancelToken.source()
-
         // 如果是初始化数据，一开始requesting一开始就是请求中，所以第一次请求不是重复请求
         const requesting = dispatch(serverActions.isRequesting())
         const num = dispatch(serverActions.getServer()).get('number')
@@ -93,7 +109,6 @@ const buildPageWidgets: NPage.Base = (config) => {
             }
           }
         }
-
         if (!rootConfig.isInitData && requesting) {
           throw {
             msg: '重复请求！',
@@ -102,9 +117,7 @@ const buildPageWidgets: NPage.Base = (config) => {
             number: num,
           }
         }
-
         const $$serverData = dispatch(serverActions.getResponseData())
-
         // 如果不是生产环境，并且有数据就，不请求最新服务器了，加快ui开发
         if (
           process.env.NODE_ENV !== 'production' &&
@@ -176,17 +189,14 @@ const buildPageWidgets: NPage.Base = (config) => {
             force: defaultTo(ap.force, rootConfig.force),
           }),
         )
-
         rootConfig.done && rootConfig.done(response, serverActions, dispatch)
         dispatch(serverActions.setData(fromJS(response.data)))
-
         return response
       },
       cancelRequest: (msg = rootConfig.desc) => (dispatch: any) => {
         const axiosSource = (dispatch(
           serverActions.getServer(),
         ) as NPage.MapServerData).get('axiosSource')
-
         if (axiosSource) {
           axiosSource.cancel(msg)
         }
@@ -204,15 +214,9 @@ const buildPageWidgets: NPage.Base = (config) => {
     }
     return serverActions
   }
-
-  return {
-    actions,
-    reducerMap,
-    createServerActions,
-  }
 }
 
-function createTypes(
+function buildTypes(
   _hash: string,
   config: {
     reducerKey: string | string[]
@@ -233,7 +237,7 @@ function createTypes(
   }
 }
 
-function createPageActions(
+function buildPageActions(
   types: NPage.ITypes,
   keyPath: string[],
 ): NPage.IPageActions {
@@ -280,7 +284,7 @@ function createPageActions(
   return actions
 }
 
-function createReducerMap(types: NPage.ITypes, defaultData: any) {
+function buildReducerMap(types: NPage.ITypes, defaultData: any) {
   return {
     [types.SET_AJAXING]: (state: any, action: Action<NPage.ISetRequesting>) => {
       const payload = action.payload
