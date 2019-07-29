@@ -2,7 +2,7 @@ import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import Animate from '../../packages/animate/src'
-
+import { Demo } from './readme'
 storiesOf('animate 动画', module)
   .addDecorator(withKnobs)
   .add('基础', () => {
@@ -45,4 +45,7 @@ storiesOf('animate 动画', module)
         </Animate>
       </div>
     )
+  })
+  .add('readme 例子', () => {
+    return <Demo />
   })

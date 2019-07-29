@@ -1,21 +1,21 @@
 .fade {
   opacity: 0;
 
-  &.entering {
+  &.fade--entering {
     opacity: 0;
   }
 
-  &.entered {
+  &.fade--entered {
     opacity: 1;
   }
 }
 
 .moveX {
-  &.entering {
+  &.moveX--entering {
     transform: translateX(0);
   }
 
-  &.entered {
+  &.moveX--entered {
     transform: translateX(100px);
   }
 }
@@ -23,11 +23,11 @@
 .moveY {
   transform: translateY(-100px);
 
-  &.entering {
+  &.moveY--entering {
     transform: translateY(-100px);
   }
 
-  &.entered {
+  &.moveY--entered {
     transform: translateY(0);
   }
 }

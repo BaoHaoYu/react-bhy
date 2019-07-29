@@ -6,6 +6,10 @@ export type TAnimateKey = any[]
 
 export interface IAnimateProps extends Partial<TransitionProps> {
   /**
+   * animateCssModule
+   */
+  animateCssModule?: object
+  /**
    * 动画类型
    */
   animateKey?: TAnimateKey
