@@ -1,9 +1,4 @@
-import {
-  Form,
-  FormControl,
-  FowRow,
-  IFormControlProps,
-} from '@react-efficiency/form'
+import * as React from 'react'
 import {
   FormArrayUtil,
   FormControlUtil,
@@ -13,8 +8,16 @@ import {
   need,
   regExp,
   regExpReverse,
-} from '@react-efficiency/form-util'
-import * as React from 'react'
+  setLocalization,
+} from '../../packages/form-util/src'
+import {
+  Form,
+  FormControl,
+  FowRow,
+  IFormControlProps,
+} from '../../packages/form/src'
+
+setLocalization('en')
 
 interface IProps extends IFormControlProps {
   control: FormControlUtil
@@ -24,7 +27,7 @@ const cardStyle = {
   border: '1px solid #d0d0d0',
   borderRadius: 5,
   padding: 10,
-  width: 300,
+  width: 360,
   boxShadow: '1px 1px 5px 1px #d0d0d0',
 }
 
@@ -60,7 +63,7 @@ export class Base extends React.Component<any> {
         [
           need(),
           maxLength(4),
-          regExpReverse(/\d/g, "[label]can't contain numbers"),
+          regExpReverse(/\d/g, "[label] can't contain numbers"),
         ],
         'Job',
         'name',

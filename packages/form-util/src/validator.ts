@@ -1,5 +1,46 @@
 import { FormControl } from './form-control'
 
+type Locale = 'en' | 'zh_cn'
+
+let locale = 'zh_cn'
+
+const errorText: Record<
+  Locale,
+  {
+    need: string
+    maxLength: string
+    minLength: string
+    isNumber: string
+    regExp: string
+    regExpReverse: string
+    equal: string
+  }
+> = {
+  en: {
+    need: '[label] required',
+    maxLength: '[label] maximum length cannot exceed [maxLength] characters',
+    minLength:
+      '[label] minimum length cannot be less than [minLength] characters',
+    isNumber: '[label] must be a number',
+    regExp: '[label] is not in the right format',
+    regExpReverse: '[label] is not in the right format',
+    equal: '[label] and [equalLabel] must be the same',
+  },
+  zh_cn: {
+    need: '[label]必填',
+    maxLength: '[label]最大长度不可超过[maxLength]个字符',
+    minLength: '[label]最小长度不可少于[minLength]个字符',
+    isNumber: '[label]必须是数字',
+    regExp: '[label]格式不对',
+    regExpReverse: '[label]格式不对',
+    equal: '[label]和[equal]必须相同',
+  },
+}
+
+export function setLocalization(_locale: Locale) {
+  locale = _locale
+}
+
 /**
  * 验证结果
  */
@@ -28,7 +69,9 @@ export type ValidatorFn = (value: any) => IResult
  * const newNeed = （） => need(newDefaultError)
  * @param error 错误提示
  */
-export const need = (error = '[label]必填'): ValidatorFn => (value: any) => {
+export const need = (error = errorText[locale].need): ValidatorFn => (
+  value: any,
+) => {
   const pass = `${value}`.length !== 0
   return {
     pass,
@@ -44,7 +87,7 @@ export const need = (error = '[label]必填'): ValidatorFn => (value: any) => {
  */
 export const maxLength = (
   max: number,
-  error: string = '[label]最大长度不可超过[maxLength]个字符',
+  error: string = errorText[locale].maxLength,
 ): ValidatorFn => (value: any) => {
   const pass = `${value}`.length <= max
   return {
@@ -61,7 +104,7 @@ export const maxLength = (
  */
 export const minLength = (
   min: number,
-  error: string = '[label]最小长度不可少于[minLength]个字符',
+  error: string = errorText[locale].minLength,
 ): ValidatorFn => (value: any) => {
   const pass = `${value}`.length >= min
   return {
@@ -75,9 +118,9 @@ export const minLength = (
  * 数字验证
  * @param error 错误提示
  */
-export const isNumber = (error: string = '[label]必须是数字'): ValidatorFn => (
-  value: any,
-) => {
+export const isNumber = (
+  error: string = errorText[locale].isNumber,
+): ValidatorFn => (value: any) => {
   const pass = /^\d+$/.test(value.toString())
   return {
     pass,
@@ -93,7 +136,7 @@ export const isNumber = (error: string = '[label]必须是数字'): ValidatorFn 
  */
 export const regExp = (
   reg: RegExp,
-  error: string = '[label]格式不对',
+  error: string = errorText[locale].regExp,
 ): ValidatorFn => (value: any) => {
   const pass = reg.test(value.toString())
   return {
@@ -110,7 +153,7 @@ export const regExp = (
  */
 export const regExpReverse = (
   reg: RegExp,
-  error: string = '[label]格式不对',
+  error: string = errorText[locale].regExpReverse,
 ): ValidatorFn => (value: any) => {
   const pass = reg.test(value.toString())
   return {
@@ -127,13 +170,13 @@ export const regExpReverse = (
  */
 export const equal = (
   control: FormControl,
-  error: string = `[label]和${control.label}必须相同`,
+  error: string = errorText[locale].equal,
 ): ValidatorFn => (value: any) => {
   const pass = value === control.value
   return {
     pass,
     type: 'equal',
-    error: !pass ? error : null,
+    error: !pass ? error.replace('equalLabel', control.label || '') : null,
   }
 }
 

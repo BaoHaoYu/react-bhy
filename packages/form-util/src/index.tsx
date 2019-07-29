@@ -10,6 +10,7 @@ import {
   need,
   regExp,
   regExpReverse,
+  setLocalization,
 } from './validator'
 
 export {
@@ -24,4 +25,5 @@ export {
   equal,
   minLength,
   beEqual,
+  setLocalization,
 }
