@@ -17,7 +17,7 @@ import {
   IFormControlProps,
 } from '../../packages/form/src'
 
-setLocalization('en')
+setLocalization('zh_cn')
 
 interface IProps extends IFormControlProps {
   control: FormControlUtil
@@ -77,7 +77,7 @@ export class Base extends React.Component<any> {
 
       family: new FormArrayUtil([]),
 
-      bigSchool: new FormGroupUtil({
+      university: new FormGroupUtil({
         name: new FormControlUtil(
           [need(), maxLength(40)],
           'xxx University',
@@ -164,7 +164,7 @@ export class Base extends React.Component<any> {
     this.state.form.setValue({
       name: 'dddd',
       age: 27,
-      bigSchool: { name: 'HAHA University' },
+      university: { name: 'HAHA University' },
     })
     this.setState(this.state)
   }
@@ -220,12 +220,12 @@ export class Base extends React.Component<any> {
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['bigSchool', 'name'])}
+              control={this.state.form.getIn(['university', 'name'])}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['bigSchool', 'address'])}
+              control={this.state.form.getIn(['university', 'address'])}
               onChange={this.onChange}
             />
           </div>

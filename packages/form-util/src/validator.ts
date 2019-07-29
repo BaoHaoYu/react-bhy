@@ -2,7 +2,7 @@ import { FormControl } from './form-control'
 
 type Locale = 'en' | 'zh_cn'
 
-let locale = 'zh_cn'
+let locale = 'en'
 
 const errorText: Record<
   Locale,

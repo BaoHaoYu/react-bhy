@@ -12,12 +12,7 @@ Abstract form class
 
 ## Simple example
 ```tsx
-import {
-  Form,
-  FormControl,
-  FowRow,
-  IFormControlProps,
-} from '@react-efficiency/form'
+import * as React from 'react'
 import {
   FormArrayUtil,
   FormControlUtil,
@@ -27,8 +22,14 @@ import {
   need,
   regExp,
   regExpReverse,
+  setLocalization,
 } from '@react-efficiency/form-util'
-import * as React from 'react'
+import {
+  Form,
+  FormControl,
+  FowRow,
+  IFormControlProps,
+} from '@react-efficiency/form'
 
 interface IProps extends IFormControlProps {
   control: FormControlUtil
@@ -38,7 +39,7 @@ const cardStyle = {
   border: '1px solid #d0d0d0',
   borderRadius: 5,
   padding: 10,
-  width: 300,
+  width: 360,
   boxShadow: '1px 1px 5px 1px #d0d0d0',
 }
 
@@ -74,7 +75,7 @@ export class Base extends React.Component<any> {
         [
           need(),
           maxLength(4),
-          regExpReverse(/\d/g, "[label]can't contain numbers"),
+          regExpReverse(/\d/g, "[label] can't contain numbers"),
         ],
         'Job',
         'name',
@@ -88,7 +89,7 @@ export class Base extends React.Component<any> {
 
       family: new FormArrayUtil([]),
 
-      bigSchool: new FormGroupUtil({
+      university: new FormGroupUtil({
         name: new FormControlUtil(
           [need(), maxLength(40)],
           'xxx University',
@@ -158,17 +159,24 @@ export class Base extends React.Component<any> {
     this.setState(this.state)
   }
 
+  /**
+   * 删除
+   * @param index
+   */
   public deleteFamily = (index: number) => () => {
     ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
 
     this.setState(this.state)
   }
 
+  /**
+   * 设置值
+   */
   public setFormValue = () => {
     this.state.form.setValue({
       name: 'dddd',
       age: 27,
-      bigSchool: { name: 'HAHA University' },
+      university: { name: 'HAHA University' },
     })
     this.setState(this.state)
   }
@@ -224,12 +232,12 @@ export class Base extends React.Component<any> {
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['bigSchool', 'name'])}
+              control={this.state.form.getIn(['university', 'name'])}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['bigSchool', 'address'])}
+              control={this.state.form.getIn(['university', 'address'])}
               onChange={this.onChange}
             />
           </div>
