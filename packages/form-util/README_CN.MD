@@ -1,16 +1,16 @@
-[中文版](./README_CN.MD)
+[英文版](./README.MD)
 
 # @react-efficiency/form-util
-Abstract form class
+抽象的表单类
 
-## Installation
+## 安装
 **yarn**  
 `yarn add @react-efficiency/form-util`
 
 **npm**  
 `npm install @react-efficiency/form-util --save`
 
-## Simple example
+## 简单例子
 ```tsx
 import {
   Form,
@@ -158,12 +158,19 @@ export class Base extends React.Component<any> {
     this.setState(this.state)
   }
 
+  /**
+   * 删除
+   * @param index
+   */
   public deleteFamily = (index: number) => () => {
     ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
 
     this.setState(this.state)
   }
 
+  /**
+   * 设置值
+   */
   public setFormValue = () => {
     this.state.form.setValue({
       name: 'dddd',
@@ -248,9 +255,9 @@ export class Base extends React.Component<any> {
 }
 ```
 
-## role
-- Form basic validation, such as length, required, regular expression validation
-- Dynamic verification, you can add errors based on server information
-- the value of the form is obtained
-- Form data and components are completely separated
-- pure function, generic, not necessarily used in react
+## 作用
+- 表单基本验证，如长度，必填，正则表达式验证
+- 动态验证，可以根据服务器信息添加错误
+- 表单的值获取
+- 表单数据和组件彻底分离
+- 纯函数，通用，不一定要在react中使用

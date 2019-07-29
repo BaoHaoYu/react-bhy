@@ -1,17 +1,3 @@
-[中文版](./README_CN.MD)
-
-# @react-efficiency/form-util
-Abstract form class
-
-## Installation
-**yarn**  
-`yarn add @react-efficiency/form-util`
-
-**npm**  
-`npm install @react-efficiency/form-util --save`
-
-## Simple example
-```tsx
 import {
   Form,
   FormControl,
@@ -158,12 +144,19 @@ export class Base extends React.Component<any> {
     this.setState(this.state)
   }
 
+  /**
+   * 删除
+   * @param index
+   */
   public deleteFamily = (index: number) => () => {
     ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
 
     this.setState(this.state)
   }
 
+  /**
+   * 设置值
+   */
   public setFormValue = () => {
     this.state.form.setValue({
       name: 'dddd',
@@ -246,11 +239,3 @@ export class Base extends React.Component<any> {
     )
   }
 }
-```
-
-## role
-- Form basic validation, such as length, required, regular expression validation
-- Dynamic verification, you can add errors based on server information
-- the value of the form is obtained
-- Form data and components are completely separated
-- pure function, generic, not necessarily used in react
