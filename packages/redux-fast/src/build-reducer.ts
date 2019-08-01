@@ -17,16 +17,12 @@ export function buildFastReducer(redcuerKey: string) {
    * @param meta action的meta
    */
   const setFastState = <T, K>(
-    keyPath: string[],
     cb: (state: Map<T, K>) => Map<T, K>,
     meta?: string,
   ) => {
     return {
       type: types.fastState,
-      payload: {
-        keyPath,
-        cb,
-      },
+      payload: cb,
       meta,
     }
   }
