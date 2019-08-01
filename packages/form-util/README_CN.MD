@@ -3,6 +3,13 @@
 # @react-efficiency/form-util
 抽象的表单类
 
+## 作用
+- 表单基本验证，如长度，必填，正则表达式验证
+- 动态验证，可以根据服务器信息添加错误
+- 表单的值获取
+- 表单数据和组件彻底分离
+- 纯函数，通用，不一定要在react中使用
+
 ## 安装
 **yarn**  
 `yarn add @react-efficiency/form-util`
@@ -257,10 +264,3 @@ export class Base extends React.Component<any> {
   }
 }
 ```
-
-## 作用
-- 表单基本验证，如长度，必填，正则表达式验证
-- 动态验证，可以根据服务器信息添加错误
-- 表单的值获取
-- 表单数据和组件彻底分离
-- 纯函数，通用，不一定要在react中使用

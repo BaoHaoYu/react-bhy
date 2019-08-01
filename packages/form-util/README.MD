@@ -3,6 +3,13 @@
 # @react-efficiency/form-util
 Abstract form class
 
+## Role
+- Form basic validation, such as length, required, regular expression validation
+- Dynamic verification, you can add errors based on server information
+- The value of the form is obtained
+- Form data and components are completely separated
+- Pure function, generic, not necessarily used in react
+
 ## Installation
 **yarn**  
 `yarn add @react-efficiency/form-util`
@@ -109,11 +116,6 @@ export class Base extends React.Component<any> {
     }
   }
 
-  /**
-   * 表单的值发生改变
-   * @param e
-   * @param control
-   */
   public onChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     control: FormControlUtil,
@@ -122,9 +124,6 @@ export class Base extends React.Component<any> {
     this.setState(this.state)
   }
 
-  /**
-   * 提交
-   */
   public submit = () => {
     this.state.form.verify()
     this.setState(this.state)
@@ -132,9 +131,6 @@ export class Base extends React.Component<any> {
     console.log('All data verification：', this.state.form.pass)
   }
 
-  /**
-   * 添加错误
-   */
   public addError = () => {
     setTimeout(() => {
       ;(this.state.form.get('name') as FormControlUtil).setError(
@@ -144,9 +140,6 @@ export class Base extends React.Component<any> {
     }, 1000)
   }
 
-  /**
-   * 添加表单
-   */
   public addFamily = () => {
     ;(this.state.form.get('family') as FormArrayUtil).config.push(
       new FormGroupUtil({
@@ -159,19 +152,12 @@ export class Base extends React.Component<any> {
     this.setState(this.state)
   }
 
-  /**
-   * 删除
-   * @param index
-   */
   public deleteFamily = (index: number) => () => {
     ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
 
     this.setState(this.state)
   }
 
-  /**
-   * 设置值
-   */
   public setFormValue = () => {
     this.state.form.setValue({
       name: 'dddd',
@@ -255,10 +241,3 @@ export class Base extends React.Component<any> {
   }
 }
 ```
-
-## role
-- Form basic validation, such as length, required, regular expression validation
-- Dynamic verification, you can add errors based on server information
-- the value of the form is obtained
-- Form data and components are completely separated
-- pure function, generic, not necessarily used in react

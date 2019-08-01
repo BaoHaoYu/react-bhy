@@ -13,6 +13,8 @@ import typescript from 'rollup-plugin-typescript2'
 import ts from 'typescript'
 import yargs from 'yargs-parser'
 import lernaJson from './lerna.json'
+import external from './packages/commonjs-lodash/external.json'
+
 interface IOpt extends InputOptions {
   output: OutputOptions[]
 }
@@ -30,6 +32,7 @@ run(
     'antd/lib/menu',
     'antd/lib/icon/style/css',
     'antd/lib/menu/style/css',
+    ...external,
   ],
 )
 
