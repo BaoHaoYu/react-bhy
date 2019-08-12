@@ -1,0 +1,27 @@
+{
+  "name": "@react-efficiency/build-page-mobx",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.ems.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "高效组件页面",
+  "keywords": [
+    "react",
+    "build-page"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@types/lodash-es": "^4.17.1",
+    "axios": "^0.18.0",
+    "lodash-es": "^4.17.11",
+    "mobx": "^5.13.0",
+    "mobx-react":"^6.1.1",
+    "react": "^16.8.6",
+    "uuid": "3.3.2"
+
+  },
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/build-page-mobx"
+}
