@@ -117,7 +117,7 @@ export class Base extends React.Component<any> {
   public submit = () => {
     this.state.form.verify()
     this.setState(this.state)
-    console.log(this.state.form.getValue())
+    console.log(this.state.form.value)
     console.log('All data verification：', this.state.form.pass)
   }
 
@@ -221,12 +221,12 @@ export class Base extends React.Component<any> {
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['university', 'name'])}
+              control={this.state.form.get('university', 'name')}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['university', 'address'])}
+              control={this.state.form.get('university', 'address')}
               onChange={this.onChange}
             />
           </div>

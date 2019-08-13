@@ -1,5 +1,5 @@
 import { isArray, map } from 'lodash-es'
-
+import { FormControl } from './form-control'
 export class FormCommon<T extends {}> {
   public formType: 'control' | 'group' | 'array'
 
@@ -15,7 +15,6 @@ export class FormCommon<T extends {}> {
   constructor(config: T) {
     this.config = config
   }
-
   /**
    * 验证当前表单
    */
@@ -37,11 +36,12 @@ export class FormCommon<T extends {}> {
   }
 
   /**
-   * 根据路径获得表单类
+   * 根据键获得表单类
    * @param keyPatch 路径
    */
-  public getIn(keyPatch: any[]) {
-    const _keyPath = [...keyPatch]
+
+  public get<K extends FormCommon<any>>(...key: any[]): K | FormControl {
+    const _keyPath = [...key]
     const _getIn = (config: any): any => {
       const firstKey = _keyPath.shift()
 
@@ -54,18 +54,9 @@ export class FormCommon<T extends {}> {
   }
 
   /**
-   * 根据键获得表单类
-   * @param keyPatch 路径
-   */
-
-  public get(key: string) {
-    return this.getIn([key])
-  }
-
-  /**
    * 获得表单的值
    */
-  public getValue(keyPath?: any[]): any {
+  public get value(): any {
     /**
      * 深度遍历表单配置，获得表单的值
      * @param config 配置
@@ -82,9 +73,9 @@ export class FormCommon<T extends {}> {
         // 如果是最基础的控制 FormControlUtil，则直接获取其value封装到form中
         if (item.formType === 'control') {
           if (isArray(form)) {
-            form.push(item.getValue())
+            form.push(item.value)
           } else {
-            form[key] = item.getValue()
+            form[key] = item.value
           }
         }
         // 继续递归遍历
@@ -97,17 +88,6 @@ export class FormCommon<T extends {}> {
         }
       })
       return form
-    }
-
-    // 直接获得表单某个深度的值
-    if (keyPath) {
-      const item: any = this.getIn(keyPath)
-
-      if (item.formType === 'control') {
-        return item.getValue()
-      } else {
-        return _getValue(item.config, item.formType)
-      }
     }
 
     return _getValue(this.config, this.formType)

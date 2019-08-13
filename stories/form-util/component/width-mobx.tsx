@@ -3,6 +3,9 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 
 import {
+  FormArrayUtil,
+  FormControlUtil,
+  FormGroupUtil,
   isNumber,
   maxLength,
   need,
@@ -10,11 +13,7 @@ import {
   regExpReverse,
   setLocalization,
 } from '../../../packages/form-util/src'
-import {
-  FormArrayUtil,
-  FormControlUtil,
-  FormGroupUtil,
-} from '../../../packages/form-util/src/mobx'
+import '../../../packages/form-util/src/use-mobx'
 import {
   Form,
   FormControl,
@@ -72,22 +71,18 @@ export class WidthMobx extends React.Component<any> {
       'Job',
       'name',
     ),
-
     age: new FormControlUtil(
       [need(), regExp(/^\d+$/, 'Must be a number')],
       '',
       'age',
     ),
-
     family: new FormArrayUtil([]),
-
     university: new FormGroupUtil({
       name: new FormControlUtil(
         [need(), maxLength(40)],
         'xxx University',
         'University name',
       ),
-
       address: new FormControlUtil(
         [need(), maxLength(40)],
         'xxx address',
@@ -116,7 +111,7 @@ export class WidthMobx extends React.Component<any> {
    */
   @action public submit = () => {
     this.form.verify()
-    console.log(this.form.getValue())
+    console.log(this.form.value)
     console.log('All data verification：', this.form.pass)
   }
 
@@ -163,10 +158,17 @@ export class WidthMobx extends React.Component<any> {
 
   public render() {
     const card = cardStyle
+    console.log(this.form.value)
     return (
       <Form formControlProps={{ height: this.height }}>
-        <FormItem control={this.form.get('name')} onChange={this.onChange} />
-        <FormItem control={this.form.get('age')} onChange={this.onChange} />
+        <FormItem
+          control={this.form.get('name') as FormControl}
+          onChange={this.onChange}
+        />
+        <FormItem
+          control={this.form.get('age') as FormControl}
+          onChange={this.onChange}
+        />
 
         <FormControl label={'Family staff'}>
           <div>
@@ -177,17 +179,17 @@ export class WidthMobx extends React.Component<any> {
                     <div key={index} style={card}>
                       <FormItem
                         height={this.height}
-                        control={group.get('name')}
+                        control={group.get('name') as FormControl}
                         onChange={this.onChange}
                       />
                       <FormItem
                         height={this.height}
-                        control={group.get('age')}
+                        control={group.get('age') as FormControl}
                         onChange={this.onChange}
                       />
                       <FormItem
                         height={this.height}
-                        control={group.get('type')}
+                        control={group.get('type') as FormControl}
                         onChange={this.onChange}
                       />
 
@@ -208,12 +210,12 @@ export class WidthMobx extends React.Component<any> {
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.form.getIn(['university', 'name'])}
+              control={this.form.get('university', 'name') as FormControl}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.form.getIn(['university', 'address'])}
+              control={this.form.get('university', 'address') as FormControl}
               onChange={this.onChange}
             />
           </div>
