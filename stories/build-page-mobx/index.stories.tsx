@@ -1,8 +1,8 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { GetData } from '../../packages/build-page-mobx/src/demo.component-getdata'
-import { Main } from '../../packages/build-page-mobx/src/demo.main'
+import { GetData } from './page-base/demo.component-getdata'
+import { Main } from './page-base/demo.main'
 storiesOf('build-page-mobx 页面快速搭建', module)
   .addDecorator(withKnobs)
   .add('1.基础', () => {

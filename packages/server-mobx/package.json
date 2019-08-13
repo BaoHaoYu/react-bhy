@@ -1,5 +1,5 @@
 {
-  "name": "@react-efficiency/build-page-mobx",
+  "name": "@react-efficiency/server-mobx",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
@@ -23,5 +23,5 @@
     "uuid": "3.3.2"
 
   },
-  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/build-page-mobx"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/server-mobx"
 }

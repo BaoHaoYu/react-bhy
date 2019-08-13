@@ -1,4 +1,4 @@
-import { ServerState } from './server'
+import { ServerState } from '../../../packages/server-mobx/src'
 export const foodServer = new ServerState({
   url: '/data/listFood.json',
   baseURL: 'http://localhost:3000',

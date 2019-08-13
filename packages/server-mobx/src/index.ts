@@ -6,7 +6,7 @@ import axios, {
 import { action, configure, observable, runInAction } from 'mobx'
 import * as uuid from 'uuid'
 
-configure({ enforceActions: true })
+configure({ enforceActions: 'observed' })
 
 interface IThrown {
   config: AxiosRequestConfig

@@ -16,9 +16,8 @@
       "packages/**/*.ts",
       "webpack-ts/**/*.ts",
       "stories/**/*.tsx",
-      "!**/dist",
+      "!**/dist"
     ],
-    "parser": "babylon",
     "options": {
       "trailingComma": "all"
     }
