@@ -3,24 +3,32 @@ import axios, {
   AxiosResponse,
   CancelTokenSource,
 } from 'axios'
-import { action, observable } from 'mobx'
+import { action, configure, observable, runInAction } from 'mobx'
 import * as uuid from 'uuid'
+
+configure({ enforceActions: true })
+
 interface IThrown {
   config: AxiosRequestConfig
   response: AxiosResponse
   data: any
 }
 export class ServerState {
+  // 是否发生错误
   @observable public error: boolean = false
+  // 每次请求成功保存到本地，hash会自动重新生成
   @observable public hash?: string
+  // 请求次数
   @observable public number = 0
+  // 是否请求中
   @observable public requesting = false
+  // 服务器数据
   @observable public data?: any
-  public axiosSource?: CancelTokenSource
+  // axios的配置
   public config: AxiosRequestConfig = {}
-  public isInitData: boolean = false
-  constructor(isInitData: boolean, config: AxiosRequestConfig) {
-    this.isInitData = isInitData
+  // 用于取消请求
+  private cancelTokenSource?: CancelTokenSource
+  constructor(config: AxiosRequestConfig) {
     this.config = config
   }
 
@@ -38,9 +46,17 @@ export class ServerState {
    * @param msg 附加信息
    */
   @action public cancle(msg?: any) {
-    if (this.axiosSource) {
-      this.axiosSource.cancel(msg)
+    if (this.cancelTokenSource) {
+      this.cancelTokenSource.cancel(msg)
+      this.setRequesting(false)
     }
+  }
+
+  /**
+   * 重置数据
+   */
+  @action public resetData() {
+    this.data = undefined
   }
 
   /**
@@ -50,34 +66,42 @@ export class ServerState {
    * @param onCancle 取消的回调
    */
   @action public async startRequest(
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig | null,
     force: boolean = true,
     onCancle?: any,
   ) {
-    const info = this.beforeRequest(config, force)
-    if (info) {
-      this.hash = uuid.v4()
-      return info
+    try {
+      const info = this.beforeRequest(force)
+      if (info) {
+        this.hash = uuid.v4()
+        return info
+      }
+
+      const CancelToken = axios.CancelToken
+      const source = CancelToken.source()
+
+      this.setRequesting(true)
+      this.cancelTokenSource = source
+      const response = await axios({
+        ...this.config,
+        ...config,
+      })
+
+      if (response) {
+        runInAction('完成请求', () => {
+          this.data = response.data
+          this.cancelTokenSource = undefined
+          this.hash = uuid.v4()
+        })
+
+        this.setRequesting(false)
+      }
+
+      return response
+    } catch (error) {
+      this.errorRequest(error, onCancle)
     }
-
-    const CancelToken = axios.CancelToken
-    const source = CancelToken.source()
-
-    this.setRequesting(true)
-    this.axiosSource = source
-    const response = await axios({
-      ...this.config,
-      ...config,
-    }).catch(this.errorRequest(onCancle))
-
-    if (response) {
-      this.data = response.data
-      this.axiosSource = undefined
-      this.hash = uuid.v4()
-      this.setRequesting(false)
-    }
-
-    return response
+    return
   }
 
   /**
@@ -85,23 +109,17 @@ export class ServerState {
    * @param config 配置
    * @param force 是否强制请求
    */
-  @action private beforeRequest(config?: AxiosRequestConfig, force?: boolean) {
-    if (this.isInitData) {
-      // 中断请求之后的代码
-      if (this.requesting && this.number !== 0) {
-        throw {
-          msg: '重复请求！',
-          config,
-        }
-      }
-    }
-    if (!this.isInitData && this.requesting) {
+  @action private beforeRequest(force?: boolean) {
+    if (this.requesting) {
       throw {
         msg: '重复请求！',
-        config,
       }
     }
-    if (process.env.NODE_ENV !== 'production' && this.data != null && !force) {
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      this.data !== undefined &&
+      !force
+    ) {
       return { data: this.data }
     }
     return null
@@ -111,20 +129,20 @@ export class ServerState {
    * 清除出现错误的时候处理方法
    * @param onCancle 取消请求的回调
    */
-  private errorRequest(onCancle?: any) {
-    return (thrown: IThrown) => {
-      if (axios.isCancel(thrown)) {
-        // 终端请求之后的代码
-        onCancle && onCancle()
-        throw {
-          msg:
-            '取消请求！' + `${thrown.config.method} url：${thrown.config.url}`,
-        }
-      }
-      throw {
-        msg: `request error ！${thrown.config.method} url：${thrown.config.url}，status：${thrown.response.status}`,
-        thrown,
-      }
+  private errorRequest(error: any = {}, onCancle?: any) {
+    if (axios.isCancel(error)) {
+      // 终止请求之后的代码
+      onCancle && onCancle()
+      console.log({
+        msg: '取消请求！' + `${error.config.method} url：${error.config.url}`,
+      })
+    } else if (error.response) {
+      console.log({
+        msg: `request error ！${error.config.method} url：${error.config.url}，status：${error.response.status}`,
+        error,
+      })
+    } else {
+      console.log(error)
     }
   }
 }
