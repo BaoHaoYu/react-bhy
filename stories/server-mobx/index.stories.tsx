@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { GetData } from './page-base/demo.component-getdata'
 import { Main } from './page-base/demo.main'
-storiesOf('build-page-mobx 页面快速搭建', module)
+storiesOf('server-mobx 服务请求', module)
   .addDecorator(withKnobs)
   .add('1.基础', () => {
     return (
