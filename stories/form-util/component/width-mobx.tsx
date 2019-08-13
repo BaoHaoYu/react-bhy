@@ -1,21 +1,26 @@
+import { action, extendObservable, observable } from 'mobx'
+import { observer } from 'mobx-react'
 import * as React from 'react'
+
 import {
-  FormArrayUtil,
-  FormControlUtil,
-  FormGroupUtil,
   isNumber,
   maxLength,
   need,
   regExp,
   regExpReverse,
   setLocalization,
-} from '../../packages/form-util/src'
+} from '../../../packages/form-util/src'
+import {
+  FormArrayUtil,
+  FormControlUtil,
+  FormGroupUtil,
+} from '../../../packages/form-util/src/mobx'
 import {
   Form,
   FormControl,
   FowRow,
   IFormControlProps,
-} from '../../packages/form/src'
+} from '../../../packages/form/src'
 
 setLocalization('zh_cn')
 
@@ -31,7 +36,7 @@ const cardStyle = {
   boxShadow: '1px 1px 5px 1px #d0d0d0',
 }
 
-function FormItem(props: IProps) {
+const FormItem = observer((props: IProps) => {
   const onChange = (e: any) => props.onChange(e, props.control)
   return (
     <FormControl
@@ -47,56 +52,53 @@ function FormItem(props: IProps) {
       />
     </FormControl>
   )
-}
+})
 
-export class Base extends React.Component<any> {
+@observer
+export class WidthMobx extends React.Component<any> {
   public state: {
     form: FormGroupUtil
   }
 
   public height = 50
 
+  public form = new FormGroupUtil({
+    name: new FormControlUtil(
+      [
+        need(),
+        maxLength(4),
+        regExpReverse(/\d/g, "[label] can't contain numbers"),
+      ],
+      'Job',
+      'name',
+    ),
+
+    age: new FormControlUtil(
+      [need(), regExp(/^\d+$/, 'Must be a number')],
+      '',
+      'age',
+    ),
+
+    family: new FormArrayUtil([]),
+
+    university: new FormGroupUtil({
+      name: new FormControlUtil(
+        [need(), maxLength(40)],
+        'xxx University',
+        'University name',
+      ),
+
+      address: new FormControlUtil(
+        [need(), maxLength(40)],
+        'xxx address',
+        'University address',
+      ),
+    }),
+  })
+
   constructor(props: any) {
     super(props)
-    const form = new FormGroupUtil({
-      name: new FormControlUtil(
-        [
-          need(),
-          maxLength(4),
-          regExpReverse(/\d/g, "[label] can't contain numbers"),
-        ],
-        'Job',
-        'name',
-      ),
-
-      age: new FormControlUtil(
-        [need(), regExp(/^\d+$/, 'Must be a number')],
-        '',
-        'age',
-      ),
-
-      family: new FormArrayUtil([]),
-
-      university: new FormGroupUtil({
-        name: new FormControlUtil(
-          [need(), maxLength(40)],
-          'xxx University',
-          'University name',
-        ),
-
-        address: new FormControlUtil(
-          [need(), maxLength(40)],
-          'xxx address',
-          'University address',
-        ),
-      }),
-    })
-
-    this.state = {
-      form,
-    }
   }
-
   /**
    * 表单的值发生改变
    * @param e
@@ -107,84 +109,68 @@ export class Base extends React.Component<any> {
     control: FormControlUtil,
   ) => {
     control.setValue(e.target.value)
-    this.setState(this.state)
   }
 
   /**
    * 提交
    */
-  public submit = () => {
-    this.state.form.verify()
-    this.setState(this.state)
-    console.log(this.state.form.getValue())
-    console.log('All data verification：', this.state.form.pass)
+  @action public submit = () => {
+    this.form.verify()
+    console.log(this.form.getValue())
+    console.log('All data verification：', this.form.pass)
   }
 
   /**
    * 添加错误
    */
-  public addError = () => {
+  @action public addError = () => {
     setTimeout(() => {
-      ;(this.state.form.get('name') as FormControlUtil).setError(
-        'Duplicate name',
-      )
-      this.setState(this.state)
+      ;(this.form.get('name') as FormControlUtil).setError('Duplicate name')
     }, 1000)
   }
 
   /**
    * 添加表单
    */
-  public addFamily = () => {
-    ;(this.state.form.get('family') as FormArrayUtil).config.push(
+  @action public addFamily = () => {
+    ;(this.form.get('family') as FormArrayUtil).config.push(
       new FormGroupUtil({
         name: new FormControlUtil([need(), maxLength(4)], '', 'Name'),
         type: new FormControlUtil([need()], '', 'Relationship'),
         age: new FormControlUtil([need(), isNumber()], '', 'Age'),
       }),
     )
-
-    this.setState(this.state)
   }
 
   /**
    * 删除
    * @param index
    */
-  public deleteFamily = (index: number) => () => {
-    ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
-
-    this.setState(this.state)
+  @action public deleteFamily = (index: number) => {
+    ;(this.form.get('family') as FormArrayUtil).config.splice(index, 1)
   }
 
   /**
    * 设置值
    */
-  public setFormValue = () => {
-    this.state.form.setValue({
+  @action public setFormValue = () => {
+    this.form.setValue({
       name: 'dddd',
       age: 27,
       university: { name: 'HAHA University' },
     })
-    this.setState(this.state)
   }
 
   public render() {
     const card = cardStyle
     return (
       <Form formControlProps={{ height: this.height }}>
-        <FormItem
-          control={this.state.form.get('name')}
-          onChange={this.onChange}
-        />
-        <FormItem
-          control={this.state.form.get('age')}
-          onChange={this.onChange}
-        />
+        <FormItem control={this.form.get('name')} onChange={this.onChange} />
+        <FormItem control={this.form.get('age')} onChange={this.onChange} />
 
         <FormControl label={'Family staff'}>
           <div>
-            {(this.state.form.get('family') as FormArrayUtil).config.map(
+            {(this.form.get('family') as FormArrayUtil).config.map(
               (group: FormGroupUtil, index: number) => {
                 return (
                   <div key={index} style={{ marginBottom: 10 }}>
@@ -205,7 +191,9 @@ export class Base extends React.Component<any> {
                         onChange={this.onChange}
                       />
 
-                      <button onClick={this.deleteFamily(index)}>delete</button>
+                      <button onClick={this.deleteFamily.bind(this, index)}>
+                        delete
+                      </button>
                     </div>
                   </div>
                 )
@@ -220,12 +208,12 @@ export class Base extends React.Component<any> {
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['university', 'name'])}
+              control={this.form.getIn(['university', 'name'])}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['university', 'address'])}
+              control={this.form.getIn(['university', 'address'])}
               onChange={this.onChange}
             />
           </div>
