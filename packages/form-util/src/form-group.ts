@@ -1,11 +1,10 @@
 import { FormArray } from './form-array'
 import { FormControl } from './form-control'
 import { FormCommon } from './from-common'
-type Config = Record<string, FormControl | FormGroup | FormArray>
 
-export class FormGroup extends FormCommon<Config> {
+export class FormGroup extends FormCommon {
   public formType: 'control' | 'group' | 'array' = 'group'
-  constructor(config: Config) {
+  constructor(config: Record<string, FormControl | FormGroup | FormArray>) {
     super(config)
   }
 }

@@ -1,6 +1,8 @@
 import { FormArray } from './form-array'
 import { FormControl } from './form-control'
 import { FormGroup } from './form-group'
+import { useMobox } from './use-mobx'
+
 import {
   beEqual,
   equal,
@@ -26,4 +28,5 @@ export {
   minLength,
   beEqual,
   setLocalization,
+  useMobox,
 }

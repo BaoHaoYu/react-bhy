@@ -1,4 +1,4 @@
-import { action, extendObservable, observable } from 'mobx'
+import { action } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 
@@ -81,12 +81,12 @@ export class WidthMobx extends React.Component<any> {
       name: new FormControlUtil(
         [need(), maxLength(40)],
         'xxx University',
-        'University name',
+        'Name',
       ),
       address: new FormControlUtil(
         [need(), maxLength(40)],
         'xxx address',
-        'University address',
+        'Address',
       ),
     }),
   })
@@ -175,29 +175,30 @@ export class WidthMobx extends React.Component<any> {
             {(this.form.get('family') as FormArrayUtil).config.map(
               (group: FormGroupUtil, index: number) => {
                 return (
-                  <div key={index} style={{ marginBottom: 10 }}>
-                    <div key={index} style={card}>
-                      <FormItem
-                        height={this.height}
-                        control={group.get('name') as FormControl}
-                        onChange={this.onChange}
-                      />
-                      <FormItem
-                        height={this.height}
-                        control={group.get('age') as FormControl}
-                        onChange={this.onChange}
-                      />
-                      <FormItem
-                        height={this.height}
-                        control={group.get('type') as FormControl}
-                        onChange={this.onChange}
-                      />
+                  <Form
+                    formControlProps={{ height: this.height }}
+                    key={index}
+                    style={{ marginBottom: 10, ...cardStyle }}
+                  >
+                    <FormItem
+                      control={group.get('name') as FormControl}
+                      onChange={this.onChange}
+                    />
+                    <FormItem
+                      control={group.get('age') as FormControl}
+                      onChange={this.onChange}
+                    />
+                    <FormItem
+                      control={group.get('type') as FormControl}
+                      onChange={this.onChange}
+                    />
 
+                    <FowRow>
                       <button onClick={this.deleteFamily.bind(this, index)}>
                         delete
                       </button>
-                    </div>
-                  </div>
+                    </FowRow>
+                  </Form>
                 )
               },
             )}
@@ -205,9 +206,8 @@ export class WidthMobx extends React.Component<any> {
 
           <button onClick={this.addFamily}>Add a family member</button>
         </FormControl>
-
         <FormControl label={'University'}>
-          <div style={card}>
+          <Form style={card} formControlProps={{ height: this.height }}>
             <FormItem
               height={this.height}
               control={this.form.get('university', 'name') as FormControl}
@@ -218,15 +218,17 @@ export class WidthMobx extends React.Component<any> {
               control={this.form.get('university', 'address') as FormControl}
               onChange={this.onChange}
             />
-          </div>
+          </Form>
         </FormControl>
 
         <FowRow>
-          <button onClick={this.submit}>submit</button>
+          <div style={{ marginTop: 20 }}>
+            <button onClick={this.submit}>submit</button>
 
-          <button onClick={this.addError}>add error</button>
+            <button onClick={this.addError}>add error</button>
 
-          <button onClick={this.setFormValue}>set form data</button>
+            <button onClick={this.setFormValue}>set form data</button>
+          </div>
         </FowRow>
       </Form>
     )
