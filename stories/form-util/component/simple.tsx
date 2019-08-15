@@ -10,7 +10,7 @@ import {
   regExp,
   regExpReverse,
   setLocalization,
-} from '@react-efficiency/form-util/src'
+} from '../../../packages/form-util/src'
 import {
   Form,
   FormControl,
