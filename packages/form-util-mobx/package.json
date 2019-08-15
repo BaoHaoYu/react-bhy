@@ -4,7 +4,7 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "description": "mobx表单创建工具",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "react",
     "form",
@@ -15,9 +15,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "react": "^16.8.6",
+    "@react-efficiency/form-util": "^0.1.0",
     "mobx": "5.13.0",
-    "@react-efficiency/form-util": "^0.0.6"
+    "react": "^16.8.6"
   },
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/form-util"
 }
