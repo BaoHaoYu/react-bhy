@@ -52,49 +52,61 @@ function FormItem(props: IProps) {
 
 export class Base extends React.Component<any> {
   public state: {
-    form: FormGroupUtil
+    form: FormGroupUtil<{
+      name: FormControlUtil
+      age: FormControlUtil
+      family: FormArrayUtil<
+        FormGroupUtil<{
+          name: FormControlUtil
+          type: FormControlUtil
+          age: FormControlUtil
+        }>
+      >
+      university: FormGroupUtil<{
+        name: FormControlUtil
+        address: FormControlUtil
+      }>
+    }>
   }
 
   public height = 50
 
   constructor(props: any) {
     super(props)
-    const form = new FormGroupUtil({
-      name: new FormControlUtil(
-        [
-          need(),
-          maxLength(4),
-          regExpReverse(/\d/g, "[label] can't contain numbers"),
-        ],
-        'Job',
-        'name',
-      ),
-
-      age: new FormControlUtil(
-        [need(), regExp(/^\d+$/, 'Must be a number')],
-        '',
-        'age',
-      ),
-
-      family: new FormArrayUtil([]),
-
-      university: new FormGroupUtil({
-        name: new FormControlUtil(
-          [need(), maxLength(40)],
-          'xxx University',
-          'University name',
-        ),
-
-        address: new FormControlUtil(
-          [need(), maxLength(40)],
-          'xxx address',
-          'University address',
-        ),
-      }),
-    })
-
     this.state = {
-      form,
+      form: new FormGroupUtil({
+        name: new FormControlUtil(
+          [
+            need(),
+            maxLength(4),
+            regExpReverse(/\d/g, "[label] can't contain numbers"),
+          ],
+          'Job',
+          'name',
+        ),
+
+        age: new FormControlUtil(
+          [need(), regExp(/^\d+$/, 'Must be a number')],
+          '',
+          'age',
+        ),
+
+        family: new FormArrayUtil([]),
+
+        university: new FormGroupUtil({
+          name: new FormControlUtil(
+            [need(), maxLength(40)],
+            'xxx University',
+            'University name',
+          ),
+
+          address: new FormControlUtil(
+            [need(), maxLength(40)],
+            'xxx address',
+            'University address',
+          ),
+        }),
+      }),
     }
   }
 
@@ -126,9 +138,7 @@ export class Base extends React.Component<any> {
    */
   public addError = () => {
     setTimeout(() => {
-      ;(this.state.form.get('name') as FormControlUtil).setError(
-        'Duplicate name',
-      )
+      this.state.form.config.name.setError('Duplicate name')
       this.setState(this.state)
     }, 1000)
   }
@@ -137,7 +147,7 @@ export class Base extends React.Component<any> {
    * 添加表单
    */
   public addFamily = () => {
-    ;(this.state.form.get('family') as FormArrayUtil).config.push(
+    this.state.form.get('family').config.push(
       new FormGroupUtil({
         name: new FormControlUtil([need(), maxLength(4)], '', 'Name'),
         type: new FormControlUtil([need()], '', 'Relationship'),
@@ -153,7 +163,7 @@ export class Base extends React.Component<any> {
    * @param index
    */
   public deleteFamily = (index: number) => () => {
-    ;(this.state.form.get('family') as FormArrayUtil).config.splice(index, 1)
+    this.state.form.get('family').config.splice(index, 1)
 
     this.setState(this.state)
   }
@@ -185,33 +195,31 @@ export class Base extends React.Component<any> {
 
         <FormControl label={'Family staff'}>
           <div>
-            {(this.state.form.get('family') as FormArrayUtil).config.map(
-              (group: FormGroupUtil, index: number) => {
-                return (
-                  <div key={index} style={{ marginBottom: 10 }}>
-                    <div key={index} style={card}>
-                      <FormItem
-                        height={this.height}
-                        control={group.get('name')}
-                        onChange={this.onChange}
-                      />
-                      <FormItem
-                        height={this.height}
-                        control={group.get('age')}
-                        onChange={this.onChange}
-                      />
-                      <FormItem
-                        height={this.height}
-                        control={group.get('type')}
-                        onChange={this.onChange}
-                      />
+            {this.state.form.get('family').config.map((group, index) => {
+              return (
+                <div key={index} style={{ marginBottom: 10 }}>
+                  <div key={index} style={card}>
+                    <FormItem
+                      height={this.height}
+                      control={group.get('name')}
+                      onChange={this.onChange}
+                    />
+                    <FormItem
+                      height={this.height}
+                      control={group.get('age')}
+                      onChange={this.onChange}
+                    />
+                    <FormItem
+                      height={this.height}
+                      control={group.get('type')}
+                      onChange={this.onChange}
+                    />
 
-                      <button onClick={this.deleteFamily(index)}>delete</button>
-                    </div>
+                    <button onClick={this.deleteFamily(index)}>delete</button>
                   </div>
-                )
-              },
-            )}
+                </div>
+              )
+            })}
           </div>
 
           <button onClick={this.addFamily}>Add a family member</button>
@@ -221,12 +229,12 @@ export class Base extends React.Component<any> {
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.state.form.get('university', 'name')}
+              control={this.state.form.get('university').get('name')}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.state.form.get('university', 'address')}
+              control={this.state.form.get('university').get('address')}
               onChange={this.onChange}
             />
           </div>

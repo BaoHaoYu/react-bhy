@@ -1,6 +1,6 @@
 import { isArray, map } from 'lodash-es'
 import { FormControl } from './form-control'
-export class FormCommon {
+export class FormCommon<T> {
   public formType: 'control' | 'group' | 'array'
 
   /**
@@ -11,14 +11,10 @@ export class FormCommon {
   /**
    * 配置
    */
-  public config: any
-  constructor(config: any) {
+  public config: T
+  constructor(config: T) {
     if (config) {
       this.config = config
-    } else if (this.formType === 'array') {
-      this.config = []
-    } else if (this.formType === 'group') {
-      this.config = {}
     }
   }
   /**
@@ -27,7 +23,7 @@ export class FormCommon {
   public verify() {
     const resultObj = {}
     let pass = true
-    map(this.config, (value: FormCommon, key: string) => {
+    map<any>(this.config, (value: FormCommon<any>, key: string) => {
       resultObj[key] = value.verify()
 
       // 一个有错，则全部错误
@@ -46,7 +42,7 @@ export class FormCommon {
    * @param keyPatch 路径
    */
 
-  public get<K extends FormCommon>(...key: any[]): K | FormControl {
+  public getIn<K extends FormCommon<T>>(key: any[]): K | FormControl {
     const _keyPath = [...key]
     const _getIn = (config: any): any => {
       const firstKey = _keyPath.shift()
@@ -59,6 +55,9 @@ export class FormCommon {
     return _getIn(this.config)
   }
 
+  public get<K extends keyof T>(k: K): T[K] {
+    return this.config[k]
+  }
   /**
    * 获得表单的值
    */

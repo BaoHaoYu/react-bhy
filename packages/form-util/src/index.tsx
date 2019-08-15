@@ -2,7 +2,6 @@ import { FormArray } from './form-array'
 import { FormControl } from './form-control'
 import { FormGroup } from './form-group'
 import { FormCommon } from './from-common'
-import { useMobx } from './use-mobx'
 import {
   beEqual,
   equal,
@@ -20,7 +19,6 @@ export {
   FormControl as FormControlUtil,
   FormGroup as FormGroupUtil,
   FormCommon as FormCommonUtil,
-  useMobx,
   need,
   maxLength,
   isNumber,
