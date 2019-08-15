@@ -3,7 +3,7 @@ import { IResult, ValidatorFn } from './validator'
 /**
  * 最小块的表单
  */
-export class FormControl {
+export class FormControl<T extends any = any> {
   public formType: 'control' | 'group' | 'array' = 'control'
 
   /**
@@ -14,7 +14,7 @@ export class FormControl {
   /**
    * 表单值
    */
-  public value: any
+  public value: T
 
   /**
    * 标签文本
@@ -91,7 +91,7 @@ export class FormControl {
    * 设置值
    * @param value 当前值
    */
-  public setValue(value: any) {
+  public setValue(value: T) {
     this.value = value
     this.verify()
   }
@@ -99,7 +99,7 @@ export class FormControl {
   /**
    * 获得值
    */
-  public getValue() {
+  public getValue(): T {
     return this.value
   }
 
