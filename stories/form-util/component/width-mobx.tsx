@@ -12,15 +12,14 @@ import {
   regExp,
   regExpReverse,
   setLocalization,
-} from '../../../packages/form-util/src'
-import '../../../packages/form-util/src/use-mobx'
+} from '../../../packages/form-util-mobx/src'
+
 import {
   Form,
   FormControl,
   FowRow,
   IFormControlProps,
 } from '../../../packages/form/src'
-
 setLocalization('zh_cn')
 
 interface IProps extends IFormControlProps {
@@ -55,10 +54,6 @@ const FormItem = observer((props: IProps) => {
 
 @observer
 export class WidthMobx extends React.Component<any> {
-  public state: {
-    form: FormGroupUtil
-  }
-
   public height = 50
 
   public form = new FormGroupUtil({
