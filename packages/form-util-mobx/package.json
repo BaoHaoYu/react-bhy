@@ -19,5 +19,5 @@
     "mobx": "5.13.0",
     "react": "^16.8.6"
   },
-  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/form-util"
+  "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/form-util-mobx"
 }
