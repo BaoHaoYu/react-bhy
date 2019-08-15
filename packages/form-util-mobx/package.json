@@ -4,7 +4,7 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "description": "mobx表单创建工具",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "react",
     "form",
@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@react-efficiency/form-util": "^0.1.0",
+    "@react-efficiency/form-util": "^0.1.1",
     "mobx": "5.13.0",
     "react": "^16.8.6"
   },
