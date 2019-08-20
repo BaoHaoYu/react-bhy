@@ -20,11 +20,12 @@ export function transitionStyle(enter: number, exit: number) {
 }
 
 export function animateClass(status: string, props: IAnimateProps) {
+  const style = { ...s, ...props.animateCssModule }
   return classnames(
-    s[status],
     props.className,
-    ...(props.animateKey as string[]).map((key) => {
-      return s[key]
-    }),
+    ...(props.animateKey as string[]).map((key) => style[key]),
+    ...(props.animateKey as string[]).map(
+      (key) => style[key] + '--' + style[status],
+    ),
   )
 }

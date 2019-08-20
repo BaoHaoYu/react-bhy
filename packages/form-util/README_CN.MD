@@ -1,6 +1,24 @@
-import { withKnobs } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
-import 'normalize.css'
+[英文版](./README.MD)
+
+# @react-efficiency/form-util
+抽象的表单类
+
+## 作用
+- 表单基本验证，如长度，必填，正则表达式验证
+- 动态验证，可以根据服务器信息添加错误
+- 表单的值获取
+- 表单数据和组件彻底分离
+- 纯函数，通用，不一定要在react中使用
+
+## 安装
+**yarn**  
+`yarn add @react-efficiency/form-util`
+
+**npm**  
+`npm install @react-efficiency/form-util --save`
+
+## 简单例子
+```tsx
 import * as React from 'react'
 import {
   FormArrayUtil,
@@ -11,18 +29,48 @@ import {
   need,
   regExp,
   regExpReverse,
-} from '../../packages/form-util/src'
-import { Form, FormControl, FowRow } from '../../packages/form/src'
-import { FormItem } from './form-item'
+  setLocalization,
+} from '@react-efficiency/form-util'
+import {
+  Form,
+  FormControl,
+  FowRow,
+  IFormControlProps,
+} from '@react-efficiency/form'
 
+setLocalization('zh_cn')
+
+interface IProps extends IFormControlProps {
+  control: FormControlUtil
+  onChange: any
+}
 const cardStyle = {
   border: '1px solid #d0d0d0',
   borderRadius: 5,
   padding: 10,
-  width: 300,
+  width: 360,
   boxShadow: '1px 1px 5px 1px #d0d0d0',
 }
-class Base extends React.Component<any> {
+
+function FormItem(props: IProps) {
+  const onChange = (e: any) => props.onChange(e, props.control)
+  return (
+    <FormControl
+      {...props}
+      error={props.control.error}
+      label={props.control.label}
+    >
+      <input
+        type={'text'}
+        value={props.control.getValue()}
+        onChange={onChange}
+        style={{ borderRadius: 3, padding: 4 }}
+      />
+    </FormControl>
+  )
+}
+
+export class Base extends React.Component<any> {
   public state: {
     form: FormGroupUtil
   }
@@ -33,30 +81,34 @@ class Base extends React.Component<any> {
     super(props)
     const form = new FormGroupUtil({
       name: new FormControlUtil(
-        [need(), maxLength(4), regExpReverse(/\d/g, '[label]不能含有数字')],
-        '小光',
-        '姓名',
+        [
+          need(),
+          maxLength(4),
+          regExpReverse(/\d/g, "[label] can't contain numbers"),
+        ],
+        'Job',
+        'name',
       ),
 
       age: new FormControlUtil(
-        [need(), regExp(/^\d+$/, '必须是数字')],
+        [need(), regExp(/^\d+$/, 'Must be a number')],
         '',
-        '年龄',
+        'age',
       ),
 
       family: new FormArrayUtil([]),
 
-      bigSchool: new FormGroupUtil({
+      university: new FormGroupUtil({
         name: new FormControlUtil(
           [need(), maxLength(40)],
-          'xxx大学',
-          '大学名字',
+          'xxx University',
+          'University name',
         ),
 
         address: new FormControlUtil(
           [need(), maxLength(40)],
-          'xxx街道',
-          '大学地址',
+          'xxx address',
+          'University address',
         ),
       }),
     })
@@ -86,7 +138,7 @@ class Base extends React.Component<any> {
     this.state.form.verify()
     this.setState(this.state)
     console.log(this.state.form.getValue())
-    console.log('所有数据验证：', this.state.form.pass)
+    console.log('All data verification：', this.state.form.pass)
   }
 
   /**
@@ -94,7 +146,9 @@ class Base extends React.Component<any> {
    */
   public addError = () => {
     setTimeout(() => {
-      ;(this.state.form.get('name') as FormControlUtil).setError('姓名重复')
+      ;(this.state.form.get('name') as FormControlUtil).setError(
+        'Duplicate name',
+      )
       this.setState(this.state)
     }, 1000)
   }
@@ -105,9 +159,9 @@ class Base extends React.Component<any> {
   public addFamily = () => {
     ;(this.state.form.get('family') as FormArrayUtil).config.push(
       new FormGroupUtil({
-        name: new FormControlUtil([need(), maxLength(4)], '', '名字'),
-        type: new FormControlUtil([need()], '', '关系'),
-        age: new FormControlUtil([need(), isNumber()], '', '年龄'),
+        name: new FormControlUtil([need(), maxLength(4)], '', 'Name'),
+        type: new FormControlUtil([need()], '', 'Relationship'),
+        age: new FormControlUtil([need(), isNumber()], '', 'Age'),
       }),
     )
 
@@ -129,9 +183,9 @@ class Base extends React.Component<any> {
    */
   public setFormValue = () => {
     this.state.form.setValue({
-      name: '包',
+      name: 'dddd',
       age: 27,
-      bigSchool: { name: '哈哈大学' },
+      university: { name: 'HAHA University' },
     })
     this.setState(this.state)
   }
@@ -149,7 +203,7 @@ class Base extends React.Component<any> {
           onChange={this.onChange}
         />
 
-        <FormControl label={'家庭人员'}>
+        <FormControl label={'Family staff'}>
           <div>
             {(this.state.form.get('family') as FormArrayUtil).config.map(
               (group: FormGroupUtil, index: number) => {
@@ -172,7 +226,7 @@ class Base extends React.Component<any> {
                         onChange={this.onChange}
                       />
 
-                      <button onClick={this.deleteFamily(index)}>删除</button>
+                      <button onClick={this.deleteFamily(index)}>delete</button>
                     </div>
                   </div>
                 )
@@ -180,42 +234,33 @@ class Base extends React.Component<any> {
             )}
           </div>
 
-          <button onClick={this.addFamily}>添加家庭组成员</button>
+          <button onClick={this.addFamily}>Add a family member</button>
         </FormControl>
 
-        <FormControl label={'大学'}>
+        <FormControl label={'University'}>
           <div style={card}>
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['bigSchool', 'name'])}
+              control={this.state.form.getIn(['university', 'name'])}
               onChange={this.onChange}
             />
             <FormItem
               height={this.height}
-              control={this.state.form.getIn(['bigSchool', 'address'])}
+              control={this.state.form.getIn(['university', 'address'])}
               onChange={this.onChange}
             />
           </div>
         </FormControl>
 
         <FowRow>
-          <button onClick={this.submit}>提交数据</button>
+          <button onClick={this.submit}>submit</button>
 
-          <button onClick={this.addError}>自定义错误</button>
+          <button onClick={this.addError}>add error</button>
 
-          <button onClick={this.setFormValue}>设置表单值</button>
+          <button onClick={this.setFormValue}>set form data</button>
         </FowRow>
       </Form>
     )
   }
 }
-
-storiesOf('form-util 表单数据分离', module)
-  .addDecorator(withKnobs)
-  .add('基础', () => {
-    return (
-      <div>
-        <Base />
-      </div>
-    )
-  })
+```

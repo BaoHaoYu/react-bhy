@@ -38,5 +38,5 @@ export const dataTreeServer = page.createServerActions({
 })
 
 export const getHehe = () => (dispatch: any) => {
-  dispatch(dataTreeServer.getServerDataToStore())
+  dispatch(dataTreeServer.requestAndSave())
 }

@@ -1,8 +1,8 @@
 import { Map } from 'immutable'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { buildFastReducer } from './build-reducer'
 import { getFastState, unmount } from './reducer'
-
 interface IProps {
   keyPath: string[]
 
@@ -45,3 +45,5 @@ export default connect(
   },
   (dispatch) => ({ dispatch }),
 )(ReduxFast)
+
+export { buildFastReducer }

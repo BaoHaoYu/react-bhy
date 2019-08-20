@@ -31,11 +31,12 @@ export const dataOneServer = page.createServerActions({
     url: '/data/hasError.json',
     baseURL: config.baseURL,
   },
+  force: true,
   isInitData: true,
   key: '_data',
   desc: '数据1',
 })
 
 export const setAllData = () => (dispatch: any) => {
-  dispatch(dataOneServer.getServerDataToStore())
+  dispatch(dataOneServer.requestAndSave())
 }

@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { Transition } from 'react-transition-group'
 import { IAnimateProps } from './index.interface'
-// @ts-ignore
-import s from './style/index.scss'
 import { animateClass, transitionStyle } from './util'
 
 const Animate: React.FunctionComponent<IAnimateProps> = (

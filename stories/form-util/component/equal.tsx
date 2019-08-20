@@ -1,6 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
 import {
   beEqual,
   equal,
@@ -8,7 +5,10 @@ import {
   FormGroupUtil,
   minLength,
   need,
-} from '../../packages/form-util/src'
+} from '@react-efficiency/form-util/src'
+import { withKnobs } from '@storybook/addon-knobs'
+import { storiesOf } from '@storybook/react'
+import * as React from 'react'
 import { FormItem } from './form-item'
 export class Equal extends React.Component<any> {
   public state: {
@@ -59,12 +59,3 @@ export class Equal extends React.Component<any> {
     )
   }
 }
-storiesOf('form-util 表单数据分离', module)
-  .addDecorator(withKnobs)
-  .add('等值验证', () => {
-    return (
-      <div>
-        <Equal />
-      </div>
-    )
-  })

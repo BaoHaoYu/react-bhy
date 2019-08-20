@@ -16,16 +16,20 @@ const app = new Koa()
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-  enableTypes: ['json', 'form', 'text']
-}))
+app.use(
+  bodyparser({
+    enableTypes: ['json', 'form', 'text'],
+  }),
+)
 app.use(json())
 app.use(logger())
 app.use(cors())
 app.use(koaStatic(__dirname + '/public'))
-app.use(views(__dirname + '/views', {
-  extension: 'pug'
-}))
+app.use(
+  views(__dirname + '/views', {
+    extension: 'pug',
+  }),
+)
 
 // logger
 app.use(async (ctx, next) => {

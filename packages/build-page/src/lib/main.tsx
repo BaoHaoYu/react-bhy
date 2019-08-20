@@ -1,21 +1,13 @@
-import {
-  addDispatchToProps,
-  RouteComponentProps,
-  withRouter,
-} from '@react-efficiency/decorators'
+import { addDispatchToProps } from '@react-efficiency/decorators'
 import * as React from 'react'
 import * as NPageMain from './main.interface'
 
 /**
  * 页面的主体
  */
-export default function buildPage<Params = {}>(pa: NPageMain.IPage<Params>) {
+export default function buildPage(pa: NPageMain.IPage) {
   return function _buildPage(Target: any): any {
-    @addDispatchToProps
-    @withRouter
-    class Page extends React.Component<
-      { dispatch: any } & RouteComponentProps<Params>
-    > {
+    class Page extends React.Component<{ dispatch: any }> {
       public static displayName = Target.displayName
 
       public state = {
@@ -24,9 +16,7 @@ export default function buildPage<Params = {}>(pa: NPageMain.IPage<Params>) {
 
       public async componentDidMount() {
         if (pa.setData) {
-          await pa.setData({
-            props: this.props as NPageMain.IPageComponentProps<Params>,
-          })
+          await pa.setData(this.props)
         }
         this.setState({ load: true })
       }
@@ -43,7 +33,7 @@ export default function buildPage<Params = {}>(pa: NPageMain.IPage<Params>) {
       }
     }
 
-    return Page
+    return addDispatchToProps(Page)
   }
 }
 

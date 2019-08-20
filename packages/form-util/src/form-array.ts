@@ -1,39 +1,15 @@
+import { FormCommon } from './form-common'
 import { FormControl } from './form-control'
 import { FormGroup } from './form-group'
-import { FormCommon } from './from-common'
-type Config = Array<FormGroup | FormArray | FormControl>
 
 /**
  * 数组型表单
  */
-export class FormArray extends FormCommon<Config> {
+export class FormArray<
+  T extends FormGroup<any> | FormArray<any> | FormControl = any
+> extends FormCommon<T[]> {
   public formType: 'control' | 'group' | 'array' = 'array'
-  public config: Config = []
-  constructor(config: Config) {
+  constructor(config: T[]) {
     super(config)
-  }
-
-  /**
-   * @deprecated config.map
-   * @param cb
-   */
-  public map(cb: any) {
-    return this.config.map(cb)
-  }
-
-  /**
-   * @deprecated config.push()
-   * 添加新的表单
-   */
-  public push(item: FormGroup | FormArray | FormControl) {
-    this.config.push(item)
-  }
-
-  /**
-   * @deprecated config.splice(index, 1)
-   * @param index 下标
-   */
-  public removeAt(index: number) {
-    this.config.splice(index, 1)
   }
 }

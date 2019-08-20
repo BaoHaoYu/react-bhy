@@ -67,11 +67,6 @@ export interface IFormControlProps {
   children?: any
 
   /**
-   * @deprecated 请使用labelWidth label容器的宽度
-   */
-  labelContainWidth?: number
-
-  /**
    * label容器的宽度
    */
   labelWidth?: number | string

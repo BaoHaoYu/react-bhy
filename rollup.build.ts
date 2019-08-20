@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import child_process from 'child_process'
+import execa from 'execa'
 import fse from 'fs-extra'
 import globby from 'globby'
 import path from 'path'
@@ -13,7 +13,7 @@ import typescript from 'rollup-plugin-typescript2'
 import ts from 'typescript'
 import yargs from 'yargs-parser'
 import lernaJson from './lerna.json'
-import external from './packages/commonjs-lodash/external.json'
+import externalLodash from './packages/commonjs-lodash/external.json'
 
 interface IOpt extends InputOptions {
   output: OutputOptions[]
@@ -22,43 +22,68 @@ interface IOpt extends InputOptions {
 // 命令要做什么，all则编译所有包，changed则编译发生改变的包，默认为all
 const type: 'all' | 'changed' | undefined = yargs(process.argv).type
 
+// tslint:disable-next-line: no-floating-promises
+run(
+  ['!' + path.join(__dirname, 'packages/sass-mixin/package.json')],
+  [
+    'immutable/contrib/cursor',
+    'react-icons/fa',
+    'antd/lib/icon',
+    'antd/lib/menu',
+    'antd/lib/icon/style/css',
+    'antd/lib/menu/style/css',
+    ...externalLodash,
+  ],
+)
+
 /**
- * 获得发生改变的包，每次编译不必全部编译
+ * 流程函数
+ * @param external 排除
  */
-child_process.exec('npm run changed', async (error, stdout: string, stderr) => {
-  if (error) {
-    console.error(error)
-    return
-  }
-  const matchPkgStr = stdout.replace(/[\r\n]/g, '').match(/{.+?}/g)
-  // 所有发生改变的包
-  const changes: Array<{
-    name: string
-    location: string
-    version: string
-  }> = (matchPkgStr || []).map((item) => {
-    return JSON.parse(item)
-  })
-  // 如果发生改变，输出日志
-  if (type === 'changed') {
-    logFindChanged(changes)
-  }
-
-  // 改变的包的package.json路径
-  const changedPkgPaths = changes.map((item) => {
-    return item.location + '\\package.json'
-  })
-
-  // 生成rollup配置
-  const optList = rollupConfigs(
-    type === 'changed'
-      ? changedPkgPaths
-      : lernaJson.packages.map((p) => path.join(p, 'package.json')),
-  )
+async function run(ohterPkgPaths: string[] = [], external: string[] = []) {
+  const pkgPaths: string[] = await getPkgPaths(lernaJson.packages)
+  const optList = await rollupConfigs([...pkgPaths, ...ohterPkgPaths], external)
 
   // 开始编译
   await buildAll(optList)
-})
+}
+
+/**
+ * 获得要编译的pkg列表
+ * @param ohterPkgPaths
+ */
+async function getPkgPaths(lernaPkg: string[]) {
+  let pkgPaths: string[] = []
+  const lernaPkgPaths = lernaPkg.map((p) => path.join(p, 'package.json'))
+  if (type === 'changed') {
+    const changes = await getChangedPkgPaths()
+    // 如果发生改变，输出日志
+    logFindChanged(changes)
+    pkgPaths = changes.map((p) => path.join(p.location, 'package.json'))
+  } else {
+    pkgPaths = lernaPkgPaths
+  }
+  return pkgPaths
+}
+
+/**
+ * 获得发生改变的包
+ */
+async function getChangedPkgPaths(): Promise<
+  Array<{
+    name: string
+    location: string
+    version: string
+  }>
+> {
+  const { stdout } = await execa('lerna changed --json')
+
+  const matchPkgStr = stdout.replace(/[\r\n]/g, '').match(/{.+?}/g)
+
+  return (matchPkgStr || []).map((item) => {
+    return JSON.parse(item)
+  })
+}
 
 /**
  * 输出模块
@@ -67,7 +92,7 @@ async function outPut(bundle: any, output: OutputOptions[]) {
   for (const out of output) {
     // await bundle.generate(outOpt)
     await bundle.write(out)
-    console.log(chalk.hex('#3fda00')('finish: ') + out.file)
+    console.log(chalk.hex('#3fda00')('output: ') + out.file)
   }
 }
 
@@ -118,11 +143,11 @@ function logFindChanged(
  * 生成rollup配置
  * @param packages 包的路径
  */
-function rollupConfigs(packages: string[]): IOpt[] {
-  const pkgAbPaths: string[] = globby.sync([
-    ...packages,
-    '!packages/sass-mixin/package.json',
-  ])
+async function rollupConfigs(
+  packages: string[],
+  external: string[] = [],
+): Promise<IOpt[]> {
+  const pkgAbPaths: string[] = await globby(packages)
 
   return pkgAbPaths.map<any>((pPath) => {
     const pkg = fse.readJsonSync(pPath)
@@ -157,16 +182,7 @@ function rollupConfigs(packages: string[]): IOpt[] {
           include: path.join(__dirname, 'node_modules/**'),
         }),
       ],
-      external: [
-        'immutable/contrib/cursor',
-        'react-icons/fa',
-        'antd/lib/icon',
-        'antd/lib/menu',
-        'antd/lib/icon/style/css',
-        'antd/lib/menu/style/css',
-        ...external,
-        ...Object.keys(pkg.dependencies),
-      ],
+      external: [...Object.keys(pkg.dependencies || {}), ...external],
       output: [
         {
           file: path.join(libRoot, pkg.main),

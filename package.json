@@ -22,7 +22,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "jest:generate-output": "jest --json --outputFile=.jest-test-results.json",
-    "jest": "jest virtualized-list.test --runInBand --watch"
+    "jest": "jest table-layout.test --runInBand --watch"
   },
   "husky": {
     "hooks": {
@@ -79,6 +79,7 @@
     "debug": "^4.1.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "execa": "^2.0.3",
     "file-loader": "^4.0.0",
     "fs-extra": "^8.0.1",
     "globby": "^9.2.0",
@@ -131,5 +132,95 @@
   "dependencies": {
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "printWidth": 80,
+    "parser": "typescript",
+    "semi": false,
+    "arrowParens": "always",
+    "useTabs": false,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": [
+          ".storybook/*.ts",
+          "packages/**/*.ts",
+          "webpack-ts/**/*.ts",
+          "stories/**/*.tsx",
+          "!**/dist"
+        ],
+        "options": {
+          "trailingComma": "all"
+        }
+      }
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "plugins": [
+      "stylelint-scss"
+    ],
+    "rules": {
+      "declaration-block-trailing-semicolon": null,
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "function",
+            "if",
+            "else",
+            "each",
+            "return",
+            "include",
+            "mixin"
+          ]
+        }
+      ],
+      "scss/at-rule-no-unknown": true
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "verbose": true,
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sss|styl)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/stories/*/.*\\.test\\.(ts|tsx|js)$",
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(lodash-es|other-es-lib))"
+    ]
+  },
+  "lint-staged": {
+    "linters": {
+      "packages/**/*{.ts,.tsx}": "tslint --fix",
+      "stories/**/*{.ts,.tsx}": "tslint --fix",
+      ".storybook/*.ts": "tslint --fix",
+      "packages/**/*.scss": "stylelint --fix"
+    },
+    "ignore": ["**/dist/*.{ts,tsx}"]
   }
 }

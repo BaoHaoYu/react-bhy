@@ -34,7 +34,7 @@ export const FormControl: React.FunctionComponent<IFormControlProps> = (
   const renderLabel = (): React.ReactNode | void => {
     if (props.showLabel) {
       const isTable = props.layout === 'x' && !props.single
-      let width = defaultTo(props.labelWidth, props.labelContainWidth)
+      let width = props.labelWidth
       if (isTable) {
         width = defaultTo(width, 1)
       }
@@ -129,3 +129,5 @@ FormControl.defaultProps = {
 }
 
 FormControl.displayName = '表单控制'
+
+export { IFormControlProps }

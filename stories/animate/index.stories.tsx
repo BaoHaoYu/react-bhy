@@ -2,7 +2,6 @@ import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import Animate from '../../packages/animate/src'
-
 storiesOf('animate 动画', module)
   .addDecorator(withKnobs)
   .add('基础', () => {

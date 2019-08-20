@@ -1,6 +1,6 @@
+import { FormControlUtil } from '@react-efficiency/form-util/src'
 import * as React from 'react'
-import { FormControlUtil } from '../../packages/form-util/src'
-import { FormControl, IFormControlProps } from '../../packages/form/src'
+import { FormControl, IFormControlProps } from '../../../packages/form/src'
 
 interface IProps extends IFormControlProps {
   control: FormControlUtil
