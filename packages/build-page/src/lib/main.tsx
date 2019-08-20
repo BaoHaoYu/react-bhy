@@ -7,7 +7,6 @@ import * as NPageMain from './main.interface'
  */
 export default function buildPage(pa: NPageMain.IPage) {
   return function _buildPage(Target: any): any {
-    @addDispatchToProps
     class Page extends React.Component<{ dispatch: any }> {
       public static displayName = Target.displayName
 
@@ -34,7 +33,7 @@ export default function buildPage(pa: NPageMain.IPage) {
       }
     }
 
-    return Page
+    return addDispatchToProps(Page)
   }
 }
 

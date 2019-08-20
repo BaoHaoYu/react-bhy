@@ -25,7 +25,6 @@ export default function buildPageComponent<Props, State = {}>(
   p: IBuild<Props, State>,
 ) {
   return function build<T extends React.ComponentClass<Props>>(Target: T) {
-    @addDispatchToProps
     class Build extends React.Component<Props & IPageComponentProps> {
       public static displayName = Target.displayName
 
@@ -131,7 +130,7 @@ export default function buildPageComponent<Props, State = {}>(
       }
     }
 
-    return Build as any
+    return addDispatchToProps(Build)
   }
 }
 
