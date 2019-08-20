@@ -172,7 +172,9 @@
           "ignoreAtRules": [
             "function",
             "if",
+            "else",
             "each",
+            "return",
             "include",
             "mixin"
           ]
