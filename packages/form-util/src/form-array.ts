@@ -1,6 +1,6 @@
+import { FormCommon } from './form-common'
 import { FormControl } from './form-control'
 import { FormGroup } from './form-group'
-import { FormCommon } from './from-common'
 
 /**
  * 数组型表单

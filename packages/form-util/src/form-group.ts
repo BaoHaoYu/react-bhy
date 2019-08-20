@@ -1,6 +1,6 @@
 import { FormArray } from './form-array'
+import { FormCommon } from './form-common'
 import { FormControl } from './form-control'
-import { FormCommon } from './from-common'
 
 export class FormGroup<
   T extends Record<keyof T, FormGroup<any> | FormArray<any> | FormControl> = any

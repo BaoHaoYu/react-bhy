@@ -1,7 +1,7 @@
 import { FormArray } from './form-array'
+import { FormCommon } from './form-common'
 import { FormControl } from './form-control'
 import { FormGroup } from './form-group'
-import { FormCommon } from './from-common'
 import {
   beEqual,
   equal,

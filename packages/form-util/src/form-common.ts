@@ -1,6 +1,6 @@
 import { isArray, map } from 'lodash-es'
 import { FormControl } from './form-control'
-export class FormCommon<T> {
+export class FormCommon<T = any> {
   public formType: 'control' | 'group' | 'array'
 
   /**
