@@ -24,7 +24,7 @@ const type: 'all' | 'changed' | undefined = yargs(process.argv).type
 
 // tslint:disable-next-line: no-floating-promises
 run(
-  ['!packages/sass-mixin/package.json'],
+  ['!' + path.join(__dirname, 'packages/sass-mixin/package.json')],
   [
     'immutable/contrib/cursor',
     'react-icons/fa',
@@ -182,7 +182,7 @@ async function rollupConfigs(
           include: path.join(__dirname, 'node_modules/**'),
         }),
       ],
-      external: [...Object.keys(pkg.dependencies), ...external],
+      external: [...Object.keys(pkg.dependencies || {}), ...external],
       output: [
         {
           file: path.join(libRoot, pkg.main),
