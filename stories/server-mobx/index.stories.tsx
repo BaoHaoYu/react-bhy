@@ -2,6 +2,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { GetData } from './page-base/demo.component-getdata'
+import { Error } from './page-base/demo.error'
 import { Main } from './page-base/demo.main'
 storiesOf('server-mobx 服务请求', module)
   .addDecorator(withKnobs)
@@ -16,7 +17,7 @@ storiesOf('server-mobx 服务请求', module)
     return <GetData />
   })
   .add('3.处理错误数据', () => {
-    return <div />
+    return <Error />
   })
   .add('4.自定义错误', () => {
     return <div />

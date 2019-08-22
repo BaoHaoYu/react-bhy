@@ -49,8 +49,6 @@ class GetData1 extends React.Component<any> {
             )
           })}
         </div>
-        length ={this.hehe.length}
-        <input value={this.value} type={'text'} onChange={this.onChange} />
       </div>
     )
   }

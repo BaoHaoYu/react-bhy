@@ -1,5 +1,5 @@
 {
-  "name": "yarn-workspaces-demo",
+  "name": "react-efficiency",
   "private": true,
   "license": "MIT",
   "workspaces": [

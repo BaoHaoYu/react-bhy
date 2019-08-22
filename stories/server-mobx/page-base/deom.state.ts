@@ -13,3 +13,8 @@ export const heheServer = new ServerState({
   url: '/data/listHehe.json',
   baseURL: 'http://localhost:3000',
 })
+
+export const errorServer = new ServerState({
+  url: '/data/hasError.json',
+  baseURL: 'http://localhost:3000',
+})

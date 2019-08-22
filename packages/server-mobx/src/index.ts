@@ -129,14 +129,17 @@ export class ServerState {
    * 清除出现错误的时候处理方法
    * @param onCancle 取消请求的回调
    */
-  private errorRequest(error: any = {}, onCancle?: any) {
+  @action private errorRequest(error: any = {}, onCancle?: any) {
+    this.setRequesting(false)
     if (axios.isCancel(error)) {
       // 终止请求之后的代码
       onCancle && onCancle()
       console.log({
         msg: '取消请求！' + `${error.config.method} url：${error.config.url}`,
       })
-    } else if (error.response) {
+      return
+    }
+    if (error.response) {
       console.log({
         msg: `request error ！${error.config.method} url：${error.config.url}，status：${error.response.status}`,
         error,
@@ -144,5 +147,9 @@ export class ServerState {
     } else {
       console.log(error)
     }
+
+    this.data = error.response.data
+    this.cancelTokenSource = undefined
+    this.error = true
   }
 }
