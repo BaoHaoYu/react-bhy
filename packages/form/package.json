@@ -25,5 +25,8 @@
     "react": "^16.8.6",
     "react-icons": "^3.2.2"
   },
+  "external":[
+    "react-icons/fa"
+  ],
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/form"
 }

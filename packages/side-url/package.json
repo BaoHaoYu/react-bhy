@@ -23,5 +23,11 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
+  "external": [
+    "antd/lib/icon",
+    "antd/lib/menu",
+    "antd/lib/icon/style/css",
+    "antd/lib/menu/style/css"
+  ],
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/side-url"
 }

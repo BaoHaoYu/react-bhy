@@ -13,7 +13,6 @@ import typescript from 'rollup-plugin-typescript2'
 import ts from 'typescript'
 import yargs from 'yargs-parser'
 import lernaJson from './lerna.json'
-import externalLodash from './packages/commonjs-lodash/external.json'
 
 interface IOpt extends InputOptions {
   output: OutputOptions[]
@@ -23,18 +22,7 @@ interface IOpt extends InputOptions {
 const type: 'all' | 'changed' | undefined = yargs(process.argv).type
 
 // tslint:disable-next-line: no-floating-promises
-run(
-  ['!' + path.join(__dirname, 'packages/sass-mixin/package.json')],
-  [
-    'immutable/contrib/cursor',
-    'react-icons/fa',
-    'antd/lib/icon',
-    'antd/lib/menu',
-    'antd/lib/icon/style/css',
-    'antd/lib/menu/style/css',
-    ...externalLodash,
-  ],
-)
+run(['!' + 'packages/sass-mixin/package.json'])
 
 /**
  * 流程函数
@@ -182,7 +170,11 @@ async function rollupConfigs(
           include: path.join(__dirname, 'node_modules/**'),
         }),
       ],
-      external: [...Object.keys(pkg.dependencies || {}), ...external],
+      external: [
+        ...Object.keys(pkg.dependencies || {}),
+        ...(pkg.external || []),
+        ...external,
+      ],
       output: [
         {
           file: path.join(libRoot, pkg.main),

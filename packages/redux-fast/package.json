@@ -24,5 +24,8 @@
     "@types/react-redux": "^7.1.0",
     "@types/redux-actions": "^2.6.1"
   },
+  "external":[
+    "immutable/contrib/cursor"
+  ],
   "repository": "https://github.com/BaoHaoYu/react-efficiency/tree/master/packages/redux-fast"
 }
