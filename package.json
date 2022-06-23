@@ -86,7 +86,7 @@
     "husky": "^2.4.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.5.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-json": "^2.0.2",
